@@ -1,0 +1,8 @@
+{
+  "name": "1stCars",
+  "description": "A premium used car marketplace layout foundation and styling system with military green and light cream colors.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

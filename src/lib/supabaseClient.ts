@@ -1,0 +1,431 @@
+import { createClient } from "@supabase/supabase-js";
+
+// Retrieve Supabase environment variables
+// @ts-ignore
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "";
+// @ts-ignore
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
+
+export const isRealSupabase = Boolean(supabaseUrl && supabaseAnonKey);
+
+// High-fidelity local database mock for a robust preview experience
+class SupabaseMockClient {
+  private getStorage<T>(key: string, defaultData: T[]): T[] {
+    if (typeof window === "undefined") return defaultData;
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : defaultData;
+  }
+
+  private setStorage<T>(key: string, data: T[]) {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(key, JSON.stringify(data));
+    }
+  }
+
+  // Reactive state callbacks for auth change subscriptions
+  private authListeners: Array<(event: string, session: any) => void> = [];
+
+  private triggerAuthChange(event: string, session: any) {
+    this.authListeners.forEach((cb) => cb(event, session));
+  }
+
+  // Tables mapping to their storage keys
+  private getTableKey(table: string): string {
+    return `1stcars_sb_${table}`;
+  }
+
+  private getInitialData(table: string): any[] {
+    switch (table) {
+      case "profiles":
+        return [
+          { id: "u-buyer", name: "Rahul Sharma", email: "buyer@1stcars.com", mobile: "9876543210", role: "Buyer", city: "Mumbai", created_at: new Date().toISOString() },
+          { id: "u-seller", name: "Amit Verma", email: "seller@1stcars.com", mobile: "9123456789", role: "Seller", city: "Delhi NCR", created_at: new Date().toISOString() },
+          { id: "u-dealer", name: "Elite Motors Dealer", email: "dealer@1stcars.com", mobile: "9234567890", role: "Dealer", city: "Bangalore", created_at: new Date().toISOString() },
+          { id: "u-inspector", name: "Vikram Rathore", email: "inspector@1stcars.com", mobile: "9345678901", role: "Inspector", city: "Mumbai", created_at: new Date().toISOString() },
+          { id: "u-sales", name: "Sneha Patel", email: "sales@1stcars.com", mobile: "9456789012", role: "Sales Associate", city: "Delhi NCR", created_at: new Date().toISOString() },
+          { id: "u-admin", name: "Super Administrator", email: "admin@1stcars.com", mobile: "9999999999", role: "Admin", city: "Mumbai", created_at: new Date().toISOString() }
+        ];
+      case "brands":
+        return [
+          { id: "b-1", name: "Porsche", logo_url: "🏎️", is_popular: true, created_at: new Date().toISOString() },
+          { id: "b-2", name: "BMW", logo_url: "🚙", is_popular: true, created_at: new Date().toISOString() },
+          { id: "b-3", name: "Mercedes-Benz", logo_url: "🚗", is_popular: true, created_at: new Date().toISOString() },
+          { id: "b-4", name: "Audi", logo_url: "🚘", is_popular: true, created_at: new Date().toISOString() },
+          { id: "b-5", name: "Maruti Suzuki", logo_url: "🚗", is_popular: false, created_at: new Date().toISOString() },
+          { id: "b-6", name: "Hyundai", logo_url: "🚘", is_popular: false, created_at: new Date().toISOString() }
+        ];
+      case "cars":
+        return [
+          {
+            id: "car-1",
+            title: "Porsche 911 Carrera S",
+            brand: "Porsche",
+            model: "911 Carrera S",
+            variant: "3.0L Twin-Turbo",
+            year: 2022,
+            price: 18500000,
+            km_driven: 6200,
+            fuel: "Petrol",
+            transmission: "Automatic",
+            owner_count: 1,
+            city: "Mumbai",
+            reg_number: "MH02-FJ-9111",
+            color: "GT Silver Metallic",
+            insurance_type: "Comprehensive",
+            overall_score: 9.8,
+            status: "available",
+            created_at: new Date().toISOString()
+          },
+          {
+            id: "car-2",
+            title: "Mercedes-Benz G-Class AMG G 63",
+            brand: "Mercedes-Benz",
+            model: "G-Class",
+            variant: "AMG G 63",
+            year: 2021,
+            price: 24500000,
+            km_driven: 14500,
+            fuel: "Petrol",
+            transmission: "Automatic",
+            owner_count: 1,
+            city: "Mumbai",
+            reg_number: "MH04-G-6363",
+            color: "Obsidian Black",
+            insurance_type: "Comprehensive",
+            overall_score: 9.6,
+            status: "available",
+            created_at: new Date().toISOString()
+          },
+          {
+            id: "car-3",
+            title: "BMW M4 Competition",
+            brand: "BMW",
+            model: "M4 Competition",
+            variant: "M xDrive",
+            year: 2023,
+            price: 14800000,
+            km_driven: 2100,
+            fuel: "Petrol",
+            transmission: "Automatic",
+            owner_count: 1,
+            city: "Delhi NCR",
+            reg_number: "DL1C-Z-4444",
+            color: "Isle of Man Green",
+            insurance_type: "Comprehensive",
+            overall_score: 9.9,
+            status: "available",
+            created_at: new Date().toISOString()
+          }
+        ];
+      case "inspections":
+        return [
+          {
+            id: "insp-1",
+            created_at: new Date(Date.now() - 3600000 * 48).toISOString(),
+            seller_id: "u-seller",
+            seller_name: "Amit Verma",
+            seller_mobile: "9123456789",
+            reg_number: "DL3C-AK-9988",
+            brand: "Honda",
+            model: "City",
+            variant: "ZX i-VTEC",
+            fuel: "Petrol",
+            transmission: "Manual",
+            year: 2021,
+            km_driven: 32000,
+            city: "Delhi NCR",
+            address: "B-402, Signature Towers, Gurugram",
+            preferred_date: "2026-07-20",
+            preferred_time: "10:00 AM - 12:00 PM",
+            status: "assigned",
+            inspector_id: "u-inspector",
+            notes: "Please check rear bumper dent"
+          },
+          {
+            id: "insp-2",
+            created_at: new Date(Date.now() - 3600000 * 12).toISOString(),
+            seller_id: "u-seller",
+            seller_name: "Amit Verma",
+            seller_mobile: "9123456789",
+            reg_number: "MH02-CR-2002",
+            brand: "Audi",
+            model: "A6",
+            variant: "45 TFSI Technology",
+            fuel: "Petrol",
+            transmission: "Automatic",
+            year: 2023,
+            km_driven: 8400,
+            city: "Mumbai",
+            address: "Carter Road, Bandra West, Mumbai",
+            preferred_date: "2026-07-19",
+            preferred_time: "02:00 PM - 04:00 PM",
+            status: "pending",
+            notes: "Premium vehicle inspect carefully. Immaculate condition."
+          }
+        ];
+      case "notifications":
+        return [
+          {
+            id: "notif-1",
+            recipient_id: "u-buyer",
+            title: "Welcome to 1stCars!",
+            message: "Verify your email and complete your buyer profile to schedule a test drive on premium models.",
+            type: "info",
+            is_read: false,
+            created_at: new Date().toISOString()
+          }
+        ];
+      default:
+        return [];
+    }
+  }
+
+  // High Fidelity Auth system using profiles
+  public auth = {
+    signUp: async ({ email, password, options }: any) => {
+      const emailLower = email.toLowerCase();
+      const profiles = this.getStorage<any>("1stcars_sb_profiles", this.getInitialData("profiles"));
+      
+      if (profiles.some((p) => p.email.toLowerCase() === emailLower)) {
+        return { data: { user: null, session: null }, error: { message: "User already exists." } };
+      }
+
+      const role = options?.data?.role || "Buyer";
+      const id = `usr-${Math.random().toString(36).substr(2, 9)}`;
+      const newProfile = {
+        id,
+        email: emailLower,
+        name: options?.data?.name || email.split("@")[0],
+        mobile: options?.data?.mobile || "",
+        role,
+        city: options?.data?.city || "Mumbai",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+
+      const updated = [...profiles, newProfile];
+      this.setStorage("1stcars_sb_profiles", updated);
+      
+      const session = { access_token: `mock-jwt-${id}`, user: newProfile };
+      localStorage.setItem("1stcars_sb_current_session", JSON.stringify(session));
+      this.triggerAuthChange("SIGNED_IN", session);
+
+      return { data: { user: newProfile, session }, error: null };
+    },
+
+    signInWithPassword: async ({ email }: any) => {
+      const emailLower = email.toLowerCase();
+      const profiles = this.getStorage<any>("1stcars_sb_profiles", this.getInitialData("profiles"));
+      const user = profiles.find((p) => p.email.toLowerCase() === emailLower);
+
+      if (user) {
+        const session = { access_token: `mock-jwt-${user.id}`, user };
+        localStorage.setItem("1stcars_sb_current_session", JSON.stringify(session));
+        this.triggerAuthChange("SIGNED_IN", session);
+        return { data: { user, session }, error: null };
+      }
+
+      return { data: { user: null, session: null }, error: { message: "Invalid login credentials" } };
+    },
+
+    signOut: async () => {
+      localStorage.removeItem("1stcars_sb_current_session");
+      this.triggerAuthChange("SIGNED_OUT", null);
+      return { error: null };
+    },
+
+    getSession: async () => {
+      const raw = localStorage.getItem("1stcars_sb_current_session");
+      return { data: { session: raw ? JSON.parse(raw) : null }, error: null };
+    },
+
+    getUser: async () => {
+      const raw = localStorage.getItem("1stcars_sb_current_session");
+      const session = raw ? JSON.parse(raw) : null;
+      return { data: { user: session?.user || null }, error: null };
+    },
+
+    onAuthStateChange: (cb: (event: string, session: any) => void) => {
+      this.authListeners.push(cb);
+      // Run immediately with current state
+      const raw = localStorage.getItem("1stcars_sb_current_session");
+      const session = raw ? JSON.parse(raw) : null;
+      cb("INITIAL_SESSION", session);
+
+      return {
+        data: {
+          subscription: {
+            unsubscribe: () => {
+              this.authListeners = this.authListeners.filter((l) => l !== cb);
+            }
+          }
+        }
+      };
+    }
+  };
+
+  // Highly robust custom query interface builder
+  public from(table: string) {
+    const storageKey = this.getTableKey(table);
+    const initialData = this.getInitialData(table);
+    let items = this.getStorage<any>(storageKey, initialData);
+
+    const queryState = {
+      filters: [] as Array<(item: any) => boolean>,
+      orderField: null as string | null,
+      orderAsc: true,
+      limitVal: null as number | null
+    };
+
+    const chain = {
+      select: (columns: string = "*") => {
+        // Just returns the builder so we can chain other operators
+        return chain;
+      },
+
+      eq: (column: string, value: any) => {
+        queryState.filters.push((item) => String(item[column]) === String(value));
+        return chain;
+      },
+
+      neq: (column: string, value: any) => {
+        queryState.filters.push((item) => String(item[column]) !== String(value));
+        return chain;
+      },
+
+      in: (column: string, values: any[]) => {
+        queryState.filters.push((item) => values.map(String).includes(String(item[column])));
+        return chain;
+      },
+
+      order: (column: string, { ascending = true } = {}) => {
+        queryState.orderField = column;
+        queryState.orderAsc = ascending;
+        return chain;
+      },
+
+      limit: (count: number) => {
+        queryState.limitVal = count;
+        return chain;
+      },
+
+      // Fetch trigger
+      then: async (resolve: any, reject: any) => {
+        try {
+          const res = await chain.execute();
+          return resolve(res);
+        } catch (e) {
+          return reject(e);
+        }
+      },
+
+      execute: async () => {
+        let result = [...items];
+        
+        // Apply filters
+        queryState.filters.forEach((filterFn) => {
+          result = result.filter(filterFn);
+        });
+
+        // Apply ordering
+        if (queryState.orderField) {
+          const field = queryState.orderField;
+          const asc = queryState.orderAsc;
+          result.sort((a, b) => {
+            if (a[field] < b[field]) return asc ? -1 : 1;
+            if (a[field] > b[field]) return asc ? 1 : -1;
+            return 0;
+          });
+        }
+
+        // Apply limit
+        if (queryState.limitVal !== null) {
+          result = result.slice(0, queryState.limitVal);
+        }
+
+        return { data: result, error: null };
+      },
+
+      single: async () => {
+        const { data, error } = await chain.execute();
+        if (error) return { data: null, error };
+        return { data: data[0] || null, error: null };
+      },
+
+      insert: async (records: any | any[]) => {
+        const toInsert = Array.isArray(records) ? records : [records];
+        const inserted = toInsert.map((rec) => ({
+          id: rec.id || `${table.substring(0, 3)}-${Math.random().toString(36).substr(2, 9)}`,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          ...rec
+        }));
+
+        const updatedTable = [...inserted, ...items];
+        this.setStorage(storageKey, updatedTable);
+        return { data: Array.isArray(records) ? inserted : inserted[0], error: null };
+      },
+
+      update: async (changes: any) => {
+        // Find items that match the filters
+        let matchedCount = 0;
+        const updatedTable = items.map((item) => {
+          const matches = queryState.filters.every((filterFn) => filterFn(item));
+          if (matches) {
+            matchedCount++;
+            return { ...item, ...changes, updated_at: new Date().toISOString() };
+          }
+          return item;
+        });
+
+        this.setStorage(storageKey, updatedTable);
+        const updatedRecords = updatedTable.filter((item) =>
+          queryState.filters.every((filterFn) => filterFn(item))
+        );
+
+        return { data: updatedRecords, error: null, count: matchedCount };
+      },
+
+      delete: async () => {
+        const beforeCount = items.length;
+        const updatedTable = items.filter((item) =>
+          !queryState.filters.every((filterFn) => filterFn(item))
+        );
+
+        this.setStorage(storageKey, updatedTable);
+        return { data: true, error: null, count: beforeCount - updatedTable.length };
+      },
+
+      upsert: async (records: any | any[]) => {
+        const toUpsert = Array.isArray(records) ? records : [records];
+        let updatedTable = [...items];
+
+        const processed = toUpsert.map((rec) => {
+          const existingIndex = updatedTable.findIndex((item) => item.id === rec.id);
+          const itemPayload = {
+            created_at: new Date().toISOString(),
+            ...rec,
+            updated_at: new Date().toISOString()
+          };
+
+          if (existingIndex !== -1) {
+            updatedTable[existingIndex] = { ...updatedTable[existingIndex], ...itemPayload };
+          } else {
+            updatedTable.push(itemPayload);
+          }
+          return itemPayload;
+        });
+
+        this.setStorage(storageKey, updatedTable);
+        return { data: Array.isArray(records) ? processed : processed[0], error: null };
+      }
+    };
+
+    return chain;
+  }
+}
+
+// Instantiate the appropriate client
+export const supabase = isRealSupabase
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : (new SupabaseMockClient() as any);
