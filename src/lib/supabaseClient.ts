@@ -175,6 +175,108 @@ class SupabaseMockClient {
             created_at: new Date().toISOString()
           }
         ];
+      case "offers":
+        return [
+          {
+            id: "off-1",
+            created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
+            inspection_id: "insp-3",
+            dealer_id: "u-dealer",
+            dealer_name: "Elite Motors Dealer",
+            offer_amount: 485000,
+            status: "pending"
+          },
+          {
+            id: "off-2",
+            created_at: new Date(Date.now() - 3600000 * 48).toISOString(),
+            inspection_id: "insp-4",
+            dealer_id: "u-dealer",
+            dealer_name: "Elite Motors Dealer",
+            offer_amount: 1450000,
+            status: "pending"
+          }
+        ];
+      case "auctions":
+        return [
+          {
+            id: "auc-1",
+            created_at: new Date().toISOString(),
+            car_title: "Maruti Suzuki Swift ZXI Plus",
+            year: 2019,
+            km_driven: 54000,
+            fuel: "Petrol",
+            transmission: "Manual",
+            city: "Delhi NCR",
+            base_price: 450000,
+            current_bid: 485000,
+            highest_bidder_name: "Elite Motors Dealer",
+            ends_at: new Date(Date.now() + 3600000 * 4).toISOString(),
+            status: "active"
+          },
+          {
+            id: "auc-2",
+            created_at: new Date().toISOString(),
+            car_title: "Hyundai Creta SX Executive",
+            year: 2022,
+            km_driven: 21000,
+            fuel: "Diesel",
+            transmission: "Automatic",
+            city: "Bangalore",
+            base_price: 1380000,
+            current_bid: 1450000,
+            highest_bidder_name: "Elite Motors Dealer",
+            ends_at: new Date(Date.now() + 3600000 * 24).toISOString(),
+            status: "active"
+          },
+          {
+            id: "auc-3",
+            created_at: new Date(Date.now() - 3600000 * 48).toISOString(),
+            car_title: "Honda City V",
+            year: 2018,
+            km_driven: 68000,
+            fuel: "Petrol",
+            transmission: "Manual",
+            city: "Mumbai",
+            base_price: 500000,
+            current_bid: 535000,
+            highest_bidder_name: "Express Wheels Ltd",
+            ends_at: new Date(Date.now() - 3600000 * 12).toISOString(),
+            status: "ended"
+          }
+        ];
+      case "sales_notifications":
+        return [
+          {
+            id: "lead-1",
+            created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
+            name: "Ananya Sharma",
+            mobile: "9876543210",
+            city: "Mumbai",
+            preferred_date: "2026-07-20",
+            preferred_time: "11:00 AM - 01:00 PM",
+            car_id: "car-1",
+            car_brand: "Porsche",
+            car_model: "911 Carrera S",
+            type: "test_drive",
+            status: "pending",
+            notes: "Client requested clean exterior package check"
+          },
+          {
+            id: "lead-2",
+            created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
+            name: "Devendra Patel",
+            mobile: "9123456789",
+            city: "Delhi NCR",
+            preferred_date: "2026-07-22",
+            preferred_time: "03:00 PM - 05:00 PM",
+            car_id: "car-3",
+            car_brand: "BMW",
+            car_model: "M4 Competition",
+            type: "buy_now",
+            status: "contacted",
+            notes: "Arranging elite financing checks with HDFC partner"
+          }
+        ];
       default:
         return [];
     }

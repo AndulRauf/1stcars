@@ -14,6 +14,8 @@ import { supabase } from "@/src/lib/supabaseClient";
 import { notificationService } from "@/src/lib/notifications";
 import { Button } from "@/src/components/ui/Button";
 import { Badge } from "@/src/components/ui/Badge";
+import { seedSupabaseDatabase } from "@/src/lib/seeder";
+import { toast } from "@/src/lib/toast";
 
 interface AdminCMSProps {
   onReloadAllData?: () => void;
@@ -92,6 +94,27 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
   // Image Uploading mockup
   const [isUploading, setIsUploading] = React.useState(false);
   const [uploadProgress, setUploadProgress] = React.useState(0);
+
+  // Database Seeding state & trigger
+  const [isSeeding, setIsSeeding] = React.useState(false);
+  const handleSeedDatabase = async () => {
+    setIsSeeding(true);
+    toast.info("Database seeding in progress...");
+    try {
+      const res = await seedSupabaseDatabase();
+      if (res.success) {
+        toast.success(res.message || "Seeding completed successfully!");
+        await loadCMSData();
+        if (onReloadAllData) onReloadAllData();
+      } else {
+        toast.error("Seeding failed: " + res.error);
+      }
+    } catch (err: any) {
+      toast.error("Seeding error: " + (err.message || String(err)));
+    } finally {
+      setIsSeeding(false);
+    }
+  };
 
   // Load all system state
   const loadCMSData = async () => {
@@ -646,7 +669,21 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                 </div>
               </div>
               
-              <div className="bg-[#FAF9F6] p-3 rounded-2xl border border-slate-100 mt-4 text-[10px] font-bold text-slate-500 flex items-center gap-2">
+              <div className="mt-4 space-y-2">
+                <Button
+                  onClick={handleSeedDatabase}
+                  disabled={isSeeding}
+                  className="w-full bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-black uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-2"
+                >
+                  <Sparkles className={`h-4 w-4 ${isSeeding ? "animate-spin" : ""}`} />
+                  {isSeeding ? "Seeding Database..." : "Seed Supabase / Mock Data"}
+                </Button>
+                <p className="text-[9px] text-center text-slate-400 font-semibold uppercase tracking-wider">
+                  Inserts 20 demo cars, 10 brands, 50 models, & 10 cities
+                </p>
+              </div>
+
+              <div className="bg-[#FAF9F6] p-3 rounded-2xl border border-slate-100 mt-2 text-[10px] font-bold text-slate-500 flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
                 <span>Encrypted secure session with Supabase live engine</span>
               </div>

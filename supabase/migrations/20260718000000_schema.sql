@@ -377,3 +377,80 @@ CREATE POLICY "Admin manages FAQ" ON public.faq FOR ALL USING (public.get_auth_u
 -- 18. Settings Policies
 CREATE POLICY "Anyone reads settings" ON public.settings FOR SELECT USING (true);
 CREATE POLICY "Admin configures settings" ON public.settings FOR ALL USING (public.get_auth_user_role() = 'Admin'::public.user_role);
+
+
+-- ====================================================
+-- 19. OFFERS, AUCTIONS, AND SALES_NOTIFICATIONS TABLES
+-- ====================================================
+
+-- 20. OFFERS TABLE
+CREATE TABLE IF NOT EXISTS public.offers (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+  inspection_id UUID REFERENCES public.inspections(id) ON DELETE CASCADE,
+  dealer_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
+  dealer_name TEXT NOT NULL,
+  offer_amount INTEGER NOT NULL,
+  status TEXT DEFAULT 'pending' NOT NULL
+);
+
+ALTER TABLE public.offers ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Anyone reads offers" ON public.offers FOR SELECT USING (true);
+CREATE POLICY "Anyone manages offers" ON public.offers FOR ALL USING (true);
+
+
+-- 21. AUCTIONS TABLE
+CREATE TABLE IF NOT EXISTS public.auctions (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+  car_title TEXT NOT NULL,
+  year INTEGER NOT NULL,
+  km_driven INTEGER NOT NULL,
+  fuel TEXT NOT NULL,
+  transmission TEXT NOT NULL,
+  city TEXT NOT NULL,
+  base_price INTEGER NOT NULL,
+  current_bid INTEGER NOT NULL,
+  highest_bidder_name TEXT,
+  ends_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  status TEXT DEFAULT 'active' NOT NULL
+);
+
+ALTER TABLE public.auctions ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Anyone reads auctions" ON public.auctions FOR SELECT USING (true);
+CREATE POLICY "Anyone manages auctions" ON public.auctions FOR ALL USING (true);
+
+
+-- 22. SALES NOTIFICATIONS TABLE
+CREATE TABLE IF NOT EXISTS public.sales_notifications (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+  name TEXT NOT NULL,
+  mobile TEXT NOT NULL,
+  city TEXT NOT NULL,
+  preferred_date DATE NOT NULL,
+  preferred_time TEXT NOT NULL,
+  car_id TEXT NOT NULL,
+  car_brand TEXT NOT NULL,
+  car_model TEXT NOT NULL,
+  type TEXT NOT NULL,
+  status TEXT DEFAULT 'pending' NOT NULL,
+  notes TEXT
+);
+
+ALTER TABLE public.sales_notifications ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Anyone reads sales_notifications" ON public.sales_notifications FOR SELECT USING (true);
+CREATE POLICY "Anyone manages sales_notifications" ON public.sales_notifications FOR ALL USING (true);
+
+
+-- ====================================================
+-- STORAGE BUCKETS CONFIGURATION
+-- ====================================================
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('car-images', 'car-images', true), ('logos', 'logos', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- RLS policies for storage objects
+CREATE POLICY "Public Access" ON storage.objects FOR SELECT USING (bucket_id IN ('car-images', 'logos'));
+CREATE POLICY "All Power" ON storage.objects FOR ALL USING (true) WITH CHECK (true);
+

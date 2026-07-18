@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Database, ShieldCheck, Mail, Phone, Calendar, Clock, MapPin, Check, RefreshCw, Trash2, Award, Copy, CheckCircle2, Star, Plus } from "lucide-react";
-import { supabaseMock, SalesNotification, SUPABASE_SQL_DDL } from "@/src/lib/db";
+import { SalesNotification, SUPABASE_SQL_DDL } from "@/src/lib/db";
+import { supabase } from "@/src/lib/supabaseClient";
 import { Button } from "@/src/components/ui/Button";
 import { Badge } from "@/src/components/ui/Badge";
 import { cn } from "@/src/lib/utils";
@@ -18,7 +19,7 @@ export function SalesDashboardView({ onBackToInventory }: SalesDashboardViewProp
   // Fetch from our Supabase-ready mock storage
   const fetchNotifications = async () => {
     setIsLoading(true);
-    const { data } = await supabaseMock.from("sales_notifications").select();
+    const { data } = await supabase.from("sales_notifications").select();
     if (data) {
       setNotifications(data);
     }
@@ -31,14 +32,14 @@ export function SalesDashboardView({ onBackToInventory }: SalesDashboardViewProp
 
   // Update Status Handlers
   const handleUpdateStatus = async (id: string, newStatus: "pending" | "contacted" | "resolved") => {
-    await supabaseMock.from("sales_notifications").update({ status: newStatus }, id);
+    await supabase.from("sales_notifications").update({ status: newStatus }).eq("id", id);
     fetchNotifications();
   };
 
   // Delete Lead
   const handleDeleteLead = async (id: string) => {
     if (confirm("Are you sure you want to permanently delete this lead from the database?")) {
-      await supabaseMock.from("sales_notifications").delete(id);
+      await supabase.from("sales_notifications").delete().eq("id", id);
       fetchNotifications();
     }
   };

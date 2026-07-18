@@ -48,11 +48,12 @@ import { Car } from "@/src/types";
 import { BuyCarsView } from "@/src/components/BuyCarsView";
 import { CarDetailsView } from "@/src/components/CarDetailsView";
 import { SalesDashboardView } from "@/src/components/SalesDashboardView";
-import { authMock, Profile } from "@/src/lib/db";
+import { Profile } from "@/src/lib/db";
 import { AuthModal } from "@/src/components/AuthModal";
 import { SellCarView } from "@/src/components/SellCarView";
 import { RoleDashboards } from "@/src/components/RoleDashboards";
 import { Error404Page, Error500Page } from "@/src/components/ErrorPages";
+import { supabase } from "@/src/lib/supabaseClient";
 
 export default function App() {
   // Navigation & interaction states
@@ -62,10 +63,28 @@ export default function App() {
   const [currentUser, setCurrentUser] = React.useState<Profile | null>(null);
 
   React.useEffect(() => {
-    const user = authMock.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
-    }
+    // Listen to Supabase auth events (works with both mock and live Supabase clients)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        // Cast or shape the Supabase user object into the Profile interface
+        const user = session.user;
+        setCurrentUser({
+          id: user.id,
+          name: user.user_metadata?.name || user.email?.split("@")[0] || "User",
+          email: user.email || "",
+          mobile: user.user_metadata?.mobile || "",
+          role: user.user_metadata?.role || "Buyer",
+          city: user.user_metadata?.city || "Mumbai",
+          created_at: user.created_at || new Date().toISOString()
+        } as any);
+      } else {
+        setCurrentUser(null);
+      }
+    });
+
+    return () => {
+      subscription?.unsubscribe();
+    };
   }, []);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedBrand, setSelectedBrand] = React.useState("");
@@ -305,8 +324,8 @@ export default function App() {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
         currentUser={currentUser}
-        onLogout={() => {
-          authMock.logout();
+        onLogout={async () => {
+          await supabase.auth.signOut();
           setCurrentUser(null);
           setCurrentView("home");
           triggerToast("Logged out successfully");
@@ -367,8 +386,8 @@ export default function App() {
         currentUser ? (
           <RoleDashboards
             currentUser={currentUser}
-            onLogout={() => {
-              authMock.logout();
+            onLogout={async () => {
+              await supabase.auth.signOut();
               setCurrentUser(null);
               setCurrentView("home");
               triggerToast("Logged out successfully");

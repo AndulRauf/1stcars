@@ -6,7 +6,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
-import { authMock } from "@/src/lib/db";
 import { supabase } from "@/src/lib/supabaseClient";
 import { notificationService } from "@/src/lib/notifications";
 
@@ -40,15 +39,18 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
 
   // Autofill if logged in
   React.useEffect(() => {
-    const user = authMock.getCurrentUser();
-    if (user) {
-      setFormData(prev => ({
-        ...prev,
-        name: user.name || "",
-        mobile: user.mobile || "",
-        city: user.city || "Mumbai"
-      }));
-    }
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setFormData(prev => ({
+          ...prev,
+          name: user.user_metadata?.name || user.email?.split("@")[0] || "",
+          mobile: user.user_metadata?.mobile || "",
+          city: user.user_metadata?.city || "Mumbai"
+        }));
+      }
+    };
+    fetchUser();
   }, []);
 
   const handleInputChange = (field: string, value: any) => {
@@ -64,9 +66,9 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
 
     setIsSubmitting(true);
 
-    const currentUser = authMock.getCurrentUser();
+    const { data: { user } } = await supabase.auth.getUser();
     const inspectionRecord = {
-      seller_id: currentUser ? currentUser.id : "u-seller",
+      seller_id: user ? user.id : "u-seller",
       seller_name: formData.name,
       seller_mobile: formData.mobile,
       reg_number: formData.regNumber.toUpperCase(),

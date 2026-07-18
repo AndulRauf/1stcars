@@ -10,7 +10,7 @@ import { Input } from "@/src/components/ui/Input";
 import { Badge } from "@/src/components/ui/Badge";
 import { CARS_DATA } from "@/src/data/cars";
 import { 
-  authMock, Profile, Inspection, 
+  Profile, Inspection, 
   Offer, Auction, SalesNotification, UserRole 
 } from "@/src/lib/db";
 import { supabase } from "@/src/lib/supabaseClient";
