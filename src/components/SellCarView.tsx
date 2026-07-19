@@ -8,6 +8,7 @@ import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
 import { supabase } from "@/src/lib/supabaseClient";
 import { notificationService } from "@/src/lib/notifications";
+import { toast } from "@/src/lib/toast";
 
 interface SellCarViewProps {
   onNavigateToDashboard: () => void;
@@ -60,7 +61,7 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.mobile || !formData.regNumber || !formData.brand || !formData.model || !formData.kmDriven || !formData.address || !formData.preferredDate) {
-      alert("Please fill out all required fields to schedule your inspection.");
+      toast.error("Please fill out all required fields to schedule your inspection.");
       return;
     }
 

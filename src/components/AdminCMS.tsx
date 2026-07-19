@@ -293,7 +293,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
               logo: mockUrl,
               photo: "👤 Uploaded"
             }));
-            alert(`Pristine Image "${file.name}" uploaded successfully to Supabase Storage bucket: public-${activeModule}`);
+            toast.success(`Pristine Image "${file.name}" uploaded successfully to Supabase Storage bucket: public-${activeModule}`);
           }, 300);
           return 100;
         }
@@ -388,7 +388,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
         }
       }
 
-      alert(`${activeModule.toUpperCase()} item saved successfully.`);
+      toast.success(`${activeModule.toUpperCase()} item saved successfully.`);
       setIsFormOpen(false);
       loadCMSData();
       if (onReloadAllData) onReloadAllData();
@@ -440,7 +440,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
         }
       }
 
-      alert("Record removed successfully.");
+      toast.success("Record removed successfully.");
       loadCMSData();
       if (onReloadAllData) onReloadAllData();
     } catch (err) {
@@ -467,7 +467,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
       document.documentElement.style.setProperty("--button-theme-color", websiteSettings.buttonColor);
     }
 
-    alert("Prismatically updated Website Theme, branding parameters, SEO tags, and analytics successfully.");
+    toast.success("Prismatically updated Website Theme, branding parameters, SEO tags, and analytics successfully.");
   };
 
   // Generic data mapping per active CMS view

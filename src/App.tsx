@@ -86,6 +86,26 @@ export default function App() {
       subscription?.unsubscribe();
     };
   }, []);
+
+  // Apply custom branding theme variables from CMS on load
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedSettings = localStorage.getItem("1stcars_cms_website_settings");
+      if (storedSettings) {
+        try {
+          const parsed = JSON.parse(storedSettings);
+          if (parsed.primaryColor) {
+            document.documentElement.style.setProperty("--primary-theme-color", parsed.primaryColor);
+          }
+          if (parsed.buttonColor) {
+            document.documentElement.style.setProperty("--button-theme-color", parsed.buttonColor);
+          }
+        } catch (e) {
+          console.error("Failed to parse website settings:", e);
+        }
+      }
+    }
+  }, []);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedBrand, setSelectedBrand] = React.useState("");
   const [selectedBudget, setSelectedBudget] = React.useState(0);
@@ -122,11 +142,19 @@ export default function App() {
 
   // Subscribe to global toast emitter
   React.useEffect(() => {
+    let timeoutId: any = null;
     const unsubscribe = toast.subscribe((event) => {
       setToastMessage(event.message);
       setToastType(event.type);
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setToastMessage(null);
+      }, 4000);
     });
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   // Scroll references

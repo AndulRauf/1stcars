@@ -16,6 +16,7 @@ import {
 import { supabase } from "@/src/lib/supabaseClient";
 import { notificationService, useNotifications } from "@/src/lib/notifications";
 import { AdminCMS } from "./AdminCMS";
+import { toast } from "@/src/lib/toast";
 
 interface RoleDashboardsProps {
   currentUser: Profile;
@@ -140,7 +141,7 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory }:
   const handlePlaceBid = async (auctionId: string) => {
     const amountStr = bidAmount[auctionId];
     if (!amountStr) {
-      alert("Please enter a valid bid amount.");
+      toast.error("Please enter a valid bid amount.");
       return;
     }
     const amount = parseInt(amountStr);
@@ -148,7 +149,7 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory }:
 
     if (!auction) return;
     if (amount <= auction.current_bid) {
-      alert(`Your bid must be strictly higher than the current bid of ₹${auction.current_bid.toLocaleString()}`);
+      toast.error(`Your bid must be strictly higher than the current bid of ₹${auction.current_bid.toLocaleString()}`);
       return;
     }
 
@@ -187,7 +188,7 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory }:
 
     // Reset input
     setBidAmount(prev => ({ ...prev, [auctionId]: "" }));
-    alert("Congratulations! Your premium bid was updated successfully in the Supabase live table, and notifications have been sent.");
+    toast.success("Congratulations! Your premium bid was updated successfully in the Supabase live table, and notifications have been sent.");
     reloadAllData();
   };
 
@@ -234,7 +235,7 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory }:
       score: Number(reportForm.overallScore)
     });
 
-    alert("Inspection Report uploaded! This vehicle has been launched in the Live Dealer Auctions table and Admins have been notified.");
+    toast.success("Inspection Report uploaded! This vehicle has been launched in the Live Dealer Auctions table and Admins have been notified.");
     setSelectedInspection(null);
     reloadAllData();
   };
@@ -248,7 +249,7 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory }:
   // Handle Admin: Change user role
   const handleAdminChangeRole = async (userId: string, newRole: UserRole) => {
     await supabase.from("profiles").update({ role: newRole }).eq("id", userId);
-    alert(`User role changed to ${newRole}`);
+    toast.success(`User role changed to ${newRole}`);
     reloadAllData();
   };
 
@@ -1279,7 +1280,7 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory }:
                                   status: "assigned",
                                   inspector_id: "u-inspector"
                                 }).eq("id", item.id);
-                                alert("Inspection request successfully assigned to Vikram Rathore.");
+                                toast.success("Inspection request successfully assigned to Vikram Rathore.");
                                 reloadAllData();
                               }}
                               className="bg-[#2E7D32] text-white text-[9px] h-7 font-black uppercase tracking-wider rounded-md"
@@ -1326,7 +1327,7 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory }:
                                   certifiedPrice: item.year > 2020 ? 850000 : 450000
                                 });
 
-                                alert(`Inspection approved and ₹${(item.year > 2020 ? 850000 : 450000).toLocaleString()} price certified. Seller has been notified.`);
+                                toast.success(`Inspection approved and ₹${(item.year > 2020 ? 850000 : 450000).toLocaleString()} price certified. Seller has been notified.`);
                                 reloadAllData();
                               }}
                               className="w-full bg-[#2E7D32] hover:bg-[#25632a] text-white text-[10px] h-9 font-black uppercase tracking-wider rounded-xl mt-2"
