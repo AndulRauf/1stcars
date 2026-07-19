@@ -22,9 +22,10 @@ interface RoleDashboardsProps {
   currentUser: Profile;
   onLogout: () => void;
   onNavigateToInventory: () => void;
+  onReloadAllData?: () => void;
 }
 
-export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory }: RoleDashboardsProps) {
+export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory, onReloadAllData }: RoleDashboardsProps) {
   const [activeTab, setActiveTab] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -81,6 +82,11 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory }:
 
       const ords = localStorage.getItem("1stcars_orders");
       setOrders(ords ? JSON.parse(ords) : []);
+
+      // Refresh top level state as well
+      if (onReloadAllData) {
+        onReloadAllData();
+      }
 
     } catch (err) {
       console.error("Error loading dashboard data", err);

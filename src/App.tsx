@@ -88,13 +88,51 @@ export default function App() {
     };
   }, []);
 
-  // Apply custom branding theme variables from CMS on load
-  React.useEffect(() => {
+  // Dynamic website configuration states from Admin CMS settings
+  const [websiteSettings, setWebsiteSettings] = React.useState({
+    logoUrl: "🏎️ 1stCars",
+    logoSize: 150,
+    favicon: "⭐",
+    primaryColor: "#2E7D32",
+    accentColor: "#FAF9F6",
+    buttonColor: "#2E7D32",
+    fontFamily: "Inter",
+    heroTitle: "Certified Cars",
+    heroSubtitle: "Inspired by rigorous pre-owned standards, reimagined for ultimate luxury. Explore 150-point inspected, hassle-free certified vehicles with 7-day buyback protection and elite financing.",
+    showPopularBrands: true,
+    showLatestArrivals: true,
+    showHowItWorks: true,
+    showTestimonials: true,
+    footerText: "© 2026 1stCars Luxury Marketplace. All rights reserved.",
+    facebook: "https://facebook.com/1stcars",
+    instagram: "https://instagram.com/1stcars",
+    youtube: "https://youtube.com/1stcars",
+    supportEmail: "concierge@1stcars.com",
+    supportPhone: "+91 99999 99999",
+    supportAddress: "722 S. Greenwood Avenue, Suite A, Los Angeles",
+    brandSlogan: "The Luxury Pre-Owned Hub",
+    brandDescription: "We curate only top-tier luxury, sports, and specialty vehicles. Our mission is to bridge pristine engineering with absolute luxury service.",
+    highlight1Title: "150-Point Certificate",
+    highlight1Desc: "Every vehicle in our collection undergoes rigorous mechanical & structural inspections.",
+    highlight2Title: "Buyback Protection",
+    highlight2Desc: "Drive with maximum peace of mind. We offer a transparent, premium 7-day buyback guarantee.",
+    highlight3Title: "Doorstep Whiteglove Delivery",
+    highlight3Desc: "Enjoy home test drives and direct delivery with our fully closed premium transports.",
+    seoTitle: "1stCars - Certified Luxury Car Marketplace",
+    seoDescription: "The premier platform to buy and sell certified luxury pre-owned vehicles with a 150-Point Certificate.",
+    googleAnalyticsId: "G-1STCARS2026"
+  });
+
+  const [faqs, setFaqs] = React.useState<any[]>([]);
+  const [testimonials, setTestimonials] = React.useState<any[]>([]);
+
+  const loadSettingsAndCMSData = React.useCallback(() => {
     if (typeof window !== "undefined") {
       const storedSettings = localStorage.getItem("1stcars_cms_website_settings");
       if (storedSettings) {
         try {
           const parsed = JSON.parse(storedSettings);
+          setWebsiteSettings(prev => ({ ...prev, ...parsed }));
           if (parsed.primaryColor) {
             document.documentElement.style.setProperty("--primary-theme-color", parsed.primaryColor);
           }
@@ -105,8 +143,55 @@ export default function App() {
           console.error("Failed to parse website settings:", e);
         }
       }
+
+      // FAQs
+      const rawFaqs = localStorage.getItem("1stcars_cms_faqs");
+      if (rawFaqs) {
+        try {
+          setFaqs(JSON.parse(rawFaqs));
+        } catch (e) {
+          console.error("Failed to parse FAQs", e);
+        }
+      } else {
+        const defaultFaqs = [
+          { id: "fq-1", category: "Certification", question: "What is the 1stMark Certification process?", answer: "Every 1stCars vehicle undergoes our rigorous 150-Point Certificate inspection. This is conducted by elite technical experts and covers the powertrain, electrical diagnostics, structural chassis analysis, fluid qualities, and a complete road-test performance run. Only vehicles with flawless report cards receive 1stMark certification." },
+          { id: "fq-2", category: "Refund", question: "How does the 7-day buyback guarantee work?", answer: "We stand behind our cars 100%. If you are not absolutely satisfied with your vehicle purchase, you can return it within 7 days or 500 miles (whichever comes first) for a complete refund. No administrative penalties, no awkward interrogation. We handle the paperwork transparently." },
+          { id: "fq-3", category: "Selling", question: "Can I sell my car instantly without purchasing another one?", answer: "Absolutely! We buy cars directly from collectors and private owners. You can use our online valuation calculator, book a free 30-minute doorstep or showroom inspection, and choose our Instant Offer to get paid on the exact same day. There is zero obligation to trade in or buy from us." },
+          { id: "fq-4", category: "Financing", question: "Do you offer financing and home test drives?", answer: "Yes! We work with top-tier financial partners to offer low-interest elite finance programs and customizable EMI tenures. Plus, we provide home test drives and doorstep premium white-glove delivery in our private closed transports. Your security and convenience are our absolute priority." }
+        ];
+        setFaqs(defaultFaqs);
+        localStorage.setItem("1stcars_cms_faqs", JSON.stringify(defaultFaqs));
+      }
+
+      // Testimonials
+      const rawTestimonials = localStorage.getItem("1stcars_cms_testimonials");
+      if (rawTestimonials) {
+        try {
+          setTestimonials(JSON.parse(rawTestimonials));
+        } catch (e) {
+          console.error("Failed to parse testimonials", e);
+        }
+      } else {
+        const defaultTestimonials = [
+          { id: "t-1", name: "Arthur H. Sterling", role: "Purchased: Porsche 911 Carrera S", rating: 5, content: "Buying my Porsche Carrera S from 1stCars was an absolute joy. The 150-point report card was extremely thorough, and they delivered the vehicle in a fully closed transport direct to my estate. Top tier service.", photo: "👤" },
+          { id: "t-2", name: "Dr. Melissa Duarte", role: "Sold: Mercedes-Benz G 63 AMG", rating: 5, content: "I was initially nervous about trade-ins, but 1stCars calculated an instant offer on my G 63, did the doorstep evaluation check next morning, and transferred funds to my Chase account that exact afternoon. Exceptional speed.", photo: "👤" },
+          { id: "t-3", name: "Harish Kotian", role: "Dealer Partner", rating: 5, content: "The B2B live dealer bidding is completely transparent and incredibly fast. Picked up 3 pristine Porsche models already. Sourced perfect specifications.", photo: "👤" }
+        ];
+        setTestimonials(defaultTestimonials);
+        localStorage.setItem("1stcars_cms_testimonials", JSON.stringify(defaultTestimonials));
+      }
     }
   }, []);
+
+  React.useEffect(() => {
+    loadSettingsAndCMSData();
+
+    // Listen to changes from AdminCMS
+    window.addEventListener("1stcars_settings_updated", loadSettingsAndCMSData);
+    return () => {
+      window.removeEventListener("1stcars_settings_updated", loadSettingsAndCMSData);
+    };
+  }, [loadSettingsAndCMSData]);
   const [searchTerm, setSearchTerm] = React.useState("");
   const [selectedBrand, setSelectedBrand] = React.useState("");
   const [selectedBudget, setSelectedBudget] = React.useState(0);
@@ -275,24 +360,10 @@ export default function App() {
     triggerToast("All filters reset");
   };
 
-  const faqData = [
-    {
-      q: "What is the 1stMark Certification process?",
-      a: "Every 1stCars vehicle undergoes our rigorous 150-Point Certificate inspection. This is conducted by elite technical experts and covers the powertrain, electrical diagnostics, structural chassis analysis, fluid qualities, and a complete road-test performance run. Only vehicles with flawless report cards receive 1stMark certification."
-    },
-    {
-      q: "How does the 7-day buyback guarantee work?",
-      a: "We stand behind our cars 100%. If you are not absolutely satisfied with your vehicle purchase, you can return it within 7 days or 500 miles (whichever comes first) for a complete refund. No administrative penalties, no awkward interrogation. We handle the paperwork transparently."
-    },
-    {
-      q: "Can I sell my car instantly without purchasing another one?",
-      a: "Absolutely! We buy cars directly from collectors and private owners. You can use our online valuation calculator, book a free 30-minute doorstep or showroom inspection, and choose our Instant Offer to get paid on the exact same day. There is zero obligation to trade in or buy from us."
-    },
-    {
-      q: "Do you offer financing and home test drives?",
-      a: "Yes! We work with top-tier financial partners to offer low-interest elite finance programs and customizable EMI tenures. Plus, we provide home test drives and doorstep premium white-glove delivery in our private closed transports. Your security and convenience are our absolute priority."
-    }
-  ];
+  const faqData = faqs.map(f => ({
+    q: f.question || f.q || "",
+    a: f.answer || f.a || ""
+  }));
 
   return (
     <div className="min-h-screen bg-[#F8F6F0] flex flex-col font-sans selection:bg-[#2E7D32]/20 selection:text-[#2E7D32] pt-20 overflow-x-hidden">
@@ -429,6 +500,7 @@ export default function App() {
               setCurrentView("buy_cars");
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
+            onReloadAllData={loadSettingsAndCMSData}
           />
         ) : (
           <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 text-center bg-white rounded-3xl max-w-md mx-auto border border-slate-100 my-12">
@@ -466,21 +538,27 @@ export default function App() {
           <div className="lg:col-span-7 flex flex-col space-y-6 text-left">
             <div className="inline-flex">
               <Badge variant="premium" className="px-3.5 py-1 text-[11px] font-extrabold tracking-widest text-[#2E7D32] bg-[#2E7D32]/5 border border-[#2E7D32]/10 uppercase rounded-full">
-                ★ 1stMark Certified Luxury Marketplace
+                ★ {websiteSettings.brandSlogan || "1stMark Certified Luxury Marketplace"}
               </Badge>
             </div>
             
             <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-[0.95]">
-              Buy & Sell <br />
-              <span className="text-[#2E7D32] relative">
-                Certified Cars 
-                <span className="absolute left-0 bottom-1 w-full h-[6px] bg-[#2E7D32]/10 -z-10 rounded"></span>
-              </span> <br className="hidden sm:inline" />
-              With Total Confidence.
+              {websiteSettings.heroTitle && websiteSettings.heroTitle !== "Certified Cars" ? (
+                websiteSettings.heroTitle
+              ) : (
+                <>
+                  Buy & Sell <br />
+                  <span className="text-[#2E7D32] relative">
+                    Certified Cars 
+                    <span className="absolute left-0 bottom-1 w-full h-[6px] bg-[#2E7D32]/10 -z-10 rounded"></span>
+                  </span> <br className="hidden sm:inline" />
+                  With Total Confidence.
+                </>
+              )}
             </h1>
             
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl font-medium">
-              Inspired by rigorous pre-owned standards, reimagined for ultimate luxury. Explore 150-point inspected, hassle-free certified vehicles with 7-day buyback protection and elite financing.
+              {websiteSettings.heroSubtitle || "Inspired by rigorous pre-owned standards, reimagined for ultimate luxury. Explore 150-point inspected, hassle-free certified vehicles with 7-day buyback protection and elite financing."}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
@@ -1197,70 +1275,29 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-            
-            {/* Testimonial 1 */}
-            <Card hoverEffect={false} className="bg-white border border-slate-100 rounded-3xl p-8 relative shadow-lg shadow-slate-200/30 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="flex text-amber-500 space-x-0.5">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="h-4.5 w-4.5 fill-amber-500 text-amber-500" />)}
+            {testimonials.map((t, idx) => (
+              <Card key={t.id || idx} hoverEffect={false} className="bg-white border border-slate-100 rounded-3xl p-8 relative shadow-lg shadow-slate-200/30 flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="flex text-amber-500 space-x-0.5">
+                    {[...Array(Number(t.rating) || 5)].map((_, i) => (
+                      <Star key={i} className="h-4.5 w-4.5 fill-amber-500 text-amber-500" />
+                    ))}
+                  </div>
+                  <p className="text-sm text-slate-600 font-semibold italic leading-relaxed">
+                    "{t.content}"
+                  </p>
                 </div>
-                <p className="text-sm text-slate-600 font-semibold italic leading-relaxed">
-                  "Buying my Porsche Carrera S from 1stCars was an absolute joy. The 150-point report card was extremely thorough, and they delivered the vehicle in a fully closed transport direct to my estate. Top tier service."
-                </p>
-              </div>
-              <div className="flex items-center space-x-3.5 pt-6 mt-6 border-t border-slate-100">
-                <div className="h-10 w-10 bg-primary/10 text-[#2E7D32] font-black rounded-full flex items-center justify-center text-xs">
-                  AH
+                <div className="flex items-center space-x-3.5 pt-6 mt-6 border-t border-slate-100">
+                  <div className="h-10 w-10 bg-primary/10 text-[#2E7D32] font-black rounded-full flex items-center justify-center text-xs">
+                    {t.photo && t.photo !== "👤" ? t.photo : (t.name || "U").substring(0, 2).toUpperCase()}
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-black text-slate-900 uppercase">{t.name}</h4>
+                    <p className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-wider">{t.role}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-xs font-black text-slate-900 uppercase">Arthur H. Sterling</h4>
-                  <p className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-wider">Purchased: Porsche 911 Carrera S</p>
-                </div>
-              </div>
-            </Card>
-
-            {/* Testimonial 2 */}
-            <Card hoverEffect={false} className="bg-white border border-slate-100 rounded-3xl p-8 relative shadow-lg shadow-slate-200/30 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="flex text-amber-500 space-x-0.5">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="h-4.5 w-4.5 fill-amber-500 text-amber-500" />)}
-                </div>
-                <p className="text-sm text-slate-600 font-semibold italic leading-relaxed">
-                  "I was initially nervous about trade-ins, but 1stCars calculated an instant offer on my G 63, did the doorstep evaluation check next morning, and transferred funds to my Chase account that exact afternoon. Exceptional speed."
-                </p>
-              </div>
-              <div className="flex items-center space-x-3.5 pt-6 mt-6 border-t border-slate-100">
-                <div className="h-10 w-10 bg-amber-500/10 text-amber-600 font-black rounded-full flex items-center justify-center text-xs">
-                  MD
-                </div>
-                <div>
-                  <h4 className="text-xs font-black text-slate-900 uppercase">Dr. Melissa Duarte</h4>
-                  <p className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-wider">Sold: Mercedes-Benz G 63 AMG</p>
-                </div>
-              </div>
-            </Card>
-
-            {/* Testimonial 3 */}
-            <Card hoverEffect={false} className="bg-white border border-slate-100 rounded-3xl p-8 relative shadow-lg shadow-slate-200/30 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="flex text-amber-500 space-x-0.5">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="h-4.5 w-4.5 fill-amber-500 text-amber-500" />)}
-                </div>
-                <p className="text-sm text-slate-600 font-semibold italic leading-relaxed">
-                  "We sourced an Audi RS e-tron GT through their private concierge desk. The vehicle spec arrived perfectly matching our custom color and leather options, with loan papers ready to sign in 5 minutes. Incredible professionalism."
-                </p>
-              </div>
-              <div className="flex items-center space-x-3.5 pt-6 mt-6 border-t border-slate-100">
-                <div className="h-10 w-10 bg-blue-500/10 text-blue-600 font-black rounded-full flex items-center justify-center text-xs">
-                  TC
-                </div>
-                <div>
-                  <h4 className="text-xs font-black text-slate-900 uppercase">The Chase Family</h4>
-                  <p className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-wider">Purchased: Audi RS e-tron GT</p>
-                </div>
-              </div>
-            </Card>
-
+              </Card>
+            ))}
           </div>
         </div>
       </Section>

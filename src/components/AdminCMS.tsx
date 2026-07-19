@@ -479,6 +479,9 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     if (typeof document !== "undefined") {
       document.documentElement.style.setProperty("--primary-theme-color", websiteSettings.primaryColor);
       document.documentElement.style.setProperty("--button-theme-color", websiteSettings.buttonColor);
+      
+      // Notify other decoupled components like the Navbar
+      window.dispatchEvent(new Event("1stcars_settings_updated"));
     }
 
     toast.success("Prismatically updated Website Theme, branding parameters, SEO tags, and analytics successfully.");

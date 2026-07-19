@@ -30,13 +30,46 @@ export function Navbar({
 }: NavbarProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [settings, setSettings] = React.useState({
+    logoUrl: "🏎️ 1stCars",
+    brandSlogan: "Premium Selection"
+  });
 
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // Load dynamic brand settings
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("1stcars_cms_website_settings");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setSettings(prev => ({ ...prev, ...parsed }));
+        } catch (e) {
+          console.error("Failed to parse website settings in Navbar", e);
+        }
+      }
+    }
+
+    // Live update listener for changes from Admin CMS
+    const handleReloadSettings = () => {
+      const stored = localStorage.getItem("1stcars_cms_website_settings");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setSettings(prev => ({ ...prev, ...parsed }));
+        } catch (e) {}
+      }
+    };
+    window.addEventListener("1stcars_settings_updated", handleReloadSettings);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("1stcars_settings_updated", handleReloadSettings);
+    };
   }, []);
 
   const navLinks: {
@@ -106,10 +139,10 @@ export function Navbar({
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-black tracking-tighter text-[#2E7D32] flex items-center">
-                  1stCars
+                  {settings.logoUrl || "1stCars"}
                 </span>
                 <span className="text-[9px] font-bold tracking-widest text-[#2E7D32]/60 uppercase -mt-1.5">
-                  Premium Selection
+                  {settings.brandSlogan || "Premium Selection"}
                 </span>
               </div>
             </a>
@@ -271,7 +304,7 @@ export function Navbar({
               <div className="w-6 h-6 bg-[#2E7D32] rounded flex items-center justify-center shadow-md shadow-[#2E7D32]/20">
                 <div className="w-3 h-3 border-2 border-white rotate-45"></div>
               </div>
-              <span className="text-xl font-black tracking-tighter text-[#2E7D32]">1stCars</span>
+              <span className="text-xl font-black tracking-tighter text-[#2E7D32]">{settings.logoUrl || "1stCars"}</span>
             </a>
             <button
               onClick={() => setIsOpen(false)}
