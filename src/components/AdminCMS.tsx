@@ -300,39 +300,49 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
   const simulateImageUpload = (file: File) => {
     setIsUploading(true);
     setUploadProgress(10);
-    const interval = setInterval(() => {
-      setUploadProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setIsUploading(false);
-            setUploadProgress(0);
-            
-            // Set uploaded logo or visual graphic URL inside form state
-            const extension = file.name.split('.').pop() || 'png';
-            const mockUrl = `https://supabase-storage.cdn.1stcars.com/media/${activeModule}/${Date.now()}.${extension}`;
-            if (activeModule === "settings") {
-              setWebsiteSettings((prev: any) => ({
-                ...prev,
-                logoUrl: mockUrl
-              }));
-              toast.success(`Pristine Image "${file.name}" uploaded successfully to Supabase Storage bucket: public-settings`);
-            } else {
-              setFormData((prevForm: any) => ({
-                ...prevForm,
-                image_url: mockUrl,
-                logo_url: mockUrl,
-                logo: mockUrl,
-                photo: "👤 Uploaded"
-              }));
-              toast.success(`Pristine Image "${file.name}" uploaded successfully to Supabase Storage bucket: public-${activeModule}`);
-            }
-          }, 300);
-          return 100;
-        }
-        return prev + 30;
-      });
-    }, 150);
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const realUrl = event.target?.result as string;
+      
+      const interval = setInterval(() => {
+        setUploadProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              setIsUploading(false);
+              setUploadProgress(0);
+              
+              if (activeModule === "settings") {
+                setWebsiteSettings((prev: any) => {
+                  const updated = {
+                    ...prev,
+                    logoUrl: realUrl
+                  };
+                  localStorage.setItem("1stcars_cms_website_settings", JSON.stringify(updated));
+                  // Dispatch custom event to notify parent components of the change
+                  window.dispatchEvent(new Event("1stcars_settings_updated"));
+                  return updated;
+                });
+                toast.success(`Pristine Image "${file.name}" uploaded successfully to Supabase Storage bucket: public-settings`);
+              } else {
+                setFormData((prevForm: any) => ({
+                  ...prevForm,
+                  image_url: realUrl,
+                  logo_url: realUrl,
+                  logo: realUrl,
+                  photo: realUrl
+                }));
+                toast.success(`Pristine Image "${file.name}" uploaded successfully to Supabase Storage bucket: public-${activeModule}`);
+              }
+            }, 300);
+            return 100;
+          }
+          return prev + 30;
+        });
+      }, 150);
+    };
+    reader.readAsDataURL(file);
   };
 
   const simulateMultipleImageUpload = (files: FileList | File[]) => {
@@ -341,49 +351,52 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     setUploadProgress(5);
     setMultiUploadStatus(`Preparing ${fileArray.length} photos for dynamic upload...`);
     
-    let currentIdx = 0;
-    const urls: string[] = [];
-    
-    const interval = setInterval(() => {
-      setUploadProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setIsUploading(false);
-            setUploadProgress(0);
-            setMultiUploadStatus("");
-            
-            setFormData((prevForm: any) => {
-              const existingImages = Array.isArray(prevForm.images) ? prevForm.images : [];
-              const combinedImages = [...existingImages, ...urls].slice(0, 15);
-              return {
-                ...prevForm,
-                images: combinedImages,
-                image_url: combinedImages[0] || prevForm.image_url || "🚙"
-              };
-            });
-            
-            toast.success(`Pristine batch of ${fileArray.length} photos uploaded successfully to Supabase Storage bucket: public-cars`);
-          }, 300);
-          return 100;
-        }
-        
-        const progressPerFile = 100 / fileArray.length;
-        const index = Math.min(Math.floor(prev / progressPerFile), fileArray.length - 1);
-        const file = fileArray[index];
-        
-        if (file) {
-          const extension = file.name.split('.').pop() || 'png';
-          const mockUrl = `https://supabase-storage.cdn.1stcars.com/media/cars/${Date.now()}-${index}.${extension}`;
-          if (!urls.includes(mockUrl)) {
-            urls.push(mockUrl);
-          }
-          setMultiUploadStatus(`Uploading photo ${index + 1} of ${fileArray.length}: ${file.name}`);
-        }
-        
-        return prev + Math.max(8, Math.floor(100 / (fileArray.length * 1.5)));
+    // Read all files as Data URLs asynchronously
+    const readFilesPromises = fileArray.map(file => {
+      return new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => resolve(e.target?.result as string);
+        reader.readAsDataURL(file);
       });
-    }, 120);
+    });
+
+    Promise.all(readFilesPromises).then((urls) => {
+      const interval = setInterval(() => {
+        setUploadProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              setIsUploading(false);
+              setUploadProgress(0);
+              setMultiUploadStatus("");
+              
+              setFormData((prevForm: any) => {
+                const existingImages = Array.isArray(prevForm.images) ? prevForm.images : [];
+                const combinedImages = [...existingImages, ...urls].slice(0, 15);
+                return {
+                  ...prevForm,
+                  images: combinedImages,
+                  image_url: combinedImages[0] || prevForm.image_url || "🚙"
+                };
+              });
+              
+              toast.success(`Pristine batch of ${fileArray.length} photos uploaded successfully to Supabase Storage bucket: public-cars`);
+            }, 300);
+            return 100;
+          }
+          
+          const progressPerFile = 100 / fileArray.length;
+          const index = Math.min(Math.floor(prev / progressPerFile), fileArray.length - 1);
+          const file = fileArray[index];
+          
+          if (file) {
+            setMultiUploadStatus(`Uploading photo ${index + 1} of ${fileArray.length}: ${file.name}`);
+          }
+          
+          return prev + Math.max(8, Math.floor(100 / (fileArray.length * 1.5)));
+        });
+      }, 120);
+    });
   };
 
   const handleDropUpload = (e: React.DragEvent) => {
@@ -860,12 +873,19 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                   <tr key={item.id || idx} className="hover:bg-[#FAF9F6]/50">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center font-black text-slate-400 text-sm">
-                          {item.image_url || item.logo_url || item.photo ? (
-                            <span className="text-lg">🏎️</span>
-                          ) : (
-                            <span>{(item.name || item.brand || item.title || item.slot || "ID").substring(0, 2).toUpperCase()}</span>
-                          )}
+                        <div className="h-10 w-10 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center overflow-hidden font-black text-slate-400 text-xs shrink-0">
+                          {(() => {
+                            const img = item.image_url || item.logo_url || item.photo || item.logo;
+                            const isImgValid = img && (
+                              img.startsWith("http") || 
+                              img.startsWith("/") || 
+                              img.startsWith("data:")
+                            );
+                            if (isImgValid) {
+                              return <img src={img} className="h-full w-full object-cover" referrerPolicy="no-referrer" />;
+                            }
+                            return <span>{(item.name || item.brand || item.title || item.slot || "ID").substring(0, 2).toUpperCase()}</span>;
+                          })()}
                         </div>
                         <div>
                           <p className="font-mono text-[9px] text-[#2E7D32] font-bold">#{String(item.id).substring(0, 8)}</p>
@@ -1492,7 +1512,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                 
                 {/* Simulated Header */}
                 <div className="p-3 bg-white rounded-2xl flex justify-between items-center text-slate-900 border border-slate-100 text-[11px] font-bold shadow-xs">
-                  {websiteSettings.logoUrl && (websiteSettings.logoUrl.startsWith("http://") || websiteSettings.logoUrl.startsWith("https://") || websiteSettings.logoUrl.startsWith("/") || websiteSettings.logoUrl.includes("supabase-storage") || websiteSettings.logoUrl.match(/\.(jpeg|jpg|gif|png|svg|webp)/i) !== null) ? (
+                  {websiteSettings.logoUrl && (websiteSettings.logoUrl.startsWith("data:image/") || websiteSettings.logoUrl.startsWith("http://") || websiteSettings.logoUrl.startsWith("https://") || websiteSettings.logoUrl.startsWith("/") || websiteSettings.logoUrl.includes("supabase-storage") || websiteSettings.logoUrl.match(/\.(jpeg|jpg|gif|png|svg|webp)/i) !== null) ? (
                     <img 
                       src={websiteSettings.logoUrl} 
                       alt="Logo" 

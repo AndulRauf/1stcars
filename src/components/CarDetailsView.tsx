@@ -73,7 +73,11 @@ export function CarDetailsView({
         text: `${car.brand} ${car.model} — Cinematic view #${idx + 1}`
       }));
     }
-    const hasRealImgUrl = car.image_url && (car.image_url.startsWith("http") || car.image_url.startsWith("/"));
+    const hasRealImgUrl = car.image_url && (
+      car.image_url.startsWith("http") || 
+      car.image_url.startsWith("/") || 
+      car.image_url.startsWith("data:")
+    );
     if (hasRealImgUrl) {
       return [
         {

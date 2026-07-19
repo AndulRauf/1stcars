@@ -38,7 +38,7 @@ export function Navbar({
 
   const isImageUrl = (url: string) => {
     if (!url) return false;
-    return url.startsWith("http://") || url.startsWith("https://") || url.startsWith("/") || url.includes("supabase-storage") || url.match(/\.(jpeg|jpg|gif|png|svg|webp)/i) !== null;
+    return url.startsWith("data:image/") || url.startsWith("http://") || url.startsWith("https://") || url.startsWith("/") || url.includes("supabase-storage") || url.match(/\.(jpeg|jpg|gif|png|svg|webp)/i) !== null;
   };
 
   React.useEffect(() => {
