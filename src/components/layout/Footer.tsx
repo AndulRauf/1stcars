@@ -10,6 +10,35 @@ interface FooterProps {
 export function Footer({ onViewChange }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
+  const [settings, setSettings] = React.useState({
+    supportEmail: "concierge@1stcars.com",
+    supportPhone: "+91 99999 99999",
+    supportAddress: "722 S. Greenwood Avenue, Suite A, Los Angeles",
+    brandSlogan: "The Luxury Pre-Owned Hub",
+    brandDescription: "We curate only top-tier luxury, sports, and specialty vehicles. Our mission is to bridge pristine engineering with absolute luxury service.",
+    footerText: "© 2026 1stCars Luxury Marketplace. All rights reserved.",
+    highlight1Title: "150-Point Certificate",
+    highlight1Desc: "Every vehicle in our collection undergoes rigorous mechanical & structural inspections.",
+    highlight2Title: "Buyback Protection",
+    highlight2Desc: "Drive with maximum peace of mind. We offer a transparent, premium 7-day buyback guarantee.",
+    highlight3Title: "Doorstep Whiteglove Delivery",
+    highlight3Desc: "Enjoy home test drives and direct delivery with our fully closed premium transports.",
+  });
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("1stcars_cms_website_settings");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setSettings((prev) => ({ ...prev, ...parsed }));
+        } catch (e) {
+          console.error("Failed to parse website settings in Footer", e);
+        }
+      }
+    }
+  }, []);
+
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     // Logic for newsletter
@@ -26,9 +55,9 @@ export function Footer({ onViewChange }: FooterProps) {
               <Shield className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h4 className="font-bold text-base text-slate-900 tracking-tight">150-Point Certificate</h4>
+              <h4 className="font-bold text-base text-slate-900 tracking-tight">{settings.highlight1Title}</h4>
               <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                Every vehicle in our collection undergoes rigorous mechanical & structural inspections.
+                {settings.highlight1Desc}
               </p>
             </div>
           </div>
@@ -38,9 +67,9 @@ export function Footer({ onViewChange }: FooterProps) {
               <Award className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h4 className="font-bold text-base text-slate-900 tracking-tight">Buyback Protection</h4>
+              <h4 className="font-bold text-base text-slate-900 tracking-tight">{settings.highlight2Title}</h4>
               <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                Drive with maximum peace of mind. We offer a transparent, premium 7-day buyback guarantee.
+                {settings.highlight2Desc}
               </p>
             </div>
           </div>
@@ -50,9 +79,9 @@ export function Footer({ onViewChange }: FooterProps) {
               <Sparkles className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h4 className="font-bold text-base text-slate-900 tracking-tight">Doorstep Whiteglove Delivery</h4>
+              <h4 className="font-bold text-base text-slate-900 tracking-tight">{settings.highlight3Title}</h4>
               <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                Enjoy home test drives and direct delivery with our fully closed premium transports.
+                {settings.highlight3Desc}
               </p>
             </div>
           </div>
@@ -68,24 +97,24 @@ export function Footer({ onViewChange }: FooterProps) {
                 1stCars
               </span>
               <span className="text-xs font-bold tracking-widest text-slate-500 uppercase mt-0.5">
-                The Luxury Pre-Owned Hub
+                {settings.brandSlogan}
               </span>
             </div>
             <p className="text-sm text-slate-500 leading-relaxed max-w-sm">
-              We curate only top-tier luxury, sports, and specialty vehicles. Our mission is to bridge pristine engineering with absolute luxury service.
+              {settings.brandDescription}
             </p>
             <div className="flex flex-col space-y-2.5 pt-2">
-              <div className="flex items-center space-x-3 text-sm text-slate-600">
-                <MapPin className="h-4.5 w-4.5 text-primary flex-shrink-0" />
-                <span>722 S. Greenwood Avenue, Suite A, Los Angeles</span>
+              <div className="flex items-start space-x-3 text-sm text-slate-600">
+                <MapPin className="h-4.5 w-4.5 text-primary flex-shrink-0 mt-0.5" />
+                <span>{settings.supportAddress}</span>
               </div>
               <div className="flex items-center space-x-3 text-sm text-slate-600">
                 <Phone className="h-4.5 w-4.5 text-primary flex-shrink-0" />
-                <span>+1 (800) 555-0199</span>
+                <span>{settings.supportPhone}</span>
               </div>
               <div className="flex items-center space-x-3 text-sm text-slate-600">
                 <Mail className="h-4.5 w-4.5 text-primary flex-shrink-0" />
-                <span>concierge@1stcars.com</span>
+                <span>{settings.supportEmail}</span>
               </div>
             </div>
           </div>
@@ -162,7 +191,7 @@ export function Footer({ onViewChange }: FooterProps) {
 
         {/* Bottom Bar */}
         <div className="border-t border-[#2E7D32]/10 pt-8 mt-12 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 font-semibold">
-          <p>© {currentYear} 1stCars Inc. All rights reserved. Licenses & listings verified.</p>
+          <p>{settings.footerText.includes("©") ? settings.footerText : `© ${currentYear} ${settings.footerText}`}</p>
           <div className="flex items-center space-x-6 mt-4 md:mt-0">
             <a href="#privacy" className="hover:text-primary transition-colors">Privacy Policy</a>
             <a href="#terms" className="hover:text-primary transition-colors">Terms of Service</a>

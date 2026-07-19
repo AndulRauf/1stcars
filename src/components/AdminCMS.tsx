@@ -73,6 +73,15 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     youtube: "https://youtube.com/1stcars",
     supportEmail: "concierge@1stcars.com",
     supportPhone: "+91 99999 99999",
+    supportAddress: "722 S. Greenwood Avenue, Suite A, Los Angeles",
+    brandSlogan: "The Luxury Pre-Owned Hub",
+    brandDescription: "We curate only top-tier luxury, sports, and specialty vehicles. Our mission is to bridge pristine engineering with absolute luxury service.",
+    highlight1Title: "150-Point Certificate",
+    highlight1Desc: "Every vehicle in our collection undergoes rigorous mechanical & structural inspections.",
+    highlight2Title: "Buyback Protection",
+    highlight2Desc: "Drive with maximum peace of mind. We offer a transparent, premium 7-day buyback guarantee.",
+    highlight3Title: "Doorstep Whiteglove Delivery",
+    highlight3Desc: "Enjoy home test drives and direct delivery with our fully closed premium transports.",
     seoTitle: "1stCars - Certified Luxury Car Marketplace",
     seoDescription: "The premier platform to buy and sell certified luxury pre-owned vehicles with a 150-Point Certificate.",
     googleAnalyticsId: "G-1STCARS2026"
@@ -205,7 +214,12 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
 
       const storedSettings = localStorage.getItem("1stcars_cms_website_settings");
       if (storedSettings) {
-        setWebsiteSettings(JSON.parse(storedSettings));
+        try {
+          const parsed = JSON.parse(storedSettings);
+          setWebsiteSettings((prev: any) => ({ ...prev, ...parsed }));
+        } catch (e) {
+          console.error("Failed to parse stored settings:", e);
+        }
       }
 
     } catch (error) {
@@ -1226,6 +1240,126 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                       onChange={(e) => setWebsiteSettings({ ...websiteSettings, footerText: e.target.value })}
                       className="w-full h-9 bg-white border border-slate-200 rounded-lg px-2.5 outline-none"
                     />
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer Brand & Trust Highlights */}
+              <div className="p-5 bg-[#FAF9F6] border border-slate-100 rounded-2xl space-y-4">
+                <h4 className="font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                  <Layout className="h-4 w-4 text-[#2E7D32]" /> Footer Brand & Trust Highlights
+                </h4>
+
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Footer Brand Slogan</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.brandSlogan || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, brandSlogan: e.target.value })}
+                        className="w-full h-9 bg-white border border-slate-200 rounded-lg px-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Showroom Address</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.supportAddress || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, supportAddress: e.target.value })}
+                        className="w-full h-9 bg-white border border-slate-200 rounded-lg px-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Footer Brand Description</label>
+                    <textarea 
+                      value={websiteSettings.brandDescription || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, brandDescription: e.target.value })}
+                      className="w-full min-h-16 bg-white border border-slate-200 rounded-lg p-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32] font-semibold text-xs"
+                    />
+                  </div>
+
+                  <div className="border-t border-slate-200/60 pt-4">
+                    <span className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3">Trust Highlight Badges</span>
+                    
+                    <div className="space-y-4">
+                      {/* Highlight 1 */}
+                      <div className="p-3.5 bg-white border border-slate-200 rounded-xl space-y-2">
+                        <span className="text-[10px] font-black uppercase text-emerald-700">Badge 1</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div>
+                            <label className="block text-[9px] font-black uppercase text-slate-400 mb-0.5">Title</label>
+                            <input 
+                              type="text" 
+                              value={websiteSettings.highlight1Title || ""}
+                              onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight1Title: e.target.value })}
+                              className="w-full h-8 bg-slate-50 border border-slate-200 rounded-lg px-2.5 text-xs outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[9px] font-black uppercase text-slate-400 mb-0.5">Description</label>
+                            <input 
+                              type="text" 
+                              value={websiteSettings.highlight1Desc || ""}
+                              onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight1Desc: e.target.value })}
+                              className="w-full h-8 bg-slate-50 border border-slate-200 rounded-lg px-2.5 text-xs outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Highlight 2 */}
+                      <div className="p-3.5 bg-white border border-slate-200 rounded-xl space-y-2">
+                        <span className="text-[10px] font-black uppercase text-emerald-700">Badge 2</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div>
+                            <label className="block text-[9px] font-black uppercase text-slate-400 mb-0.5">Title</label>
+                            <input 
+                              type="text" 
+                              value={websiteSettings.highlight2Title || ""}
+                              onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight2Title: e.target.value })}
+                              className="w-full h-8 bg-slate-50 border border-slate-200 rounded-lg px-2.5 text-xs outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[9px] font-black uppercase text-slate-400 mb-0.5">Description</label>
+                            <input 
+                              type="text" 
+                              value={websiteSettings.highlight2Desc || ""}
+                              onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight2Desc: e.target.value })}
+                              className="w-full h-8 bg-slate-50 border border-slate-200 rounded-lg px-2.5 text-xs outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Highlight 3 */}
+                      <div className="p-3.5 bg-white border border-slate-200 rounded-xl space-y-2">
+                        <span className="text-[10px] font-black uppercase text-emerald-700">Badge 3</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div>
+                            <label className="block text-[9px] font-black uppercase text-slate-400 mb-0.5">Title</label>
+                            <input 
+                              type="text" 
+                              value={websiteSettings.highlight3Title || ""}
+                              onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight3Title: e.target.value })}
+                              className="w-full h-8 bg-slate-50 border border-slate-200 rounded-lg px-2.5 text-xs outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[9px] font-black uppercase text-slate-400 mb-0.5">Description</label>
+                            <input 
+                              type="text" 
+                              value={websiteSettings.highlight3Desc || ""}
+                              onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight3Desc: e.target.value })}
+                              className="w-full h-8 bg-slate-50 border border-slate-200 rounded-lg px-2.5 text-xs outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
