@@ -64,7 +64,29 @@ export function CarDetailsView({
 
   // Gallery slider state
   const [activeImageIndex, setActiveImageIndex] = React.useState(0);
-  const angles = [
+  
+  const getCarPhotos = (car: any) => {
+    if (Array.isArray(car.images) && car.images.length > 0) {
+      return car.images.map((url, idx) => ({
+        url,
+        title: idx === 0 ? "Featured Profile" : `Detail Angle #${idx + 1}`,
+        text: `${car.brand} ${car.model} — Cinematic view #${idx + 1}`
+      }));
+    }
+    const hasRealImgUrl = car.image_url && (car.image_url.startsWith("http") || car.image_url.startsWith("/"));
+    if (hasRealImgUrl) {
+      return [
+        {
+          url: car.image_url,
+          title: "Primary Profile View",
+          text: `${car.brand} ${car.model} — Exterior cinematic presentation`
+        }
+      ];
+    }
+    return null;
+  };
+  
+  const angles = getCarPhotos(car) || [
     { title: "Front Exterior Profile", text: "Three-Quarter cinematic studio angle showing sleek hood lines" },
     { title: "Rear Fastback Profile", text: "Bold posture detailing standard active aerodynamics & lightbar" },
     { title: "Cockpit Cabin Lounge", text: "Finest hand-finished stitching, carbon clusters & primary command wheel" }
@@ -274,26 +296,35 @@ export function CarDetailsView({
             <div className="bg-slate-950 rounded-3xl overflow-hidden relative shadow-lg aspect-video flex flex-col justify-between p-6 select-none">
               
               {/* Dynamic Gradients based on Active Slider Index */}
-              <div className={cn(
-                "absolute inset-0 transition-all duration-700 bg-gradient-to-br",
-                activeImageIndex === 0 && "from-slate-900 to-black",
-                activeImageIndex === 1 && "from-zinc-900 to-slate-950",
-                activeImageIndex === 2 && "from-neutral-900 to-stone-950"
-              )} />
+              <div 
+                className={cn(
+                  "absolute inset-0 transition-all duration-700 bg-gradient-to-br",
+                  !angles[activeImageIndex].url && activeImageIndex === 0 && "from-slate-900 to-black",
+                  !angles[activeImageIndex].url && activeImageIndex === 1 && "from-zinc-900 to-slate-950",
+                  !angles[activeImageIndex].url && activeImageIndex === 2 && "from-neutral-900 to-stone-950"
+                )} 
+                style={angles[activeImageIndex].url ? {
+                  backgroundImage: `url(${angles[activeImageIndex].url})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center"
+                } : undefined}
+              />
 
               {/* Decorative premium watermark */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none p-16">
-                <svg viewBox="0 0 100 50" className="w-10/12 text-white fill-current">
-                  <path d="M15 35 L12 35 C10 35 8 33 8 31 L8 25 C8 22 10 20 12 18 L25 10 C28 8 32 7 35 7 L65 7 C69 7 73 9 75 12 L85 22 C88 24 90 27 90 31 L90 35 C88 35 86 35 85 35 C82 32 78 32 75 35 C72 38 75 42 78 42 C81 42 84 39 85 37 L90 37 L92 37 C94 37 95 36 95 34 L95 28 C95 24 93 21 90 19 L82 10 C79 6 74 4 69 4 L31 4 C26 4 21 6 18 10 L8 21 C6 23 5 26 5 29 L5 34 C5 36 6 37 8 37 L15 37 C16 39 19 42 22 42 C25 42 28 38 25 35 Z" />
-                  <circle cx="22" cy="35" r="5" />
-                  <circle cx="78" cy="35" r="5" />
-                </svg>
-              </div>
+              {!angles[activeImageIndex].url && (
+                <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none p-16">
+                  <svg viewBox="0 0 100 50" className="w-10/12 text-white fill-current">
+                    <path d="M15 35 L12 35 C10 35 8 33 8 31 L8 25 C8 22 10 20 12 18 L25 10 C28 8 32 7 35 7 L65 7 C69 7 73 9 75 12 L85 22 C88 24 90 27 90 31 L90 35 C88 35 86 35 85 35 C82 32 78 32 75 35 C72 38 75 42 78 42 C81 42 84 39 85 37 L90 37 L92 37 C94 37 95 36 95 34 L95 28 C95 24 93 21 90 19 L82 10 C79 6 74 4 69 4 L31 4 C26 4 21 6 18 10 L8 21 C6 23 5 26 5 29 L5 34 C5 36 6 37 8 37 L15 37 C16 39 19 42 22 42 C25 42 28 38 25 35 Z" />
+                    <circle cx="22" cy="35" r="5" />
+                    <circle cx="78" cy="35" r="5" />
+                  </svg>
+                </div>
+              )}
 
               {/* Top info row */}
               <div className="z-10 flex items-center justify-between">
                 <Badge className="bg-white/10 text-white border-white/20 px-3.5 py-1 text-[10px] font-black uppercase tracking-widest backdrop-blur-md">
-                  Studio Angle {activeImageIndex + 1} of 3
+                  Studio Angle {activeImageIndex + 1} of {angles.length}
                 </Badge>
                 <button
                   onClick={() => onSaveToggle(car.id, `${car.brand} ${car.model}`)}
@@ -350,20 +381,29 @@ export function CarDetailsView({
             </div>
 
             {/* Gallery Thumbnail Strip */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="flex gap-3 overflow-x-auto pb-2 pt-1 scrollbar-none scrollbar-thin">
               {angles.map((ang, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveImageIndex(i)}
                   className={cn(
-                    "p-3 rounded-2xl text-left border transition-all cursor-pointer bg-white",
+                    "p-2.5 rounded-2xl text-left border transition-all cursor-pointer bg-white flex items-center gap-3 shrink-0 min-w-[160px] max-w-[200px]",
                     activeImageIndex === i
-                      ? "border-[#2E7D32] bg-[#2E7D32]/5 text-[#2E7D32] shadow-sm"
+                      ? "border-[#2E7D32] bg-[#2E7D32]/5 text-[#2E7D32] shadow-xs"
                       : "border-slate-100 hover:bg-slate-50 text-slate-500"
                   )}
                 >
-                  <p className="text-[10px] font-black uppercase tracking-widest text-[#2E7D32]/60">{ang.title}</p>
-                  <p className="text-xs font-bold truncate text-slate-800 mt-0.5">{i === 0 ? "Front Profile" : i === 1 ? "Aggressive Rear" : "Cabin Cockpit"}</p>
+                  {ang.url ? (
+                    <img src={ang.url} className="w-12 h-10 object-cover rounded-lg shrink-0" referrerPolicy="no-referrer" />
+                  ) : (
+                    <div className="w-12 h-10 bg-slate-950 text-white rounded-lg flex items-center justify-center font-black text-xs shrink-0">🚙</div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[9px] font-black uppercase tracking-wider text-[#2E7D32]/80 truncate">{ang.title}</p>
+                    <p className="text-[11px] font-bold truncate text-slate-800 mt-0.5">
+                      {ang.url ? `Angle #${i + 1}` : (i === 0 ? "Front Profile" : i === 1 ? "Aggressive Rear" : "Cabin Cockpit")}
+                    </p>
+                  </div>
                 </button>
               ))}
             </div>

@@ -13,6 +13,8 @@ export interface Car {
   certified: boolean;
   imageBg: string; // Tailwind color or representation
   imageUrl?: string;
+  image_url?: string;
+  images?: string[];
   featured: boolean;
   specifications: string[];
   features?: string[];

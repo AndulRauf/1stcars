@@ -103,6 +103,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
   // Image Uploading mockup
   const [isUploading, setIsUploading] = React.useState(false);
   const [uploadProgress, setUploadProgress] = React.useState(0);
+  const [multiUploadStatus, setMultiUploadStatus] = React.useState("");
 
   // Database Seeding state & trigger
   const [isSeeding, setIsSeeding] = React.useState(false);
@@ -247,7 +248,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     // Set realistic default template keys based on current module
     const defaultTemplates: Record<CMSModule, any> = {
       dashboard: {},
-      cars: { brand: "BMW", model: "X5 xDrive40i", variant: "M Sport", year: 2022, price: 9500000, km_driven: 15000, fuel: "Petrol", transmission: "Automatic", owner_count: 1, city: "Mumbai", reg_number: "MH02-FP-5005", color: "Carbon Black", insurance_type: "Comprehensive", overall_score: 9.2, status: "available", image_url: "🚙" },
+      cars: { brand: "BMW", model: "X5 xDrive40i", variant: "M Sport", year: 2022, price: 9500000, km_driven: 15000, fuel: "Petrol", transmission: "Automatic", owner_count: 1, city: "Mumbai", reg_number: "MH02-FP-5005", color: "Carbon Black", insurance_type: "Comprehensive", overall_score: 9.2, status: "available", image_url: "🚙", images: [] },
       users: { name: "", email: "", mobile: "", role: "Buyer", city: "Mumbai" },
       staff: { name: "", email: "", role: "Inspector", region: "Mumbai", shift: "Morning", status: "Active" },
       dealers: { name: "", manager: "", rating: 5.0, city: "Mumbai", credits: 500000, active_bids: 0 },
@@ -277,7 +278,17 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
   const openEditModal = (item: any) => {
     setFormMode("edit");
     setEditingId(item.id);
-    setFormData({ ...item });
+    
+    let initialData = { ...item };
+    if (activeModule === "cars") {
+      if (!Array.isArray(initialData.images)) {
+        initialData.images = initialData.image_url && initialData.image_url !== "🚙" 
+          ? [initialData.image_url] 
+          : [];
+      }
+    }
+    
+    setFormData(initialData);
     setIsFormOpen(true);
   };
 
@@ -324,16 +335,75 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     }, 150);
   };
 
+  const simulateMultipleImageUpload = (files: FileList | File[]) => {
+    const fileArray = Array.from(files).slice(0, 15);
+    setIsUploading(true);
+    setUploadProgress(5);
+    setMultiUploadStatus(`Preparing ${fileArray.length} photos for dynamic upload...`);
+    
+    let currentIdx = 0;
+    const urls: string[] = [];
+    
+    const interval = setInterval(() => {
+      setUploadProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            setIsUploading(false);
+            setUploadProgress(0);
+            setMultiUploadStatus("");
+            
+            setFormData((prevForm: any) => {
+              const existingImages = Array.isArray(prevForm.images) ? prevForm.images : [];
+              const combinedImages = [...existingImages, ...urls].slice(0, 15);
+              return {
+                ...prevForm,
+                images: combinedImages,
+                image_url: combinedImages[0] || prevForm.image_url || "🚙"
+              };
+            });
+            
+            toast.success(`Pristine batch of ${fileArray.length} photos uploaded successfully to Supabase Storage bucket: public-cars`);
+          }, 300);
+          return 100;
+        }
+        
+        const progressPerFile = 100 / fileArray.length;
+        const index = Math.min(Math.floor(prev / progressPerFile), fileArray.length - 1);
+        const file = fileArray[index];
+        
+        if (file) {
+          const extension = file.name.split('.').pop() || 'png';
+          const mockUrl = `https://supabase-storage.cdn.1stcars.com/media/cars/${Date.now()}-${index}.${extension}`;
+          if (!urls.includes(mockUrl)) {
+            urls.push(mockUrl);
+          }
+          setMultiUploadStatus(`Uploading photo ${index + 1} of ${fileArray.length}: ${file.name}`);
+        }
+        
+        return prev + Math.max(8, Math.floor(100 / (fileArray.length * 1.5)));
+      });
+    }, 120);
+  };
+
   const handleDropUpload = (e: React.DragEvent) => {
     e.preventDefault();
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      simulateImageUpload(e.dataTransfer.files[0]);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      if (activeModule === "cars") {
+        simulateMultipleImageUpload(e.dataTransfer.files);
+      } else {
+        simulateImageUpload(e.dataTransfer.files[0]);
+      }
     }
   };
 
   const handleManualUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      simulateImageUpload(e.target.files[0]);
+    if (e.target.files && e.target.files.length > 0) {
+      if (activeModule === "cars") {
+        simulateMultipleImageUpload(e.target.files);
+      } else {
+        simulateImageUpload(e.target.files[0]);
+      }
     }
   };
 
@@ -1519,7 +1589,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 
                 {Object.keys(formData).map((key) => {
-                  if (key === "id" || key === "created_at" || key === "image_url" || key === "logo_url" || key === "logo" || key === "photo") return null;
+                  if (key === "id" || key === "created_at" || key === "image_url" || key === "logo_url" || key === "logo" || key === "photo" || key === "images") return null;
                   
                   const value = formData[key];
                   const label = key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
@@ -1560,38 +1630,185 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
 
               {/* Dynamic Image Upload for Catalog record / vehicle / testimonial */}
               {(formData.image_url !== undefined || formData.logo_url !== undefined || formData.photo !== undefined) && (
-                <div className="space-y-2 pt-2 border-t border-slate-50">
-                  <label className="block text-[10px] font-black uppercase text-slate-400">Record Graphic / Image Attachment (Supabase Storage)</label>
-                  <div 
-                    onDragOver={handleDragOver}
-                    onDrop={handleDropUpload}
-                    className="border-2 border-dashed border-slate-200 hover:border-[#2E7D32] rounded-2xl p-6 text-center cursor-pointer bg-[#FAF9F6] transition-all space-y-2"
-                  >
-                    <Upload className="h-8 w-8 text-slate-400 mx-auto" />
-                    {isUploading ? (
-                      <div className="space-y-1.5 max-w-xs mx-auto">
-                        <p className="text-[10px] font-black text-[#2E7D32]">Uploading asset: {uploadProgress}%</p>
-                        <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                          <div style={{ width: `${uploadProgress}%` }} className="h-full bg-[#2E7D32] transition-all" />
+                <div className="space-y-4 pt-4 border-t border-slate-100">
+                  {activeModule === "cars" ? (
+                    // Premium Multi-Photo upload for Cars
+                    <div className="space-y-3 text-left">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <label className="block text-xs font-black uppercase tracking-wider text-slate-800">
+                            Pro Vehicle Photo Gallery ({Array.isArray(formData.images) ? formData.images.length : 0} of 15)
+                          </label>
+                          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                            Upload up to 15 photos in a single selection. The first photo will be primary.
+                          </p>
                         </div>
+                        {Array.isArray(formData.images) && formData.images.length > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setFormData((prev: any) => ({
+                                ...prev,
+                                images: [],
+                                image_url: "🚙"
+                              }));
+                            }}
+                            className="text-[10px] text-red-600 hover:text-red-700 font-black uppercase tracking-wider flex items-center gap-1 cursor-pointer"
+                          >
+                            <Trash2 className="h-3 w-3" /> Clear All
+                          </button>
+                        )}
                       </div>
-                    ) : (
-                      <div>
-                        <p className="text-[11px] font-black text-slate-800">Drag & Drop visual asset here</p>
-                        <p className="text-[9px] text-slate-400 mt-0.5">Automagically links generated asset URL to form parameters</p>
+
+                      {/* Dropzone */}
+                      {(!Array.isArray(formData.images) || formData.images.length < 15) && (
+                        <div 
+                          onDragOver={handleDragOver}
+                          onDrop={handleDropUpload}
+                          className="border-2 border-dashed border-slate-200 hover:border-[#2E7D32] rounded-2xl p-6 text-center cursor-pointer bg-[#FAF9F6] transition-all space-y-2 relative"
+                        >
+                          <Upload className="h-8 w-8 text-slate-400 mx-auto" />
+                          {isUploading ? (
+                            <div className="space-y-1.5 max-w-xs mx-auto">
+                              <p className="text-[10px] font-black text-[#2E7D32]">{multiUploadStatus || `Uploading assets: ${uploadProgress}%`}</p>
+                              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div style={{ width: `${uploadProgress}%` }} className="h-full bg-[#2E7D32] transition-all" />
+                              </div>
+                            </div>
+                          ) : (
+                            <div>
+                              <p className="text-[11px] font-black text-slate-800">Drag & Drop multiple files here</p>
+                              <p className="text-[9px] text-slate-400 mt-0.5">Accepts up to 15 files in one selection</p>
+                            </div>
+                          )}
+                          <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={handleManualUpload} 
+                            className="hidden" 
+                            id="record-media-file"
+                            multiple
+                          />
+                          <label htmlFor="record-media-file" className="inline-block bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-[10px] font-black uppercase px-4 py-2 rounded-xl cursor-pointer shadow-xs">
+                            Select Photos (Max 15)
+                          </label>
+                        </div>
+                      )}
+
+                      {/* Thumbnail Grid */}
+                      {Array.isArray(formData.images) && formData.images.length > 0 && (
+                        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
+                          {formData.images.map((url: string, index: number) => {
+                            const isPrimary = index === 0;
+                            return (
+                              <div 
+                                key={url + index} 
+                                className={`group relative rounded-xl overflow-hidden border-2 bg-slate-50 transition-all ${
+                                  isPrimary ? "border-[#2E7D32] ring-2 ring-[#2E7D32]/10" : "border-slate-200 hover:border-slate-300"
+                                }`}
+                              >
+                                <img 
+                                  src={url} 
+                                  alt={`Vehicle angle ${index + 1}`} 
+                                  className="w-full h-20 object-cover" 
+                                  referrerPolicy="no-referrer"
+                                />
+                                
+                                {/* Image Overlay Badges */}
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-1.5">
+                                  <div className="flex justify-between items-start">
+                                    <span className="bg-slate-900/80 text-white font-mono text-[8px] px-1 rounded-sm">
+                                      #{index + 1}
+                                    </span>
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setFormData((prev: any) => {
+                                          const nextImages = prev.images.filter((_: any, idx: number) => idx !== index);
+                                          return {
+                                            ...prev,
+                                            images: nextImages,
+                                            image_url: nextImages[0] || "🚙"
+                                          };
+                                        });
+                                      }}
+                                      className="p-1 bg-red-600 hover:bg-red-700 rounded text-white cursor-pointer"
+                                    >
+                                      <Trash2 className="h-3 w-3" />
+                                    </button>
+                                  </div>
+                                  
+                                  {!isPrimary && (
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setFormData((prev: any) => {
+                                          const nextImages = [...prev.images];
+                                          const [selected] = nextImages.splice(index, 1);
+                                          nextImages.unshift(selected);
+                                          return {
+                                            ...prev,
+                                            images: nextImages,
+                                            image_url: selected
+                                          };
+                                        });
+                                        toast.success("Primary photo updated successfully!");
+                                      }}
+                                      className="w-full py-0.5 bg-[#2E7D32]/90 hover:bg-[#2E7D32] text-white text-[8px] font-black uppercase rounded text-center cursor-pointer"
+                                    >
+                                      Make Primary
+                                    </button>
+                                  )}
+                                </div>
+
+                                {/* Persistent Primary Indicator */}
+                                {isPrimary && (
+                                  <div className="absolute bottom-1 left-1 bg-[#2E7D32] text-white text-[8px] font-black uppercase px-1 rounded flex items-center gap-0.5 shadow-sm">
+                                    <Star className="h-2 w-2 fill-white" /> Primary
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    // Default Single image upload
+                    <div className="space-y-2 text-left">
+                      <label className="block text-[10px] font-black uppercase text-slate-400">Record Graphic / Image Attachment (Supabase Storage)</label>
+                      <div 
+                        onDragOver={handleDragOver}
+                        onDrop={handleDropUpload}
+                        className="border-2 border-dashed border-slate-200 hover:border-[#2E7D32] rounded-2xl p-6 text-center cursor-pointer bg-[#FAF9F6] transition-all space-y-2"
+                      >
+                        <Upload className="h-8 w-8 text-slate-400 mx-auto" />
+                        {isUploading ? (
+                          <div className="space-y-1.5 max-w-xs mx-auto">
+                            <p className="text-[10px] font-black text-[#2E7D32]">Uploading asset: {uploadProgress}%</p>
+                            <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                              <div style={{ width: `${uploadProgress}%` }} className="h-full bg-[#2E7D32] transition-all" />
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <p className="text-[11px] font-black text-slate-800">Drag & Drop visual asset here</p>
+                            <p className="text-[9px] text-slate-400 mt-0.5">Automagically links generated asset URL to form parameters</p>
+                          </div>
+                        )}
+                        <input 
+                          type="file" 
+                          accept="image/*" 
+                          onChange={handleManualUpload} 
+                          className="hidden" 
+                          id="record-media-file"
+                        />
+                        <label htmlFor="record-media-file" className="inline-block bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-[10px] font-black uppercase px-4 py-2 rounded-xl cursor-pointer shadow-xs">
+                          Select Media File
+                        </label>
                       </div>
-                    )}
-                    <input 
-                      type="file" 
-                      accept="image/*" 
-                      onChange={handleManualUpload} 
-                      className="hidden" 
-                      id="record-media-file"
-                    />
-                    <label htmlFor="record-media-file" className="inline-block bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-[10px] font-black uppercase px-4 py-2 rounded-xl cursor-pointer shadow-xs">
-                      Select Media File
-                    </label>
-                  </div>
+                    </div>
+                  )}
                 </div>
               )}
 

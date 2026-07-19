@@ -46,6 +46,27 @@ const getCarAngleImages = (car: Car) => {
   ];
 };
 
+const getCarPhotos = (car: Car) => {
+  if (Array.isArray(car.images) && car.images.length > 0) {
+    return car.images.map((url, idx) => ({
+      url,
+      title: idx === 0 ? "Featured Profile" : `Detail Angle #${idx + 1}`,
+      text: `${car.brand} ${car.model} — Cinematic view #${idx + 1}`
+    }));
+  }
+  const hasRealImgUrl = car.image_url && (car.image_url.startsWith("http") || car.image_url.startsWith("/"));
+  if (hasRealImgUrl) {
+    return [
+      {
+        url: car.image_url,
+        title: "Primary Profile View",
+        text: `${car.brand} ${car.model} — Exterior cinematic presentation`
+      }
+    ];
+  }
+  return null;
+};
+
 export function CarCard({
   car,
   isSaved = false,
@@ -54,7 +75,7 @@ export function CarCard({
   isListView = false,
 }: CarCardProps) {
   const [activeImageIndex, setActiveImageIndex] = React.useState(0);
-  const angles = getCarAngleImages(car);
+  const angles = (getCarPhotos(car) || getCarAngleImages(car)) as Array<{ title: string; text: string; url?: string; bgClass?: string }>;
 
   const handleNextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -102,10 +123,17 @@ export function CarCard({
         isListView ? "w-full md:w-2/5 min-h-[220px]" : "w-full h-60"
       )}>
         {/* Dynamic Angle Gradient Background */}
-        <div className={cn(
-          "w-full h-full flex flex-col justify-between p-5 text-white transition-all duration-500",
-          angles[activeImageIndex].bgClass
-        )}>
+        <div 
+          className={cn(
+            "w-full h-full flex flex-col justify-between p-5 text-white transition-all duration-500",
+            !angles[activeImageIndex].url && angles[activeImageIndex].bgClass
+          )}
+          style={angles[activeImageIndex].url ? {
+            backgroundImage: `url(${angles[activeImageIndex].url})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center"
+          } : undefined}
+        >
           {/* Top Bar inside Gallery */}
           <div className="flex items-center justify-between z-10">
             {car.certified && (
@@ -131,13 +159,15 @@ export function CarCard({
           </div>
 
           {/* Aesthetic Mock Vector Vehicle Silhouette Overlay */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-15 pointer-events-none p-8 select-none">
-            <svg viewBox="0 0 100 50" className="w-10/12 text-white fill-current">
-              <path d="M15 35 L12 35 C10 35 8 33 8 31 L8 25 C8 22 10 20 12 18 L25 10 C28 8 32 7 35 7 L65 7 C69 7 73 9 75 12 L85 22 C88 24 90 27 90 31 L90 35 C88 35 86 35 85 35 C82 32 78 32 75 35 C72 38 75 42 78 42 C81 42 84 39 85 37 L90 37 L92 37 C94 37 95 36 95 34 L95 28 C95 24 93 21 90 19 L82 10 C79 6 74 4 69 4 L31 4 C26 4 21 6 18 10 L8 21 C6 23 5 26 5 29 L5 34 C5 36 6 37 8 37 L15 37 C16 39 19 42 22 42 C25 42 28 38 25 35 Z" />
-              <circle cx="22" cy="35" r="5" />
-              <circle cx="78" cy="35" r="5" />
-            </svg>
-          </div>
+          {!angles[activeImageIndex].url && (
+            <div className="absolute inset-0 flex items-center justify-center opacity-15 pointer-events-none p-8 select-none">
+              <svg viewBox="0 0 100 50" className="w-10/12 text-white fill-current">
+                <path d="M15 35 L12 35 C10 35 8 33 8 31 L8 25 C8 22 10 20 12 18 L25 10 C28 8 32 7 35 7 L65 7 C69 7 73 9 75 12 L85 22 C88 24 90 27 90 31 L90 35 C88 35 86 35 85 35 C82 32 78 32 75 35 C72 38 75 42 78 42 C81 42 84 39 85 37 L90 37 L92 37 C94 37 95 36 95 34 L95 28 C95 24 93 21 90 19 L82 10 C79 6 74 4 69 4 L31 4 C26 4 21 6 18 10 L8 21 C6 23 5 26 5 29 L5 34 C5 36 6 37 8 37 L15 37 C16 39 19 42 22 42 C25 42 28 38 25 35 Z" />
+                <circle cx="22" cy="35" r="5" />
+                <circle cx="78" cy="35" r="5" />
+              </svg>
+            </div>
+          )}
 
           {/* Label indicating Angle */}
           <div className="z-10 mt-auto text-left bg-black/20 p-2 rounded-xl backdrop-blur-xs border border-white/5">
