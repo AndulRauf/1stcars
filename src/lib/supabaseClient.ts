@@ -316,9 +316,9 @@ class SupabaseMockClient {
     },
 
     signInWithPassword: async ({ email }: any) => {
-      const emailLower = email.toLowerCase();
+      const query = email.toLowerCase();
       const profiles = this.getStorage<any>("1stcars_sb_profiles", this.getInitialData("profiles"));
-      const user = profiles.find((p) => p.email.toLowerCase() === emailLower);
+      const user = profiles.find((p) => p.email.toLowerCase() === query || p.mobile === query);
 
       if (user) {
         const session = { access_token: `mock-jwt-${user.id}`, user };
