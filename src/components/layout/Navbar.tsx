@@ -8,7 +8,7 @@ interface NavbarProps {
   onSavedClick?: () => void;
   onAuthClick?: (mode: "login" | "register") => void;
   onSearchClick?: () => void;
-  currentView?: "home" | "buy_cars" | "car_details" | "sales_dashboard" | "sell_car" | "role_dashboards";
+  currentView?: "home" | "buy_cars" | "car_details" | "sales_dashboard" | "sell_car" | "role_dashboards" | "firstmark_certification";
   onViewChange?: (view: any, carId?: string) => void;
   currentUser?: any;
   onLogout?: () => void;
@@ -80,13 +80,14 @@ export function Navbar({
 
   const navLinks: {
     label: string;
-    view: "home" | "buy_cars" | "car_details" | "sales_dashboard" | "sell_car" | "role_dashboards";
+    view: "home" | "buy_cars" | "car_details" | "sales_dashboard" | "sell_car" | "role_dashboards" | "firstmark_certification";
     href: string;
     isSpecial?: boolean;
     requiresAuth?: boolean;
   }[] = [
     { label: "Buy Cars", view: "buy_cars" as const, href: "#buy-cars" },
     { label: "Sell Car", view: "sell_car" as const, href: "#sell-car" },
+    { label: "1stMark Certification", view: "firstmark_certification" as const, href: "#firstmark-certification" },
   ];
 
   const handleLinkClick = (e: React.MouseEvent, view: any, href: string) => {

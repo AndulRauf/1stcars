@@ -53,6 +53,7 @@ import { AuthModal } from "@/src/components/AuthModal";
 import { SellCarView } from "@/src/components/SellCarView";
 import { RoleDashboards } from "@/src/components/RoleDashboards";
 import { Error404Page, Error500Page } from "@/src/components/ErrorPages";
+import { FirstMarkCertification } from "@/src/components/FirstMarkCertification";
 import { supabase } from "@/src/lib/supabaseClient";
 
 export default function App() {
@@ -517,6 +518,17 @@ export default function App() {
             </Button>
           </div>
         )
+      ) : currentView === "firstmark_certification" ? (
+        <FirstMarkCertification
+          onBackToHome={() => {
+            setCurrentView("home");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          onNavigateToInventory={() => {
+            setCurrentView("buy_cars");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        />
       ) : currentView === "error_404" ? (
         <Error404Page onGoHome={() => { setCurrentView("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
       ) : currentView === "error_500" ? (
@@ -1162,6 +1174,17 @@ export default function App() {
                   <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Mechanical & Powertrain OK</div>
                   <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Diagnostic Scan Clearance</div>
                   <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Exterior Refinement Certified</div>
+                </div>
+                <div className="pt-4 mt-2 border-t border-slate-100 flex">
+                  <button
+                    onClick={() => {
+                      setCurrentView("firstmark_certification");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="text-[#2E7D32] hover:text-[#25632a] text-xs font-black uppercase tracking-widest flex items-center gap-1 cursor-pointer"
+                  >
+                    View Certification Process <ArrowRight className="h-3.5 w-3.5" />
+                  </button>
                 </div>
               </div>
             </Card>
