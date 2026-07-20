@@ -2,7 +2,8 @@ import * as React from "react";
 import { 
   Car, ShieldCheck, Clock, Calendar, CheckCircle2, 
   Sparkles, ShieldAlert, ChevronRight, User, Phone, 
-  MapPin, HelpCircle, FileText, ArrowRight, ClipboardCheck 
+  MapPin, HelpCircle, FileText, ArrowRight, ClipboardCheck,
+  Search, ArrowLeft
 } from "lucide-react";
 import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
@@ -15,112 +16,292 @@ interface SellCarViewProps {
   onBackToHome: () => void;
 }
 
-export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarViewProps) {
-  // Form State
-  const [formData, setFormData] = React.useState({
-    name: "",
-    mobile: "",
-    regNumber: "",
-    brand: "",
-    model: "",
-    variant: "",
-    fuel: "Petrol",
-    transmission: "Automatic",
-    year: new Date().getFullYear() - 3,
-    kmDriven: "",
-    city: "Mumbai",
-    address: "",
-    preferredDate: "",
-    preferredTime: "10:00 AM - 12:00 PM"
-  });
+// Extensive brand model database for interactive auto-suggestions
+const brandData: {
+  [brand: string]: {
+    models: {
+      name: string;
+      category: string;
+      years: string;
+      image: string;
+      variants: string[];
+    }[];
+  };
+} = {
+  "Hyundai": {
+    models: [
+      { name: "Getz", category: "Hatchback", years: "2004 - 2010", image: "🚗", variants: ["GL", "GLE", "GLS", "Sportz"] },
+      { name: "Creta", category: "SUV", years: "2015 - Now", image: "🚗", variants: ["E", "EX", "S", "SX", "SX(O)"] },
+      { name: "i20", category: "Hatchback", years: "2008 - Now", image: "🚗", variants: ["Magna", "Sportz", "Asta", "Asta (O)"] },
+      { name: "i10", category: "Hatchback", years: "2007 - 2016", image: "🚗", variants: ["Era", "Magna", "Sportz", "Asta"] },
+      { name: "Santro", category: "Hatchback", years: "1998 - 2014", image: "🚗", variants: ["Era", "Magna", "Sportz", "Asta"] },
+      { name: "Verna", category: "Sedan", years: "2006 - Now", image: "🚗", variants: ["EX", "S", "SX", "SX(O)"] },
+      { name: "Accent", category: "Sedan", years: "1999 - 2013", image: "🚗", variants: ["Executive", "GLE", "GVS"] },
+      { name: "Sonata", category: "Sedan", years: "2001 - 2014", image: "🚗", variants: ["2.4 GDI", "2.0 CRDi"] },
+      { name: "Venue", category: "SUV", years: "2019 - Now", image: "🚗", variants: ["E", "S", "SX", "SX(O)"] }
+    ]
+  },
+  "Maruti Suzuki": {
+    models: [
+      { name: "Swift", category: "Hatchback", years: "2005 - Now", image: "🚗", variants: ["LXI", "VXI", "ZXI", "ZXI+"] },
+      { name: "Baleno", category: "Hatchback", years: "2015 - Now", image: "🚗", variants: ["Sigma", "Delta", "Zeta", "Alpha"] },
+      { name: "Wagon R", category: "Hatchback", years: "1999 - Now", image: "🚗", variants: ["LXI", "VXI", "ZXI", "ZXI+"] },
+      { name: "Alto 800", category: "Hatchback", years: "2012 - 2023", image: "🚗", variants: ["Std", "LXI", "VXI", "VXI+"] },
+      { name: "Brezza", category: "SUV", years: "2016 - Now", image: "🚗", variants: ["LXI", "VXI", "ZXI", "ZXI+"] },
+      { name: "Ertiga", category: "MUV", years: "2012 - Now", image: "🚗", variants: ["LXI", "VXI", "ZXI", "ZXI+"] },
+      { name: "Dzire", category: "Sedan", years: "2008 - Now", image: "🚗", variants: ["LXI", "VXI", "ZXI", "ZXI+"] }
+    ]
+  },
+  "Tata": {
+    models: [
+      { name: "Nexon", category: "SUV", years: "2017 - Now", image: "🚗", variants: ["XE", "XM", "XZ", "XZ+", "Fearless"] },
+      { name: "Punch", category: "SUV", years: "2021 - Now", image: "🚗", variants: ["Pure", "Adventure", "Accomplished", "Creative"] },
+      { name: "Altroz", category: "Hatchback", years: "2020 - Now", image: "🚗", variants: ["XE", "XM", "XT", "XZ", "XZ+"] },
+      { name: "Harrier", category: "SUV", years: "2019 - Now", image: "🚗", variants: ["XE", "XM", "XT", "XZ", "XZ+"] },
+      { name: "Safari", category: "SUV", years: "1998 - Now", image: "🚗", variants: ["XE", "XM", "XT", "XZ", "XZ+"] },
+      { name: "Tiago", category: "Hatchback", years: "2016 - Now", image: "🚗", variants: ["XE", "XM", "XT", "XZ", "XZ+"] }
+    ]
+  },
+  "Mahindra": {
+    models: [
+      { name: "Thar", category: "SUV", years: "2010 - Now", image: "🚗", variants: ["AX", "AX Opt", "LX"] },
+      { name: "XUV700", category: "SUV", years: "2021 - Now", image: "🚗", variants: ["MX", "AX3", "AX5", "AX7", "AX7 L"] },
+      { name: "Scorpio Classic", category: "SUV", years: "2002 - Now", image: "🚗", variants: ["S", "S11"] },
+      { name: "Scorpio-N", category: "SUV", years: "2022 - Now", image: "🚗", variants: ["Z2", "Z4", "Z6", "Z8", "Z8 L"] },
+      { name: "Bolero", category: "SUV", years: "2000 - Now", image: "🚗", variants: ["B4", "B6", "B6 Opt"] }
+    ]
+  },
+  "Honda": {
+    models: [
+      { name: "City", category: "Sedan", years: "1998 - Now", image: "🚗", variants: ["V", "VX", "ZX"] },
+      { name: "Amaze", category: "Sedan", years: "2013 - Now", image: "🚗", variants: ["E", "S", "VX"] },
+      { name: "Civic", category: "Sedan", years: "2006 - 2021", image: "🚗", variants: ["V", "VX", "ZX"] },
+      { name: "Jazz", category: "Hatchback", years: "2009 - 2022", image: "🚗", variants: ["V", "VX", "ZX"] }
+    ]
+  },
+  "Toyota": {
+    models: [
+      { name: "Fortuner", category: "SUV", years: "2009 - Now", image: "🚗", variants: ["Standard", "Legender", "GR Sport"] },
+      { name: "Innova Crysta", category: "MUV", years: "2005 - Now", image: "🚗", variants: ["G", "GX", "VX", "ZX"] },
+      { name: "Glanza", category: "Hatchback", years: "2019 - Now", image: "🚗", variants: ["E", "S", "G", "V"] },
+      { name: "Urban Cruiser", category: "SUV", years: "2020 - Now", image: "🚗", variants: ["Mid", "High", "Premium"] }
+    ]
+  }
+};
 
+// Gujarat RTO mapping GJ-1 to GJ-38 as requested by the user
+const gujaratRTOs = [
+  { code: "GJ-1", city: "Ahmedabad" },
+  { code: "GJ-2", city: "Mehsana" },
+  { code: "GJ-3", city: "Rajkot" },
+  { code: "GJ-4", city: "Bhavnagar" },
+  { code: "GJ-5", city: "Surat" },
+  { code: "GJ-6", city: "Vadodara" },
+  { code: "GJ-7", city: "Nadiad" },
+  { code: "GJ-8", city: "Palanpur" },
+  { code: "GJ-9", city: "Himmatnagar" },
+  { code: "GJ-10", city: "Jamnagar" },
+  { code: "GJ-11", city: "Junagadh" },
+  { code: "GJ-12", city: "Bhuj" },
+  { code: "GJ-13", city: "Surendranagar" },
+  { code: "GJ-14", city: "Amreli" },
+  { code: "GJ-15", city: "Valsad" },
+  { code: "GJ-16", city: "Bharuch" },
+  { code: "GJ-17", city: "Godhra" },
+  { code: "GJ-18", city: "Gandhinagar" },
+  { code: "GJ-19", city: "Bardoli" },
+  { code: "GJ-20", city: "Dahod" },
+  { code: "GJ-21", city: "Navsari" },
+  { code: "GJ-22", city: "Rajpipla" },
+  { code: "GJ-23", city: "Anand" },
+  { code: "GJ-24", city: "Patan" },
+  { code: "GJ-25", city: "Porbandar" },
+  { code: "GJ-26", city: "Vyara" },
+  { code: "GJ-27", city: "Ahmedabad East" },
+  { code: "GJ-28", city: "Morbi" },
+  { code: "GJ-29", city: "Dhrangadhra" },
+  { code: "GJ-30", city: "Waghai (Dang)" },
+  { code: "GJ-31", city: "Modasa" },
+  { code: "GJ-32", city: "Veraval" },
+  { code: "GJ-33", city: "Botad" },
+  { code: "GJ-34", city: "Chhota Udepur" },
+  { code: "GJ-35", city: "Lunawada" },
+  { code: "GJ-36", city: "Morbi Rural" },
+  { code: "GJ-37", city: "Khambhalia" },
+  { code: "GJ-38", city: "Bavla" }
+];
+
+export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarViewProps) {
+  // Stepper state
+  const [wizardStep, setWizardStep] = React.useState<number>(1);
   const [formStep, setFormStep] = React.useState<"form" | "success">("form");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [createdRequest, setCreatedRequest] = React.useState<any>(null);
 
-  // Autofill if logged in
+  // Search queries for each stage
+  const [brandSearch, setBrandSearch] = React.useState("");
+  const [modelSearch, setModelSearch] = React.useState("");
+  const [rtoSearch, setRtoSearch] = React.useState("");
+
+  // Complete list of brands for viewing all
+  const [showAllBrands, setShowAllBrands] = React.useState(false);
+
+  // Selected values
+  const [selectedBrand, setSelectedBrand] = React.useState("");
+  const [selectedModel, setSelectedModel] = React.useState("");
+  const [selectedYear, setSelectedYear] = React.useState<number>(2018);
+  const [selectedFuel, setSelectedFuel] = React.useState("Petrol");
+  const [selectedVariant, setSelectedVariant] = React.useState("Sportz");
+  const [selectedRTO, setSelectedRTO] = React.useState("");
+  const [selectedKMs, setSelectedKMs] = React.useState("30,000 - 40,000 Km");
+
+  // Contact details & Booking address
+  const [name, setName] = React.useState("");
+  const [mobile, setMobile] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const [preferredDate, setPreferredDate] = React.useState("");
+  const [preferredTime, setPreferredTime] = React.useState("10:00 AM - 12:00 PM");
+  const [customRegSuffix, setCustomRegSuffix] = React.useState("");
+
+  // Popular and luxury brands
+  const popularBrandsList = ["Hyundai", "Maruti Suzuki", "Tata", "Mahindra", "Honda", "Toyota", "Kia", "Renault", "Volkswagen", "Skoda", "Ford", "MG"];
+  const luxuryBrandsList = ["BMW", "Audi", "Mercedes-Benz", "Jaguar", "Land Rover", "Volvo", "Mini Cooper", "Jeep", "Nissan"];
+  const allBrands = [...popularBrandsList, ...luxuryBrandsList];
+
+  // Populate user data if logged in
   React.useEffect(() => {
     const fetchUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        setFormData(prev => ({
-          ...prev,
-          name: user.user_metadata?.name || user.email?.split("@")[0] || "",
-          mobile: user.user_metadata?.mobile || "",
-          city: user.user_metadata?.city || "Mumbai"
-        }));
+        setName(user.user_metadata?.name || user.email?.split("@")[0] || "");
+        setMobile(user.user_metadata?.mobile || "");
       }
     };
     fetchUser();
   }, []);
 
-  const handleInputChange = (field: string, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  // Filter lists based on search
+  const filteredBrands = allBrands.filter(b => 
+    b.toLowerCase().includes(brandSearch.toLowerCase())
+  );
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const brandModels = (selectedBrand && brandData[selectedBrand]) 
+    ? brandData[selectedBrand].models 
+    : [
+        { name: "Grand i10", category: "Hatchback", years: "2013-2020", image: "🚗", variants: ["Era", "Magna", "Sportz", "Asta"] },
+        { name: "Swift Dzire", category: "Sedan", years: "2008-Now", image: "🚗", variants: ["LXI", "VXI", "ZXI"] },
+        { name: "Polo", category: "Hatchback", years: "2010-2022", image: "🚗", variants: ["Trendline", "Comfortline", "Highline"] }
+      ];
+
+  const filteredModels = brandModels.filter(m => 
+    m.name.toLowerCase().includes(modelSearch.toLowerCase())
+  );
+
+  const filteredRTOs = gujaratRTOs.filter(r => 
+    r.code.toLowerCase().includes(rtoSearch.toLowerCase()) ||
+    r.city.toLowerCase().includes(rtoSearch.toLowerCase())
+  );
+
+  // Available Years
+  const yearsList: number[] = [];
+  for (let y = 2025; y >= 2005; y--) {
+    yearsList.push(y);
+  }
+
+  // KM ranges
+  const kmRanges = [
+    "0 - 10,000 Km",
+    "10,000 - 20,000 Km",
+    "20,000 - 30,000 Km",
+    "30,000 - 40,000 Km",
+    "40,000 - 50,000 Km",
+    "50,000 - 60,000 Km",
+    "60,000 - 70,000 Km",
+    "70,000 - 80,000 Km",
+    "80,000 - 90,000 Km",
+    "90,000 - 1,00,000 Km",
+    "1,00,000 - 1,25,000 Km",
+    "1,25,000 - 1,50,000 Km",
+    "1,50,000 - 1,75,000 Km",
+    "1,75,000 - 2,00,000 Km",
+    "2,00,000+ Km"
+  ];
+
+  // Submit flow
+  const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.mobile || !formData.regNumber || !formData.brand || !formData.model || !formData.kmDriven || !formData.address || !formData.preferredDate) {
-      toast.error("Please fill out all required fields to schedule your inspection.");
+    if (!name || !mobile || !address || !preferredDate) {
+      toast.error("Please fill out your contact details, doorstep address, and preferred date.");
       return;
     }
 
     setIsSubmitting(true);
 
     const { data: { user } } = await supabase.auth.getUser();
+    
+    // Construct real registration number
+    const regSfx = customRegSuffix.trim() ? `-${customRegSuffix.toUpperCase()}` : "-AB-1234";
+    const computedReg = `${selectedRTO}${regSfx}`;
+    
+    // Find RTO city name
+    const rtoDetails = gujaratRTOs.find(r => r.code === selectedRTO);
+    const resolvedCity = rtoDetails ? rtoDetails.city : "Gujarat";
+
+    // Parse KM driven value
+    const match = selectedKMs.match(/[\d,]+/);
+    const computedKms = match ? Number(match[0].replace(/,/g, "")) : 35000;
+
     const inspectionRecord = {
       seller_id: user ? user.id : "u-seller",
-      seller_name: formData.name,
-      seller_mobile: formData.mobile,
-      reg_number: formData.regNumber.toUpperCase(),
-      brand: formData.brand,
-      model: formData.model,
-      variant: formData.variant || "Standard",
-      fuel: formData.fuel,
-      transmission: formData.transmission,
-      year: Number(formData.year),
-      km_driven: Number(formData.kmDriven),
-      city: formData.city,
-      address: formData.address,
-      preferred_date: formData.preferredDate,
-      preferred_time: formData.preferredTime,
+      seller_name: name,
+      seller_mobile: mobile,
+      reg_number: computedReg,
+      brand: selectedBrand,
+      model: selectedModel,
+      variant: selectedVariant || "Standard",
+      fuel: selectedFuel,
+      transmission: "Manual",
+      year: Number(selectedYear),
+      km_driven: computedKms,
+      city: resolvedCity,
+      address: address,
+      preferred_date: preferredDate,
+      preferred_time: preferredTime,
       status: "pending" as const,
-      notes: "Newly requested inspection from Spinny sell car flow."
+      notes: "Newly requested inspection from modern Gujarat Sell Car flow."
     };
 
     try {
-      // Create inspection request in Supabase
       const { data, error } = await supabase.from("inspections").insert([inspectionRecord]);
       const inserted = data && Array.isArray(data) ? data[0] : (data || inspectionRecord);
       setCreatedRequest(inserted);
 
-      // Trigger Notification Rule 1: Seller submits inspection → Notify Inspector.
+      // Trigger Notification
       await notificationService.triggerInspectionSubmitted({
         id: inserted.id || "insp-temp-id",
-        sellerName: formData.name,
-        brand: formData.brand,
-        model: formData.model,
-        city: formData.city,
-        preferred_date: formData.preferredDate
+        sellerName: name,
+        brand: selectedBrand,
+        model: selectedModel,
+        city: resolvedCity,
+        preferred_date: preferredDate
       });
 
       setFormStep("success");
+      toast.success("Inspection scheduled successfully!");
     } catch (error) {
       console.error("Error creating inspection request:", error);
+      toast.error("Failed to register your details. Please check form constraints.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const steps = [
-    { title: "1. Details & Booking", desc: "Share details & select appointment date" },
-    { title: "2. Free Inspection", desc: "Expert inspection at your doorstep" },
-    { title: "3. Dealer Auction Bidding", desc: "We host competitive live dealer auctions" },
-    { title: "4. Best Price & Payment", desc: "Approve premium offer & get instant payment" }
-  ];
-
-  const popularBrands = ["Maruti Suzuki", "Hyundai", "Honda", "Toyota", "Tata", "Mahindra", "BMW", "Audi", "Mercedes-Benz"];
-  const popularCities = ["Mumbai", "Delhi NCR", "Bangalore", "Pune", "Hyderabad", "Chennai", "Kolkata"];
+  // Skip or go directly to step
+  const handleJumpToStep = (step: number) => {
+    if (step < wizardStep) {
+      setWizardStep(step);
+    }
+  };
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen pt-28 pb-20 text-left">
@@ -152,228 +333,604 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
             {formStep === "form" ? (
               <div className="bg-white border border-[#2E7D32]/10 rounded-3xl p-6 md:p-8 shadow-sm">
                 
-                <div className="flex items-center gap-3 mb-8 border-b border-slate-100 pb-5">
-                  <div className="h-10 w-10 bg-[#2E7D32]/10 rounded-xl flex items-center justify-center text-[#2E7D32]">
-                    <Car className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h2 className="font-black text-xl text-slate-900 tracking-tight">Schedule Your Free Doorstep Inspection</h2>
-                    <p className="text-xs text-slate-400 mt-0.5">Please share accurate details. We do not provide public estimates to secure the highest custom bidding prices from premium dealers.</p>
-                  </div>
+                {/* Header */}
+                <div className="mb-6">
+                  <h2 className="text-2xl font-black text-slate-950 tracking-tight leading-tight">
+                    Get Your Car Valued
+                  </h2>
+                  <p className="text-xs text-slate-500 font-medium">
+                    Fill in your car details and we'll get back to you with a competitive cash quote
+                  </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  
-                  {/* Section 1: Customer Info */}
-                  <div className="space-y-4">
-                    <h3 className="text-xs font-black uppercase tracking-widest text-[#2E7D32] flex items-center gap-2">
-                      <User className="h-4 w-4" /> 1. Contact Information
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Full Name *</label>
+                {/* Stepper Navigation Pills with horizontal scrolling */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-3 -mx-2 px-2 scrollbar-none mb-4">
+                  {[
+                    { step: 1, label: selectedBrand ? `✔ ${selectedBrand}` : "1 Brand" },
+                    { step: 2, label: selectedModel ? `✔ ${selectedModel}` : "2 Model" },
+                    { step: 3, label: selectedBrand && selectedModel ? `✔ ${selectedYear}` : "3 Year" },
+                    { step: 4, label: selectedBrand && selectedModel ? `✔ ${selectedFuel}` : "4 Fuel" },
+                    { step: 5, label: selectedBrand && selectedModel ? `✔ ${selectedVariant}` : "5 Variant" },
+                    { step: 6, label: selectedRTO ? `✔ ${selectedRTO}` : "6 RTO" },
+                    { step: 7, label: selectedBrand && selectedModel && selectedRTO ? `✔ KMs` : "7 KMs" },
+                    { step: 8, label: "8 Verify" }
+                  ].map((item) => {
+                    const isCompleted = wizardStep > item.step;
+                    const isActive = wizardStep === item.step;
+                    return (
+                      <button
+                        key={item.step}
+                        type="button"
+                        onClick={() => handleJumpToStep(item.step)}
+                        disabled={!isCompleted}
+                        className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap shrink-0 border ${
+                          isCompleted
+                            ? "bg-emerald-50 border-emerald-200 text-[#2E7D32] cursor-pointer hover:bg-emerald-100"
+                            : isActive
+                              ? "bg-[#2E7D32] border-[#2E7D32] text-white font-black"
+                              : "bg-slate-50 border-slate-200 text-slate-400 cursor-not-allowed"
+                        }`}
+                      >
+                        {item.label}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Progress Bar */}
+                <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden mb-8">
+                  <div 
+                    className="h-full bg-[#2E7D32] transition-all duration-300 ease-out"
+                    style={{ width: `${(wizardStep / 8) * 100}%` }}
+                  />
+                </div>
+
+                {/* STEP 1: SELECT BRAND */}
+                {wizardStep === 1 && (
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Which brand is your car?</h3>
+                      <p className="text-xs text-slate-400 font-semibold">Pick your car brand to get started</p>
+                    </div>
+
+                    {/* Search field */}
+                    <div className="relative">
+                      <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
+                      <Input
+                        placeholder="Search brand"
+                        value={brandSearch}
+                        onChange={(e) => setBrandSearch(e.target.value)}
+                        className="h-12 rounded-xl pl-10 border-slate-200 focus:border-[#2E7D32] text-sm"
+                      />
+                    </div>
+
+                    {/* Grid of brand tiles */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                      {(showAllBrands ? filteredBrands : filteredBrands.slice(0, 8)).map((b) => {
+                        const isSelected = selectedBrand === b;
+                        return (
+                          <button
+                            key={b}
+                            type="button"
+                            onClick={() => {
+                              setSelectedBrand(b);
+                              setSelectedModel("");
+                              setWizardStep(2);
+                            }}
+                            className={`p-4 rounded-2xl border text-center transition-all ${
+                              isSelected
+                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32] shadow-sm"
+                                : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
+                            }`}
+                          >
+                            <div className="text-xl font-bold uppercase tracking-tight">{b.substring(0, 2)}</div>
+                            <div className="text-xs font-bold mt-1.5 leading-tight">{b}</div>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {!showAllBrands && filteredBrands.length > 8 && (
+                      <button
+                        type="button"
+                        onClick={() => setShowAllBrands(true)}
+                        className="w-full py-3 text-xs font-black uppercase tracking-widest text-[#2E7D32] bg-emerald-50 hover:bg-emerald-100 rounded-xl transition-colors"
+                      >
+                        View all brands
+                      </button>
+                    )}
+
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs text-slate-400 font-bold">
+                      <div>Step 1 of 8</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 2: SELECT MODEL */}
+                {wizardStep === 2 && (
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
+                        <span>Selected Brand:</span>
+                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand}</span>
+                      </div>
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Which model?</h3>
+                      <p className="text-xs text-slate-400 font-semibold">Select your car's model from the list</p>
+                    </div>
+
+                    {/* Search field */}
+                    <div className="relative">
+                      <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
+                      <Input
+                        placeholder="Search model"
+                        value={modelSearch}
+                        onChange={(e) => setModelSearch(e.target.value)}
+                        className="h-12 rounded-xl pl-10 border-slate-200 focus:border-[#2E7D32] text-sm"
+                      />
+                    </div>
+
+                    {/* Grid of models */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {filteredModels.map((m) => {
+                        const isSelected = selectedModel === m.name;
+                        return (
+                          <button
+                            key={m.name}
+                            type="button"
+                            onClick={() => {
+                              setSelectedModel(m.name);
+                              // Auto-suggest variants based on selected model
+                              if (m.variants && m.variants.length > 0) {
+                                setSelectedVariant(m.variants[0]);
+                              }
+                              setWizardStep(3);
+                            }}
+                            className={`p-4 rounded-2xl border text-left flex items-center justify-between transition-all ${
+                              isSelected
+                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32] shadow-sm"
+                                : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
+                            }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <span className="text-2xl">{m.image}</span>
+                              <div>
+                                <h4 className="font-bold text-xs text-slate-900 leading-tight">{m.name}</h4>
+                                <p className="text-[10px] text-slate-400 mt-0.5 leading-none font-bold">
+                                  {m.category} · {m.years}
+                                </p>
+                              </div>
+                            </div>
+                            <ChevronRight className="h-4 w-4 text-slate-400" />
+                          </button>
+                        );
+                      })}
+
+                      {/* Custom fallback model option if search yields nothing */}
+                      {filteredModels.length === 0 && (
+                        <div className="col-span-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-center space-y-3">
+                          <p className="text-xs text-slate-500 font-bold">Could not find model matching "{modelSearch}"</p>
+                          <Button
+                            type="button"
+                            onClick={() => {
+                              setSelectedModel(modelSearch || "Other");
+                              setWizardStep(3);
+                            }}
+                            className="bg-[#2E7D32] text-white text-xs font-bold px-4 py-2 rounded-xl"
+                          >
+                            Add custom model "{modelSearch || "Other"}"
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setWizardStep(1)}
+                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
+                      >
+                        <ArrowLeft className="h-3.5 w-3.5" /> Back
+                      </button>
+                      <div className="text-slate-400">Step 2 of 8</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 3: SELECT YEAR */}
+                {wizardStep === 3 && (
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
+                        <span>Selected Car:</span>
+                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel}</span>
+                      </div>
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Which year is your car?</h3>
+                      <p className="text-xs text-slate-400 font-semibold">Select manufacturing year on RC plate</p>
+                    </div>
+
+                    {/* Grid of years */}
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                      {yearsList.map((y) => {
+                        const isSelected = selectedYear === y;
+                        return (
+                          <button
+                            key={y}
+                            type="button;}"
+                            onClick={() => {
+                              setSelectedYear(y);
+                              setWizardStep(4);
+                            }}
+                            className={`p-3.5 rounded-xl border text-center text-xs font-black transition-all ${
+                              isSelected
+                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32]"
+                                : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
+                            }`}
+                          >
+                            {y}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setWizardStep(2)}
+                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
+                      >
+                        <ArrowLeft className="h-3.5 w-3.5" /> Back
+                      </button>
+                      <div className="text-slate-400">Step 3 of 8</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 4: SELECT FUEL */}
+                {wizardStep === 4 && (
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
+                        <span>Selected Car:</span>
+                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} ({selectedYear})</span>
+                      </div>
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Fuel type</h3>
+                      <p className="text-xs text-slate-400 font-semibold">Specify the primary propulsion fuel</p>
+                    </div>
+
+                    {/* Grid of Fuel Types */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {["Petrol", "Diesel", "CNG", "Electric", "Hybrid"].map((f) => {
+                        const isSelected = selectedFuel === f;
+                        return (
+                          <button
+                            key={f}
+                            type="button"
+                            onClick={() => {
+                              setSelectedFuel(f);
+                              setWizardStep(5);
+                            }}
+                            className={`p-4 rounded-2xl border text-left flex items-center justify-between transition-all ${
+                              isSelected
+                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32]"
+                                : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
+                            }`}
+                          >
+                            <span className="text-xs font-black">{f}</span>
+                            <ChevronRight className="h-4 w-4 text-slate-400" />
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setWizardStep(3)}
+                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
+                      >
+                        <ArrowLeft className="h-3.5 w-3.5" /> Back
+                      </button>
+                      <div className="text-slate-400">Step 4 of 8</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 5: SELECT VARIANT */}
+                {wizardStep === 5 && (
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
+                        <span>Selected Car:</span>
+                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} ({selectedYear} · {selectedFuel})</span>
+                      </div>
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Pick your variant</h3>
+                      <p className="text-xs text-slate-400 font-semibold">Select trim level / variant standard</p>
+                    </div>
+
+                    {/* Variant Options */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {(() => {
+                        // Find model variants in DB
+                        const matchingModel = (brandData[selectedBrand]?.models || []).find(m => m.name === selectedModel);
+                        const list = matchingModel?.variants || ["Sportz", "Magna", "Asta", "Standard", "LXI", "VXI", "ZXI"];
+                        return list.map((v) => {
+                          const isSelected = selectedVariant === v;
+                          return (
+                            <button
+                              key={v}
+                              type="button"
+                              onClick={() => {
+                                setSelectedVariant(v);
+                                setWizardStep(6);
+                              }}
+                              className={`p-4 rounded-2xl border text-left flex items-center justify-between transition-all ${
+                                isSelected
+                                  ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32]"
+                                  : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
+                              }`}
+                            >
+                              <span className="text-xs font-black">{v}</span>
+                              <ChevronRight className="h-4 w-4 text-slate-400" />
+                            </button>
+                          );
+                        });
+                      })()}
+                    </div>
+
+                    {/* Custom variant fallback input */}
+                    <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
+                      <label className="block text-[11px] font-black uppercase text-slate-500 tracking-wider mb-2">
+                        Don't see your variant? Type here:
+                      </label>
+                      <div className="flex gap-2">
                         <Input
-                          placeholder="Enter your name"
-                          value={formData.name}
-                          onChange={(e) => handleInputChange("name", e.target.value)}
+                          placeholder="e.g. LXI Option, Premium Dualtone"
+                          value={selectedVariant}
+                          onChange={(e) => setSelectedVariant(e.target.value)}
+                          className="h-10 bg-white"
+                        />
+                        <Button
+                          type="button"
+                          onClick={() => setWizardStep(6)}
+                          className="bg-[#2E7D32] hover:bg-[#25632a] text-white text-xs font-bold px-4"
+                        >
+                          Next
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setWizardStep(4)}
+                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
+                      >
+                        <ArrowLeft className="h-3.5 w-3.5" /> Back
+                      </button>
+                      <div className="text-slate-400">Step 5 of 8</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 6: GUJARAT RTO ONLY */}
+                {wizardStep === 6 && (
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
+                        <span>Selected Car:</span>
+                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} · {selectedVariant}</span>
+                      </div>
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Where is the car registered?</h3>
+                      <p className="text-xs text-slate-400 font-semibold">Pick the Gujarat RTO office on your number plate</p>
+                    </div>
+
+                    {/* RTO Search Field */}
+                    <div className="relative">
+                      <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
+                      <Input
+                        placeholder="Search Gujarat RTO (e.g. GJ-1, Ahmedabad, Surat)"
+                        value={rtoSearch}
+                        onChange={(e) => setRtoSearch(e.target.value)}
+                        className="h-12 rounded-xl pl-10 border-slate-200 focus:border-[#2E7D32] text-sm"
+                      />
+                    </div>
+
+                    {/* Grid of Gujarat RTOs */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[300px] overflow-y-auto pr-1">
+                      {filteredRTOs.map((r) => {
+                        const isSelected = selectedRTO === r.code;
+                        return (
+                          <button
+                            key={r.code}
+                            type="button"
+                            onClick={() => {
+                              setSelectedRTO(r.code);
+                              setWizardStep(7);
+                            }}
+                            className={`p-3 rounded-xl border text-left flex items-center gap-3 transition-all ${
+                              isSelected
+                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32] shadow-sm"
+                                : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
+                            }`}
+                          >
+                            <span className="bg-slate-200/60 text-[10px] font-black px-2 py-1 rounded text-slate-800">
+                              {r.code}
+                            </span>
+                            <div className="min-w-0">
+                              <h4 className="font-bold text-[11px] text-slate-900 truncate leading-tight">
+                                {r.city}
+                              </h4>
+                            </div>
+                          </button>
+                        );
+                      })}
+
+                      {filteredRTOs.length === 0 && (
+                        <div className="col-span-full py-6 text-center text-xs text-slate-400 font-bold">
+                          No matching Gujarat RTO found. Please try searching GJ-1, GJ-2, etc.
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setWizardStep(5)}
+                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
+                      >
+                        <ArrowLeft className="h-3.5 w-3.5" /> Back
+                      </button>
+                      <div className="text-slate-400">Step 6 of 8</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 7: SELECT KM DRIVEN */}
+                {wizardStep === 7 && (
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
+                        <span>Selected Car:</span>
+                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} · {selectedVariant} · {selectedRTO}</span>
+                      </div>
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">How many kms driven?</h3>
+                      <p className="text-xs text-slate-400 font-semibold">Provide close estimate of total odometer reading</p>
+                    </div>
+
+                    {/* Grid of KM options */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                      {kmRanges.map((k) => {
+                        const isSelected = selectedKMs === k;
+                        return (
+                          <button
+                            key={k}
+                            type="button"
+                            onClick={() => {
+                              setSelectedKMs(k);
+                              setWizardStep(8);
+                            }}
+                            className={`p-3.5 rounded-xl border text-center text-[11px] font-bold tracking-tight transition-all ${
+                              isSelected
+                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32]"
+                                : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
+                            }`}
+                          >
+                            {k}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setWizardStep(6)}
+                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
+                      >
+                        <ArrowLeft className="h-3.5 w-3.5" /> Back
+                      </button>
+                      <div className="text-slate-400">Step 7 of 8</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 8: CONTACT DETAILS & SUBMISSION */}
+                {wizardStep === 8 && (
+                  <form onSubmit={handleFinalSubmit} className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Almost done — verify your details</h3>
+                      <p className="text-xs text-slate-400 font-semibold">Please complete doorstep booking credentials</p>
+                    </div>
+
+                    {/* Car specs overview card */}
+                    <div className="p-5 bg-gradient-to-r from-emerald-50 to-[#FAF9F6] border border-slate-200/60 rounded-2xl flex items-center gap-4 text-slate-800">
+                      <div className="h-12 w-12 bg-white rounded-xl flex items-center justify-center text-2xl border border-slate-100 shadow-xs shrink-0">
+                        🚙
+                      </div>
+                      <div className="min-w-0">
+                        <span className="text-[10px] bg-[#2E7D32]/10 text-[#2E7D32] font-black uppercase px-2 py-0.5 rounded">
+                          GJ REGISTRATION: {selectedRTO}
+                        </span>
+                        <h4 className="font-black text-sm text-slate-900 mt-1">
+                          {selectedBrand} {selectedModel} · {selectedVariant}
+                        </h4>
+                        <p className="text-[10px] text-slate-500 font-bold mt-0.5">
+                          {selectedYear} Manufacturing · {selectedFuel} · {selectedKMs} Odometer
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-amber-50/60 border border-amber-100 rounded-xl flex gap-2.5">
+                      <ShieldCheck className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+                      <p className="text-[11px] text-amber-800 leading-relaxed font-semibold">
+                        Your mobile number stays strictly private — used purely to coordinate inspector dispatch and confirm competitive cash quotes.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Name */}
+                      <div className="space-y-1.5">
+                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">YOUR NAME *</label>
+                        <Input
+                          placeholder="e.g. Abdul Rauf Shaikh"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                           required
                           className="h-11 rounded-xl"
                         />
                       </div>
+
+                      {/* Mobile */}
                       <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Mobile Number *</label>
+                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">MOBILE NUMBER *</label>
                         <div className="relative">
                           <Phone className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
                           <Input
-                            placeholder="Enter 10-digit mobile number"
+                            placeholder="Enter 10-digit mobile"
                             type="tel"
-                            value={formData.mobile}
-                            onChange={(e) => handleInputChange("mobile", e.target.value)}
+                            maxLength={10}
+                            value={mobile}
+                            onChange={(e) => setMobile(e.target.value.replace(/\D/g, ""))}
                             required
                             className="h-11 rounded-xl pl-10"
                           />
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="h-px bg-slate-100 my-6" />
-
-                  {/* Section 2: Vehicle Specs */}
-                  <div className="space-y-4">
-                    <h3 className="text-xs font-black uppercase tracking-widest text-[#2E7D32] flex items-center gap-2">
-                      <Car className="h-4 w-4" /> 2. Vehicle Details
-                    </h3>
-
-                    {/* Quick Brand Selector */}
-                    <div className="space-y-1.5">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Select Brand *</label>
-                      <div className="flex flex-wrap gap-2 pt-1">
-                        {popularBrands.map(b => (
-                          <button
-                            key={b}
-                            type="button"
-                            onClick={() => handleInputChange("brand", b)}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
-                              formData.brand === b 
-                                ? "bg-[#2E7D32] border-[#2E7D32] text-white" 
-                                : "bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300"
-                            }`}
-                          >
-                            {b}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* License suffix */}
                       <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Car Model *</label>
+                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">REGISTRATION PLATE SUFFIX (OPTIONAL)</label>
                         <Input
-                          placeholder="e.g. Swift, Creta, City"
-                          value={formData.model}
-                          onChange={(e) => handleInputChange("model", e.target.value)}
-                          required
-                          className="h-11 rounded-xl"
+                          placeholder="e.g. AB-1234"
+                          value={customRegSuffix}
+                          onChange={(e) => setCustomRegSuffix(e.target.value)}
+                          className="h-11 rounded-xl font-mono uppercase"
                         />
                       </div>
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Variant / Edition</label>
-                        <Input
-                          placeholder="e.g. VXI, SX, Premium"
-                          value={formData.variant}
-                          onChange={(e) => handleInputChange("variant", e.target.value)}
-                          className="h-11 rounded-xl"
-                        />
-                      </div>
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Registration Number *</label>
-                        <Input
-                          placeholder="e.g. MH12-AB-1234"
-                          value={formData.regNumber}
-                          onChange={(e) => handleInputChange("regNumber", e.target.value)}
-                          required
-                          className="h-11 rounded-xl uppercase font-mono"
-                        />
-                      </div>
-                    </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {/* Date */}
                       <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Fuel Type *</label>
-                        <select
-                          value={formData.fuel}
-                          onChange={(e) => handleInputChange("fuel", e.target.value)}
-                          className="w-full h-11 border border-slate-200 rounded-xl px-3 bg-white text-sm font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none"
-                        >
-                          <option>Petrol</option>
-                          <option>Diesel</option>
-                          <option>Electric</option>
-                          <option>Hybrid</option>
-                        </select>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Transmission *</label>
-                        <select
-                          value={formData.transmission}
-                          onChange={(e) => handleInputChange("transmission", e.target.value)}
-                          className="w-full h-11 border border-slate-200 rounded-xl px-3 bg-white text-sm font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none"
-                        >
-                          <option>Manual</option>
-                          <option>Automatic</option>
-                          <option>AWD</option>
-                        </select>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Year of Manufacture *</label>
+                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">PREFERRED INSPECTION DATE *</label>
                         <input
-                          type="number"
-                          min="1995"
-                          max={new Date().getFullYear() + 1}
-                          value={formData.year}
-                          onChange={(e) => handleInputChange("year", e.target.value)}
+                          type="date"
+                          min={new Date().toISOString().split("T")[0]}
+                          value={preferredDate}
+                          onChange={(e) => setPreferredDate(e.target.value)}
                           required
                           className="w-full h-11 border border-slate-200 rounded-xl px-3 bg-white text-sm font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none"
-                        />
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">KM Driven *</label>
-                        <Input
-                          type="number"
-                          placeholder="e.g. 45000"
-                          value={formData.kmDriven}
-                          onChange={(e) => handleInputChange("kmDriven", e.target.value)}
-                          required
-                          className="h-11 rounded-xl"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="h-px bg-slate-100 my-6" />
-
-                  {/* Section 3: Appointment Location & Inspection Booking */}
-                  <div className="space-y-4">
-                    <h3 className="text-xs font-black uppercase tracking-widest text-[#2E7D32] flex items-center gap-2">
-                      <Calendar className="h-4 w-4" /> 3. Appointment Slot & Address
-                    </h3>
-
-                    {/* Quick City Selector */}
-                    <div className="space-y-1.5">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Inspection City *</label>
-                      <div className="flex flex-wrap gap-2 pt-1">
-                        {popularCities.map(c => (
-                          <button
-                            key={c}
-                            type="button"
-                            onClick={() => handleInputChange("city", c)}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
-                              formData.city === c 
-                                ? "bg-[#2E7D32] border-[#2E7D32] text-white" 
-                                : "bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300"
-                            }`}
-                          >
-                            {c}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Doorstep Address for Inspection *</label>
-                      <div className="relative">
-                        <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
-                        <Input
-                          placeholder="Enter complete house no, building, street, and landmark details"
-                          value={formData.address}
-                          onChange={(e) => handleInputChange("address", e.target.value)}
-                          required
-                          className="h-11 rounded-xl pl-10"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Time Slot */}
                       <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Preferred Inspection Date *</label>
-                        <input
-                          type="date"
-                          min={new Date().toISOString().split("T")[0]}
-                          value={formData.preferredDate}
-                          onChange={(e) => handleInputChange("preferredDate", e.target.value)}
-                          required
-                          className="w-full h-11 border border-slate-200 rounded-xl px-3 bg-white text-sm font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none"
-                        />
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Preferred Time Slot *</label>
+                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">PREFERRED TIME SLOT *</label>
                         <select
-                          value={formData.preferredTime}
-                          onChange={(e) => handleInputChange("preferredTime", e.target.value)}
+                          value={preferredTime}
+                          onChange={(e) => setPreferredTime(e.target.value)}
                           className="w-full h-11 border border-slate-200 rounded-xl px-3 bg-white text-sm font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none"
                         >
                           <option>09:00 AM - 11:00 AM</option>
@@ -383,23 +940,57 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                           <option>05:00 PM - 07:00 PM</option>
                         </select>
                       </div>
+
+                      {/* City default */}
+                      <div className="space-y-1.5">
+                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">RTO DISPATCH CITY (AUTO-RESOLVED)</label>
+                        <div className="h-11 border border-slate-200 bg-slate-50 rounded-xl flex items-center px-3 font-semibold text-sm text-slate-600">
+                          {(() => {
+                            const found = gujaratRTOs.find(r => r.code === selectedRTO);
+                            return found ? `${found.city} (Gujarat)` : "Gujarat";
+                          })()}
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="pt-6">
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-[#2E7D32] hover:bg-[#25632a] text-white py-4 text-sm font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-[#2E7D32]/20 h-13"
-                    >
-                      {isSubmitting ? "Generating Inspection Lead..." : "Book Doorstep Inspection"}
-                    </Button>
-                    <p className="text-[10px] text-slate-400 text-center mt-3 font-semibold">
-                      By clicking above, you agree to receive verification calls. A dedicated 1stCars representative will verify details before inspector dispatch.
-                    </p>
-                  </div>
+                    {/* Complete doorstep address */}
+                    <div className="space-y-1.5">
+                      <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">DOORSTEP HOME ADDRESS FOR INSPECTION *</label>
+                      <div className="relative">
+                        <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                        <Input
+                          placeholder="Complete house no, building name, society, street and landmark details"
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          required
+                          className="h-11 rounded-xl pl-10"
+                        />
+                      </div>
+                    </div>
 
-                </form>
+                    <div className="pt-4">
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full bg-[#2E7D32] hover:bg-[#25632a] text-white py-4 text-xs font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-[#2E7D32]/20 h-13"
+                      >
+                        {isSubmitting ? "Registering Valuation..." : "Submit my car details"}
+                      </Button>
+                    </div>
+
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setWizardStep(7)}
+                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
+                      >
+                        <ArrowLeft className="h-3.5 w-3.5" /> Back
+                      </button>
+                      <div className="text-slate-400">Step 8 of 8</div>
+                    </div>
+                  </form>
+                )}
+
               </div>
             ) : (
               <div className="bg-white border border-[#2E7D32]/10 rounded-3xl p-8 md:p-12 text-center shadow-md space-y-6">
