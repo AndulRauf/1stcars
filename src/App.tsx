@@ -101,7 +101,7 @@ export default function App() {
     buttonColor: "#2E7D32",
     fontFamily: "Inter",
     heroTitle: "Certified Cars",
-    heroSubtitle: "Inspired by rigorous pre-owned standards, reimagined for ultimate luxury. Explore 150-point inspected, hassle-free certified vehicles with 7-day buyback protection and elite financing.",
+    heroSubtitle: "Inspired by rigorous pre-owned standards, reimagined for ultimate luxury. Explore 150-point inspected, hassle-free certified vehicles with single-owner pedigree, non-accident trust, and genuine km verification.",
     showPopularBrands: true,
     showLatestArrivals: true,
     showHowItWorks: true,
@@ -115,12 +115,12 @@ export default function App() {
     supportAddress: "722 S. Greenwood Avenue, Suite A, Los Angeles",
     brandSlogan: "The Luxury Pre-Owned Hub",
     brandDescription: "We curate only top-tier luxury, sports, and specialty vehicles. Our mission is to bridge pristine engineering with absolute luxury service.",
-    highlight1Title: "150-Point Certificate",
-    highlight1Desc: "Every vehicle in our collection undergoes rigorous mechanical & structural inspections.",
-    highlight2Title: "Buyback Protection",
-    highlight2Desc: "Drive with maximum peace of mind. We offer a transparent, premium 7-day buyback guarantee.",
-    highlight3Title: "Doorstep Whiteglove Delivery",
-    highlight3Desc: "Enjoy home test drives and direct delivery with our fully closed premium transports.",
+    highlight1Title: "Single Owned",
+    highlight1Desc: "Every vehicle is verified to have had only one premium owner, with pristine documentation.",
+    highlight2Title: "Non Accident Trusted",
+    highlight2Desc: "Zero structural or chassis frame damages. Vetted strictly by paint-depth laser diagnostics.",
+    highlight3Title: "Genuine KM",
+    highlight3Desc: "Mileage certified 100% authentic through advanced ECU sweeps and historical service logs.",
     seoTitle: "1stCars - Certified Luxury Car Marketplace",
     seoDescription: "The premier platform to buy and sell certified luxury pre-owned vehicles with a 150-Point Certificate.",
     googleAnalyticsId: "G-1STCARS2026",
@@ -129,7 +129,7 @@ export default function App() {
     filterHeadingText: "Refine Selection",
     searchButtonText: "Search Fleet",
     buyCarsHeadingText: "Explore Our Handpicked Certified Fleet",
-    buyCarsSubheadingText: "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, standard buyback guarantee, and instant deliveries.",
+    buyCarsSubheadingText: "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, single-owner status, certified non-accident frames, and instant deliveries.",
     detailsButtonText: "Details & Booking",
     inspectionButtonText: "Book Showroom Inspection",
     valuationButtonText: "Calculate Valuation"
@@ -167,7 +167,7 @@ export default function App() {
       } else {
         const defaultFaqs = [
           { id: "fq-1", category: "Certification", question: "What is the 1stMark Certification process?", answer: "Every 1stCars vehicle undergoes our rigorous 150-Point Certificate inspection. This is conducted by elite technical experts and covers the powertrain, electrical diagnostics, structural chassis analysis, fluid qualities, and a complete road-test performance run. Only vehicles with flawless report cards receive 1stMark certification." },
-          { id: "fq-2", category: "Refund", question: "How does the 7-day buyback guarantee work?", answer: "We stand behind our cars 100%. If you are not absolutely satisfied with your vehicle purchase, you can return it within 7 days or 500 miles (whichever comes first) for a complete refund. No administrative penalties, no awkward interrogation. We handle the paperwork transparently." },
+          { id: "fq-2", category: "Trust", question: "What are the 1stMark Certification USPs?", answer: "Our 1stMark certification guarantees three core pillars for every luxury vehicle: 1) Single Owned: Every car is verified to have had only one previous owner; 2) Non-Accident Trusted: Strictly checked to have zero chassis frame damage or past accident repairs; 3) Genuine KM: Verified using advanced OBD diagnostics and complete historical service log sweeps so you can trust the mileage is 100% authentic." },
           { id: "fq-3", category: "Selling", question: "Can I sell my car instantly without purchasing another one?", answer: "Absolutely! We buy cars directly from collectors and private owners. You can use our online valuation calculator, book a free 30-minute doorstep or showroom inspection, and choose our Instant Offer to get paid on the exact same day. There is zero obligation to trade in or buy from us." },
           { id: "fq-4", category: "Financing", question: "Do you offer financing and home test drives?", answer: "Yes! We work with top-tier financial partners to offer low-interest elite finance programs and customizable EMI tenures. Plus, we provide home test drives and doorstep premium white-glove delivery in our private closed transports. Your security and convenience are our absolute priority." }
         ];
@@ -592,7 +592,7 @@ export default function App() {
             </h1>
             
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl font-medium">
-              {websiteSettings.heroSubtitle || "Inspired by rigorous pre-owned standards, reimagined for ultimate luxury. Explore 150-point inspected, hassle-free certified vehicles with 7-day buyback protection and elite financing."}
+              {websiteSettings.heroSubtitle || "Inspired by rigorous pre-owned standards, reimagined for ultimate luxury. Explore 150-point inspected, hassle-free certified vehicles with single-owner pedigree, non-accident trust, and genuine km verification."}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
@@ -618,16 +618,16 @@ export default function App() {
             {/* Micro Trust points */}
             <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/60 max-w-lg">
               <div className="flex flex-col">
-                <span className="text-2xl font-black text-[#2E7D32] tracking-tighter">150+</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Point Certified</span>
+                <span className="text-2xl font-black text-[#2E7D32] tracking-tighter">1st-Owner</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Single Owned</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-black text-[#2E7D32] tracking-tighter">7-Day</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Buyback Cover</span>
+                <span className="text-2xl font-black text-[#2E7D32] tracking-tighter">Accident-Free</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Trusted Quality</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-black text-[#2E7D32] tracking-tighter">100%</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">RC Assistance</span>
+                <span className="text-2xl font-black text-[#2E7D32] tracking-tighter">Genuine</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">KM Guaranteed</span>
               </div>
             </div>
           </div>
@@ -798,7 +798,7 @@ export default function App() {
               {websiteSettings.buyCarsHeadingText || "Explore Our Handpicked Certified Fleet"}
             </h2>
             <p className="text-sm sm:text-base text-slate-500 font-medium">
-              {websiteSettings.buyCarsSubheadingText || "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, standard buyback guarantee, and instant deliveries."}
+              {websiteSettings.buyCarsSubheadingText || "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, single-owner status, certified non-accident frames, and instant deliveries."}
             </p>
           </div>
 
@@ -1040,7 +1040,7 @@ export default function App() {
                     <li className="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col justify-between">
                       <span className="text-[#2E7D32] uppercase text-[10px] tracking-widest block mb-1">OPTION 1</span>
                       <span className="text-slate-800 block">Instant Offer</span>
-                      <span className="text-[10px] font-medium text-slate-500 mt-1">Direct cash buyback from 1stCars.</span>
+                      <span className="text-[10px] font-medium text-slate-500 mt-1">Direct cash purchase by 1stCars.</span>
                     </li>
                     <li className="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col justify-between">
                       <span className="text-[#2E7D32] uppercase text-[10px] tracking-widest block mb-1">OPTION 2</span>
@@ -1359,7 +1359,7 @@ export default function App() {
                 Got Questions? We Have Vetted Answers.
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
-                Learn more about our pre-owned certifications, trade-in buyback programs, delivery schedules, and transparent luxury transaction details.
+                Learn more about our pre-owned certifications, trade-in programs, delivery schedules, and transparent luxury transaction details.
               </p>
               <div className="pt-4">
                 <a 

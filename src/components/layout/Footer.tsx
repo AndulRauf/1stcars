@@ -17,12 +17,12 @@ export function Footer({ onViewChange }: FooterProps) {
     brandSlogan: "The Luxury Pre-Owned Hub",
     brandDescription: "We curate only top-tier luxury, sports, and specialty vehicles. Our mission is to bridge pristine engineering with absolute luxury service.",
     footerText: "© 2026 1stCars Luxury Marketplace. All rights reserved.",
-    highlight1Title: "150-Point Certificate",
-    highlight1Desc: "Every vehicle in our collection undergoes rigorous mechanical & structural inspections.",
-    highlight2Title: "Buyback Protection",
-    highlight2Desc: "Drive with maximum peace of mind. We offer a transparent, premium 7-day buyback guarantee.",
-    highlight3Title: "Doorstep Whiteglove Delivery",
-    highlight3Desc: "Enjoy home test drives and direct delivery with our fully closed premium transports.",
+    highlight1Title: "Single Owned",
+    highlight1Desc: "Every vehicle is verified to have had only one premium owner, with pristine documentation.",
+    highlight2Title: "Non Accident Trusted",
+    highlight2Desc: "Zero structural or chassis frame damages. Vetted strictly by paint-depth laser diagnostics.",
+    highlight3Title: "Genuine KM",
+    highlight3Desc: "Mileage certified 100% authentic through advanced ECU sweeps and historical service logs.",
   });
 
   React.useEffect(() => {

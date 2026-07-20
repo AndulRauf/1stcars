@@ -77,12 +77,12 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     supportAddress: "722 S. Greenwood Avenue, Suite A, Los Angeles",
     brandSlogan: "The Luxury Pre-Owned Hub",
     brandDescription: "We curate only top-tier luxury, sports, and specialty vehicles. Our mission is to bridge pristine engineering with absolute luxury service.",
-    highlight1Title: "150-Point Certificate",
-    highlight1Desc: "Every vehicle in our collection undergoes rigorous mechanical & structural inspections.",
-    highlight2Title: "Buyback Protection",
-    highlight2Desc: "Drive with maximum peace of mind. We offer a transparent, premium 7-day buyback guarantee.",
-    highlight3Title: "Doorstep Whiteglove Delivery",
-    highlight3Desc: "Enjoy home test drives and direct delivery with our fully closed premium transports.",
+    highlight1Title: "Single Owned",
+    highlight1Desc: "Every vehicle is verified to have had only one premium owner, with pristine documentation.",
+    highlight2Title: "Non Accident Trusted",
+    highlight2Desc: "Zero structural or chassis frame damages. Vetted strictly by paint-depth laser diagnostics.",
+    highlight3Title: "Genuine KM",
+    highlight3Desc: "Mileage certified 100% authentic through advanced ECU sweeps and historical service logs.",
     seoTitle: "1stCars - Certified Luxury Car Marketplace",
     seoDescription: "The premier platform to buy and sell certified luxury pre-owned vehicles with a 150-Point Certificate.",
     googleAnalyticsId: "G-1STCARS2026",
@@ -94,7 +94,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     inspectionButtonText: "Book Instant Free Inspection",
     filterHeadingText: "Find Your Certified Dream Car",
     buyCarsHeadingText: "Explore Our Handpicked Certified Fleet",
-    buyCarsSubheadingText: "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, standard buyback guarantee, and instant deliveries."
+    buyCarsSubheadingText: "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, single-owner status, certified non-accident frames, and instant deliveries."
   });
 
   // UI States
@@ -201,7 +201,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
 
       setFaqs(getStored("faqs", [
         { id: "fq-1", category: "Certification", question: "What is the 1stMark Certification process?", answer: "Every vehicle undergoes our rigorous 150-Point Certificate inspection focusing on chassis, engine diagnostics, electrical elements, and paint levels." },
-        { id: "fq-2", category: "Refund", question: "How does the 7-day buyback guarantee work?", answer: "If you're not fully satisfied with your purchase, return it within 7 days or 500 km for a complete refund." }
+        { id: "fq-2", category: "Trust", question: "What are the 1stMark Certification USPs?", answer: "Our 1stMark certification guarantees three core pillars for every luxury vehicle: 1) Single Owned: Every car is verified to have had only one previous owner; 2) Non-Accident Trusted: Strictly checked to have zero chassis frame damage or past accident repairs; 3) Genuine KM: Verified using advanced OBD diagnostics and complete historical service log sweeps so you can trust the mileage is 100% authentic." }
       ]));
 
       setTestimonials(getStored("testimonials", [
