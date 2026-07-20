@@ -7,7 +7,7 @@ import {
   Play, Clock, ShieldAlert, BarChart3, TrendingUp, Info, 
   Activity, Shield, Hammer, MapPin, Calendar, Heart, 
   MessageSquare, ClipboardList, BookOpen, UserCheck, Eye, 
-  Upload, ArrowUpDown, ChevronLeft, ChevronRight, CheckCircle2,
+  Upload, ArrowUpDown, ChevronLeft, ChevronRight, CheckCircle2, ArrowDownToLine, ArrowUpFromLine,
   Car
 } from "lucide-react";
 import { supabase } from "@/src/lib/supabaseClient";
@@ -84,7 +84,16 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     highlight3Desc: "Enjoy home test drives and direct delivery with our fully closed premium transports.",
     seoTitle: "1stCars - Certified Luxury Car Marketplace",
     seoDescription: "The premier platform to buy and sell certified luxury pre-owned vehicles with a 150-Point Certificate.",
-    googleAnalyticsId: "G-1STCARS2026"
+    googleAnalyticsId: "G-1STCARS2026",
+    buyButtonText: "Buy Certified Cars",
+    sellButtonText: "Sell Your Car",
+    searchButtonText: "Search",
+    valuationButtonText: "Get Instant Valuation",
+    detailsButtonText: "Details & Booking",
+    inspectionButtonText: "Book Instant Free Inspection",
+    filterHeadingText: "Find Your Certified Dream Car",
+    buyCarsHeadingText: "Explore Our Handpicked Certified Fleet",
+    buyCarsSubheadingText: "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, standard buyback guarantee, and instant deliveries."
   });
 
   // UI States
@@ -561,6 +570,162 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     return raw ? JSON.parse(raw) : [];
   }
 
+  // Dynamic CSV/XLS Download & Upload Bulk Listing Handlers
+  const handleExportXLS = (type: "cars" | "brands") => {
+    let headers: string[] = [];
+    let rows: any[] = [];
+    let filename = "";
+
+    if (type === "cars") {
+      headers = [
+        "brand", "model", "variant", "year", "price", "km_driven", "fuel", 
+        "transmission", "owner_count", "city", "reg_number", "color", 
+        "insurance_type", "overall_score", "status", "image_url"
+      ];
+      rows = cars;
+      filename = "1stcars-stock-catalog.xls";
+    } else {
+      headers = ["name", "logo_url", "rating", "active"];
+      rows = brands;
+      filename = "1stcars-brands-catalog.xls";
+    }
+
+    // Generate CSV contents with standard double quote wrap escaping
+    const csvContent = [
+      headers.join(","),
+      ...rows.map(row => 
+        headers.map(h => {
+          let val = row[h];
+          if (val === undefined || val === null) return '""';
+          const str = String(val).replace(/"/g, '""');
+          return `"${str}"`;
+        }).join(",")
+      )
+    ].join("\r\n");
+
+    // Add Excel UTF-8 Byte Order Mark (BOM) to guarantee perfect Microsoft Excel rendering
+    const blob = new Blob(["\ufeff" + csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", filename);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success(`Catalog spreadsheet exported successfully to ${filename}`);
+  };
+
+  const handleImportXLS = (type: "cars" | "brands", event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const text = e.target?.result as string;
+      if (!text) return;
+
+      try {
+        const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+        if (lines.length < 2) {
+          toast.error("Spreadsheet is empty or lacks header rows.");
+          return;
+        }
+
+        const rawHeaders = lines[0].split(",").map(h => h.replace(/^["'\uFEFF]+|["'\uFEFF]+$/g, "").trim());
+        const importedRecords: any[] = [];
+
+        for (let i = 1; i < lines.length; i++) {
+          const line = lines[i];
+          // Handle quoted commas correctly
+          const cells: string[] = [];
+          let currentCell = "";
+          let insideQuote = false;
+
+          for (let charIdx = 0; charIdx < line.length; charIdx++) {
+            const char = line[charIdx];
+            if (char === '"') {
+              insideQuote = !insideQuote;
+            } else if (char === ',' && !insideQuote) {
+              cells.push(currentCell.trim());
+              currentCell = "";
+            } else {
+              currentCell += char;
+            }
+          }
+          cells.push(currentCell.trim());
+
+          const rowData: Record<string, any> = {};
+          rawHeaders.forEach((header, index) => {
+            let cellVal = cells[index] || "";
+            // Strip quotes
+            cellVal = cellVal.replace(/^["']|["']$/g, "").trim();
+            rowData[header] = cellVal;
+          });
+
+          // Validate and parse type attributes
+          if (type === "cars") {
+            const finalRecord = {
+              brand: rowData.brand || "BMW",
+              model: rowData.model || "X5",
+              variant: rowData.variant || "M Sport",
+              year: Number(rowData.year) || 2022,
+              price: Number(rowData.price) || 8500000,
+              km_driven: Number(rowData.km_driven) || 20000,
+              fuel: rowData.fuel || "Petrol",
+              transmission: rowData.transmission || "Automatic",
+              owner_count: Number(rowData.owner_count) || 1,
+              city: rowData.city || "Mumbai",
+              reg_number: rowData.reg_number || "MH-TEMP",
+              color: rowData.color || "Black",
+              insurance_type: rowData.insurance_type || "Comprehensive",
+              overall_score: Number(rowData.overall_score) || 9.0,
+              status: rowData.status || "available",
+              image_url: rowData.image_url || "🚙",
+              images: rowData.image_url ? [rowData.image_url] : []
+            };
+            importedRecords.push(finalRecord);
+          } else {
+            const finalRecord = {
+              name: rowData.name || "",
+              logo_url: rowData.logo_url || "⭐",
+              rating: Number(rowData.rating) || 4.8,
+              active: rowData.active === "false" || rowData.active === "0" ? false : true
+            };
+            if (finalRecord.name) {
+              importedRecords.push(finalRecord);
+            }
+          }
+        }
+
+        if (importedRecords.length === 0) {
+          toast.error("No valid records detected in spreadsheet.");
+          return;
+        }
+
+        setIsLoading(true);
+        const targetTable = type === "cars" ? "cars" : "brands";
+        const { error } = await supabase.from(targetTable).insert(importedRecords);
+
+        if (error) {
+          throw error;
+        }
+
+        toast.success(`Superbly uploaded and bulk inserted ${importedRecords.length} records into ${targetTable}!`);
+        loadCMSData();
+        if (onReloadAllData) onReloadAllData();
+      } catch (err: any) {
+        console.error("Bulk Import spreadsheet parsing failed:", err);
+        toast.error(`Import failed: ${err.message || 'Check spreadsheet headers & formats'}`);
+      } finally {
+        setIsLoading(false);
+        // Clear input element so user can select the same file again
+        event.target.value = "";
+      }
+    };
+    reader.readAsText(file);
+  };
+
   // Handle saving of main custom Website Settings
   const handleSaveWebsiteSettings = (e: React.FormEvent) => {
     e.preventDefault();
@@ -855,6 +1020,43 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
               </select>
             </div>
           </div>
+
+          {/* Bulk Spreadsheet Stock/Brand Actions */}
+          {(activeModule === "cars" || activeModule === "brands") && (
+            <div className="p-4 bg-emerald-50/60 border border-emerald-500/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-left">
+                <h4 className="font-black text-xs text-emerald-950 uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="h-4 w-4 text-emerald-700 shrink-0" /> Bulk spreadsheet {activeModule} catalog manager
+                </h4>
+                <p className="text-[10px] text-emerald-800/80 font-bold uppercase tracking-widest mt-1">
+                  Download the current active catalog as Excel .xls or upload bulk new listings directly with .xls / .csv
+                </p>
+              </div>
+              <div className="flex items-center gap-2.5 shrink-0">
+                <Button
+                  onClick={() => handleExportXLS(activeModule)}
+                  variant="secondary"
+                  className="bg-white border border-emerald-200 hover:bg-emerald-50 text-emerald-900 text-[10px] font-black uppercase tracking-wider h-9 px-3.5 rounded-xl flex items-center gap-1.5 shadow-xs"
+                >
+                  <ArrowDownToLine className="h-3.5 w-3.5" /> Download XLS
+                </Button>
+                <div className="relative">
+                  <input
+                    type="file"
+                    id="bulk-xls-uploader"
+                    accept=".xls,.xlsx,.csv"
+                    onChange={(e) => handleImportXLS(activeModule, e)}
+                    className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+                  />
+                  <Button
+                    className="bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-black uppercase tracking-wider h-9 px-3.5 rounded-xl flex items-center gap-1.5 shadow-sm"
+                  >
+                    <ArrowUpFromLine className="h-3.5 w-3.5" /> Upload Bulk XLS
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* CRUD Dynamic Table Grid */}
           <div className="overflow-x-auto border border-slate-100 rounded-2xl">
@@ -1497,6 +1699,105 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                       onChange={(e) => setWebsiteSettings({ ...websiteSettings, seoDescription: e.target.value })}
                       className="w-full min-h-16 bg-white border border-slate-200 rounded-lg p-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32] font-semibold text-xs"
                     />
+                  </div>
+                </div>
+              </div>
+
+              {/* Dynamic Button Labels & General Frontend Headings */}
+              <div className="p-5 bg-[#FAF9F6] border border-slate-100 rounded-2xl space-y-4">
+                <h4 className="font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[#2E7D32]" /> Homepage Buttons & Headings Customizer
+                </h4>
+
+                <div className="space-y-4">
+                  <span className="block text-[10px] font-black uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-1">Website Button Labels</span>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Buy Fleet CTA Button</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.buyButtonText || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, buyButtonText: e.target.value })}
+                        className="w-full h-9 bg-white border border-slate-200 rounded-lg px-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Sell Car CTA Button</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.sellButtonText || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, sellButtonText: e.target.value })}
+                        className="w-full h-9 bg-white border border-slate-200 rounded-lg px-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Search Submit Button</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.searchButtonText || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, searchButtonText: e.target.value })}
+                        className="w-full h-9 bg-white border border-slate-200 rounded-lg px-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Instant Value Estimator CTA</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.valuationButtonText || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, valuationButtonText: e.target.value })}
+                        className="w-full h-9 bg-white border border-slate-200 rounded-lg px-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Details & Booking Card CTA</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.detailsButtonText || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, detailsButtonText: e.target.value })}
+                        className="w-full h-9 bg-[#FAF9F6] border border-slate-200 rounded-lg px-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Doorstep Inspection Book Button</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.inspectionButtonText || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, inspectionButtonText: e.target.value })}
+                        className="w-full h-9 bg-[#FAF9F6] border border-slate-200 rounded-lg px-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                  </div>
+
+                  <span className="block text-[10px] font-black uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-1 pt-2">Landing Section Headings</span>
+                  
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Search/Filter Widget Heading</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.filterHeadingText || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, filterHeadingText: e.target.value })}
+                        className="w-full h-9 bg-white border border-slate-200 rounded-lg px-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Catalog Section Main Title</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.buyCarsHeadingText || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, buyCarsHeadingText: e.target.value })}
+                        className="w-full h-9 bg-white border border-slate-200 rounded-lg px-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Catalog Section Description / Subheading</label>
+                      <textarea 
+                        value={websiteSettings.buyCarsSubheadingText || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, buyCarsSubheadingText: e.target.value })}
+                        className="w-full min-h-16 bg-white border border-slate-200 rounded-lg p-2.5 outline-none focus:ring-1 focus:ring-[#2E7D32] font-semibold text-xs"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

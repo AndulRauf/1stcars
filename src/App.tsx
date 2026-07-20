@@ -569,7 +569,7 @@ export default function App() {
                 }}
                 className="bg-[#2E7D32] hover:bg-[#25632a] text-white font-extrabold px-8 py-4 text-xs tracking-wider uppercase shadow-xl shadow-[#2E7D32]/25 group flex items-center justify-center rounded-full"
               >
-                Buy Certified Cars 
+                {websiteSettings.buyButtonText || "Buy Certified Cars"} 
                 <ArrowRight className="h-4.5 w-4.5 ml-2.5 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button 
@@ -577,7 +577,7 @@ export default function App() {
                 onClick={scrollToSell}
                 className="bg-white border border-slate-200/80 text-slate-900 font-extrabold px-8 py-4 text-xs tracking-wider uppercase hover:bg-slate-50 shadow-sm flex items-center justify-center rounded-full"
               >
-                Sell Your Car
+                {websiteSettings.sellButtonText || "Sell Your Car"}
               </Button>
             </div>
 
@@ -665,7 +665,7 @@ export default function App() {
             
             <div className="flex flex-col space-y-4 text-left">
               <h2 className="text-sm font-extrabold uppercase tracking-widest text-slate-900 flex items-center">
-                <Sliders className="h-4.5 w-4.5 mr-2 text-[#2E7D32]" /> Find Your Certified Dream Car
+                <Sliders className="h-4.5 w-4.5 mr-2 text-[#2E7D32]" /> {websiteSettings.filterHeadingText || "Find Your Certified Dream Car"}
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
@@ -733,7 +733,7 @@ export default function App() {
                     }}
                     className="w-full bg-[#2E7D32] text-white font-extrabold text-xs tracking-wider uppercase h-11 flex items-center justify-center rounded-xl"
                   >
-                    Search
+                    {websiteSettings.searchButtonText || "Search"}
                   </Button>
                 </div>
               </div>
@@ -761,10 +761,10 @@ export default function App() {
           <div className="space-y-4 max-w-2xl mx-auto">
             <Badge variant="premium">PREMIUM LIVE INVENTORY</Badge>
             <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-slate-900 leading-none">
-              Explore Our Handpicked Certified Fleet
+              {websiteSettings.buyCarsHeadingText || "Explore Our Handpicked Certified Fleet"}
             </h2>
             <p className="text-sm sm:text-base text-slate-500 font-medium">
-              Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, standard buyback guarantee, and instant deliveries.
+              {websiteSettings.buyCarsSubheadingText || "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, standard buyback guarantee, and instant deliveries."}
             </p>
           </div>
 
@@ -897,7 +897,7 @@ export default function App() {
                         }}
                         className="w-full bg-[#2E7D32] text-white hover:bg-[#25632a] font-extrabold text-xs tracking-wider uppercase py-3 rounded-xl flex items-center justify-center shadow-lg shadow-[#2E7D32]/10"
                       >
-                        Details & Booking
+                        {websiteSettings.detailsButtonText || "Details & Booking"}
                       </Button>
                     </CardFooter>
                   </Card>
@@ -984,7 +984,7 @@ export default function App() {
                         />
                       </div>
                       <Button type="submit" className="w-full bg-[#2E7D32] text-white hover:bg-[#25632a] text-[10px] font-extrabold uppercase tracking-widest py-2.5 rounded-xl shadow-md shadow-[#2E7D32]/10">
-                        Book Instant Free Inspection
+                        {websiteSettings.inspectionButtonText || "Book Instant Free Inspection"}
                       </Button>
                     </form>
                   )}
@@ -1099,7 +1099,7 @@ export default function App() {
                   </div>
 
                   <Button type="submit" className="w-full bg-[#2E7D32] text-white hover:bg-[#25632a] font-extrabold text-xs tracking-wider uppercase py-3.5 rounded-xl shadow-lg shadow-[#2E7D32]/10">
-                    Get Instant Valuation
+                    {websiteSettings.valuationButtonText || "Get Instant Valuation"}
                   </Button>
                 </form>
 

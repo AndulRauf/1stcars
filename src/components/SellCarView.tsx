@@ -166,19 +166,36 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
   // Popular and luxury brands
   const popularBrandsList = ["Hyundai", "Maruti Suzuki", "Tata", "Mahindra", "Honda", "Toyota", "Kia", "Renault", "Volkswagen", "Skoda", "Ford", "MG"];
   const luxuryBrandsList = ["BMW", "Audi", "Mercedes-Benz", "Jaguar", "Land Rover", "Volvo", "Mini Cooper", "Jeep", "Nissan"];
-  const allBrands = [...popularBrandsList, ...luxuryBrandsList];
+  
+  const [dbBrands, setDbBrands] = React.useState<any[]>([]);
 
-  // Populate user data if logged in
+  // Populate user data if logged in & Fetch dynamic brands from Supabase database
   React.useEffect(() => {
-    const fetchUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        setName(user.user_metadata?.name || user.email?.split("@")[0] || "");
-        setMobile(user.user_metadata?.mobile || "");
+    const fetchUserAndBrands = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setName(user.user_metadata?.name || user.email?.split("@")[0] || "");
+          setMobile(user.user_metadata?.mobile || "");
+        }
+      } catch (e) {
+        console.error("Error fetching user session details:", e);
+      }
+
+      try {
+        const { data: brandsData } = await supabase.from("brands").select("*");
+        if (brandsData && brandsData.length > 0) {
+          setDbBrands(brandsData);
+        }
+      } catch (e) {
+        console.error("Error fetching dynamic brands from database:", e);
       }
     };
-    fetchUser();
+    fetchUserAndBrands();
   }, []);
+
+  const dbBrandNames = dbBrands.map(b => b.name);
+  const allBrands = Array.from(new Set([...dbBrandNames, ...popularBrandsList, ...luxuryBrandsList])).filter(Boolean);
 
   // Filter lists based on search
   const filteredBrands = allBrands.filter(b => 
@@ -408,6 +425,14 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                       {(showAllBrands ? filteredBrands : filteredBrands.slice(0, 8)).map((b) => {
                         const isSelected = selectedBrand === b;
+                        const matchingDbBrand = dbBrands.find(brand => brand.name === b);
+                        const logoUrl = matchingDbBrand?.logo_url || matchingDbBrand?.logo;
+                        const isImgValid = logoUrl && logoUrl !== "⭐" && (
+                          logoUrl.startsWith("http") || 
+                          logoUrl.startsWith("/") || 
+                          logoUrl.startsWith("data:")
+                        );
+
                         return (
                           <button
                             key={b}
@@ -417,14 +442,20 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                               setSelectedModel("");
                               setWizardStep(2);
                             }}
-                            className={`p-4 rounded-2xl border text-center transition-all ${
+                            className={`p-4 rounded-2xl border text-center transition-all flex flex-col items-center justify-center min-h-[110px] ${
                               isSelected
                                 ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32] shadow-sm"
                                 : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
                             }`}
                           >
-                            <div className="text-xl font-bold uppercase tracking-tight">{b.substring(0, 2)}</div>
-                            <div className="text-xs font-bold mt-1.5 leading-tight">{b}</div>
+                            {isImgValid ? (
+                              <div className="h-10 w-full flex items-center justify-center overflow-hidden mb-1">
+                                <img src={logoUrl} alt={b} className="h-full max-w-full object-contain" referrerPolicy="no-referrer" />
+                              </div>
+                            ) : (
+                              <div className="text-xl font-bold uppercase tracking-tight mb-1">{b.substring(0, 2)}</div>
+                            )}
+                            <div className="text-xs font-bold leading-tight">{b}</div>
                           </button>
                         );
                       })}
