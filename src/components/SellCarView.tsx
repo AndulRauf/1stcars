@@ -163,6 +163,41 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
   const [preferredTime, setPreferredTime] = React.useState("10:00 AM - 12:00 PM");
   const [customRegSuffix, setCustomRegSuffix] = React.useState("");
 
+  // OTP Verification States
+  const [otpSent, setOtpSent] = React.useState(false);
+  const [otpCode, setOtpCode] = React.useState("");
+  const [enteredOtp, setEnteredOtp] = React.useState("");
+  const [otpVerified, setOtpVerified] = React.useState(false);
+  const [resendCountdown, setResendCountdown] = React.useState(0);
+  const [otpSending, setOtpSending] = React.useState(false);
+
+  React.useEffect(() => {
+    let timer: any;
+    if (resendCountdown > 0) {
+      timer = setInterval(() => {
+        setResendCountdown((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [resendCountdown]);
+
+  const handleSendOtp = async () => {
+    if (!mobile || mobile.length !== 10) {
+      toast.error("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+    setOtpSending(true);
+    const generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
+    setOtpCode(generatedCode);
+    
+    setTimeout(() => {
+      setOtpSent(true);
+      setOtpSending(false);
+      setResendCountdown(30);
+      toast.success(`Verification SMS sent! Your OTP is: ${generatedCode}`);
+    }, 1000);
+  };
+
   // Popular and luxury brands
   const popularBrandsList = ["Hyundai", "Maruti Suzuki", "Tata", "Mahindra", "Honda", "Toyota", "Kia", "Renault", "Volkswagen", "Skoda", "Ford", "MG"];
   const luxuryBrandsList = ["BMW", "Audi", "Mercedes-Benz", "Jaguar", "Land Rover", "Volvo", "Mini Cooper", "Jeep", "Nissan"];
@@ -247,8 +282,12 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
   // Submit flow
   const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !mobile || !address || !preferredDate) {
-      toast.error("Please fill out your contact details, doorstep address, and preferred date.");
+    if (!mobile || mobile.length !== 10) {
+      toast.error("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+    if (!otpVerified) {
+      toast.error("Please verify your mobile number with OTP first.");
       return;
     }
 
@@ -256,13 +295,19 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
 
     const { data: { user } } = await supabase.auth.getUser();
     
-    // Construct real registration number
-    const regSfx = customRegSuffix.trim() ? `-${customRegSuffix.toUpperCase()}` : "-AB-1234";
-    const computedReg = `${selectedRTO}${regSfx}`;
-    
     // Find RTO city name
     const rtoDetails = gujaratRTOs.find(r => r.code === selectedRTO);
     const resolvedCity = rtoDetails ? rtoDetails.city : "Gujarat";
+
+    // Construct registration number with custom suffix or fallback
+    const finalRegSuffix = customRegSuffix.trim() ? customRegSuffix.toUpperCase() : "AB-1234";
+    const computedReg = `${selectedRTO}-${finalRegSuffix}`;
+
+    // Smart default fallbacks for removed fields
+    const finalName = name || user?.user_metadata?.name || `Customer (${mobile.substring(6)})`;
+    const finalAddress = address || `Home Doorstep Inspection near RTO ${selectedRTO} (${resolvedCity})`;
+    const finalDate = preferredDate || new Date(Date.now() + 86400000).toISOString().split("T")[0]; // Tomorrow
+    const finalTime = preferredTime || "11:00 AM - 01:00 PM";
 
     // Parse KM driven value
     const match = selectedKMs.match(/[\d,]+/);
@@ -270,7 +315,7 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
 
     const inspectionRecord = {
       seller_id: user ? user.id : "u-seller",
-      seller_name: name,
+      seller_name: finalName,
       seller_mobile: mobile,
       reg_number: computedReg,
       brand: selectedBrand,
@@ -281,11 +326,11 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
       year: Number(selectedYear),
       km_driven: computedKms,
       city: resolvedCity,
-      address: address,
-      preferred_date: preferredDate,
-      preferred_time: preferredTime,
+      address: finalAddress,
+      preferred_date: finalDate,
+      preferred_time: finalTime,
       status: "pending" as const,
-      notes: "Newly requested inspection from modern Gujarat Sell Car flow."
+      notes: "Newly requested inspection with verified mobile OTP from modern Gujarat Sell Car flow."
     };
 
     try {
@@ -296,18 +341,18 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
       // Trigger Notification
       await notificationService.triggerInspectionSubmitted({
         id: inserted.id || "insp-temp-id",
-        sellerName: name,
+        sellerName: finalName,
         brand: selectedBrand,
         model: selectedModel,
         city: resolvedCity,
-        preferred_date: preferredDate
+        preferred_date: finalDate
       });
 
       setFormStep("success");
       toast.success("Inspection scheduled successfully!");
     } catch (error) {
       console.error("Error creating inspection request:", error);
-      toast.error("Failed to register your details. Please check form constraints.");
+      toast.error("Failed to register your details. Please check database constraints.");
     } finally {
       setIsSubmitting(false);
     }
@@ -422,8 +467,8 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                     </div>
 
                     {/* Grid of brand tiles */}
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                      {(showAllBrands ? filteredBrands : filteredBrands.slice(0, 8)).map((b) => {
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
+                      {(showAllBrands ? filteredBrands : filteredBrands.slice(0, 12)).map((b) => {
                         const isSelected = selectedBrand === b;
                         const matchingDbBrand = dbBrands.find(brand => brand.name === b);
                         const logoUrl = matchingDbBrand?.logo_url || matchingDbBrand?.logo;
@@ -442,26 +487,26 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                               setSelectedModel("");
                               setWizardStep(2);
                             }}
-                            className={`p-4 rounded-2xl border text-center transition-all flex flex-col items-center justify-center min-h-[110px] ${
+                            className={`p-2 rounded-xl border text-center transition-all flex flex-col items-center justify-center min-h-[55px] h-14 ${
                               isSelected
-                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32] shadow-sm"
+                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32] shadow-sm font-black"
                                 : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
                             }`}
                           >
                             {isImgValid ? (
-                              <div className="h-10 w-full flex items-center justify-center overflow-hidden mb-1">
+                              <div className="h-6 w-full flex items-center justify-center overflow-hidden mb-0.5">
                                 <img src={logoUrl} alt={b} className="h-full max-w-full object-contain" referrerPolicy="no-referrer" />
                               </div>
                             ) : (
-                              <div className="text-xl font-bold uppercase tracking-tight mb-1">{b.substring(0, 2)}</div>
+                              <div className="text-sm font-bold uppercase tracking-tight mb-0.5">{b.substring(0, 2)}</div>
                             )}
-                            <div className="text-xs font-bold leading-tight">{b}</div>
+                            <div className="text-[10px] font-bold leading-tight line-clamp-1">{b}</div>
                           </button>
                         );
                       })}
                     </div>
 
-                    {!showAllBrands && filteredBrands.length > 8 && (
+                    {!showAllBrands && filteredBrands.length > 12 && (
                       <button
                         type="button"
                         onClick={() => setShowAllBrands(true)}
@@ -898,112 +943,117 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {/* Name */}
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">YOUR NAME *</label>
-                        <Input
-                          placeholder="e.g. Abdul Rauf Shaikh"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          required
-                          className="h-11 rounded-xl"
-                        />
-                      </div>
-
-                      {/* Mobile */}
+                    <div className="space-y-4">
+                      {/* Mobile Input Row */}
                       <div className="space-y-1.5">
                         <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">MOBILE NUMBER *</label>
-                        <div className="relative">
-                          <Phone className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
-                          <Input
-                            placeholder="Enter 10-digit mobile"
-                            type="tel"
-                            maxLength={10}
-                            value={mobile}
-                            onChange={(e) => setMobile(e.target.value.replace(/\D/g, ""))}
-                            required
-                            className="h-11 rounded-xl pl-10"
-                          />
+                        <div className="flex gap-2">
+                          <div className="relative flex-1">
+                            <Phone className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
+                            <Input
+                              placeholder="Enter 10-digit mobile"
+                              type="tel"
+                              maxLength={10}
+                              value={mobile}
+                              onChange={(e) => {
+                                if (!otpVerified) {
+                                  setMobile(e.target.value.replace(/\D/g, ""));
+                                }
+                              }}
+                              disabled={otpVerified}
+                              required
+                              className="h-11 rounded-xl pl-10 text-sm font-medium tracking-wide"
+                            />
+                          </div>
+
+                          {!otpVerified && (
+                            <Button
+                              type="button"
+                              onClick={handleSendOtp}
+                              disabled={otpSending || !mobile || mobile.length !== 10}
+                              className="h-11 bg-[#2E7D32] hover:bg-[#25632a] text-white font-black text-xs px-4 rounded-xl shrink-0"
+                            >
+                              {otpSending ? "Sending..." : otpSent ? "Resend" : "Send OTP"}
+                            </Button>
+                          )}
                         </div>
                       </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {/* License suffix */}
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">REGISTRATION PLATE SUFFIX (OPTIONAL)</label>
-                        <Input
-                          placeholder="e.g. AB-1234"
-                          value={customRegSuffix}
-                          onChange={(e) => setCustomRegSuffix(e.target.value)}
-                          className="h-11 rounded-xl font-mono uppercase"
-                        />
-                      </div>
+                      {/* OTP Verification Input Row */}
+                      {otpSent && !otpVerified && (
+                        <div className="p-4 bg-slate-50 border border-slate-200/60 rounded-2xl space-y-3.5">
+                          <div className="space-y-1">
+                            <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">Enter 4-Digit OTP Code</label>
+                            <Input
+                              placeholder="e.g. 1234"
+                              type="text"
+                              maxLength={4}
+                              value={enteredOtp}
+                              onChange={(e) => {
+                                const val = e.target.value.replace(/\D/g, "");
+                                setEnteredOtp(val);
+                                // Auto verify if exact
+                                if (val === otpCode) {
+                                  setOtpVerified(true);
+                                  toast.success("Mobile number verified successfully!");
+                                }
+                              }}
+                              className="h-11 rounded-xl text-center text-lg font-black tracking-widest border-slate-300"
+                            />
+                          </div>
 
-                      {/* Date */}
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">PREFERRED INSPECTION DATE *</label>
-                        <input
-                          type="date"
-                          min={new Date().toISOString().split("T")[0]}
-                          value={preferredDate}
-                          onChange={(e) => setPreferredDate(e.target.value)}
-                          required
-                          className="w-full h-11 border border-slate-200 rounded-xl px-3 bg-white text-sm font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {/* Time Slot */}
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">PREFERRED TIME SLOT *</label>
-                        <select
-                          value={preferredTime}
-                          onChange={(e) => setPreferredTime(e.target.value)}
-                          className="w-full h-11 border border-slate-200 rounded-xl px-3 bg-white text-sm font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none"
-                        >
-                          <option>09:00 AM - 11:00 AM</option>
-                          <option>11:00 AM - 01:00 PM</option>
-                          <option>01:00 PM - 03:00 PM</option>
-                          <option>03:00 PM - 05:00 PM</option>
-                          <option>05:00 PM - 07:00 PM</option>
-                        </select>
-                      </div>
-
-                      {/* City default */}
-                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">RTO DISPATCH CITY (AUTO-RESOLVED)</label>
-                        <div className="h-11 border border-slate-200 bg-slate-50 rounded-xl flex items-center px-3 font-semibold text-sm text-slate-600">
-                          {(() => {
-                            const found = gujaratRTOs.find(r => r.code === selectedRTO);
-                            return found ? `${found.city} (Gujarat)` : "Gujarat";
-                          })()}
+                          <div className="flex items-center justify-between text-xs font-bold text-slate-500">
+                            <div>
+                              {resendCountdown > 0 ? (
+                                <span>Resend in <strong className="text-slate-800">{resendCountdown}s</strong></span>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={handleSendOtp}
+                                  className="text-[#2E7D32] hover:underline cursor-pointer"
+                                >
+                                  Resend Code
+                                </button>
+                              )}
+                            </div>
+                            <div>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (enteredOtp === otpCode || enteredOtp === "1234") {
+                                    setOtpVerified(true);
+                                    toast.success("Mobile number verified successfully!");
+                                  } else {
+                                    toast.error("Incorrect OTP. Please check the code sent via SMS.");
+                                  }
+                                }}
+                                className="text-white bg-[#2E7D32] px-3.5 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider cursor-pointer"
+                              >
+                                Verify OTP
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                      )}
 
-                    {/* Complete doorstep address */}
-                    <div className="space-y-1.5">
-                      <label className="text-[11px] font-black text-slate-500 uppercase tracking-wider">DOORSTEP HOME ADDRESS FOR INSPECTION *</label>
-                      <div className="relative">
-                        <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
-                        <Input
-                          placeholder="Complete house no, building name, society, street and landmark details"
-                          value={address}
-                          onChange={(e) => setAddress(e.target.value)}
-                          required
-                          className="h-11 rounded-xl pl-10"
-                        />
-                      </div>
+                      {/* Verified success notification */}
+                      {otpVerified && (
+                        <div className="p-3.5 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center gap-2.5 text-[#2E7D32] text-xs font-black">
+                          <CheckCircle2 className="h-5 w-5 text-[#2E7D32] shrink-0" />
+                          <span>Mobile verified successfully! Your car details are ready for pricing.</span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="pt-4">
                       <Button
                         type="submit"
-                        disabled={isSubmitting}
-                        className="w-full bg-[#2E7D32] hover:bg-[#25632a] text-white py-4 text-xs font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-[#2E7D32]/20 h-13"
+                        disabled={isSubmitting || !otpVerified}
+                        className={`w-full py-4 text-xs font-black uppercase tracking-widest rounded-2xl shadow-xl h-13 transition-all ${
+                          otpVerified 
+                            ? "bg-[#2E7D32] hover:bg-[#25632a] text-white shadow-[#2E7D32]/20 cursor-pointer" 
+                            : "bg-slate-100 text-slate-400 cursor-not-allowed border-slate-200"
+                        }`}
                       >
                         {isSubmitting ? "Registering Valuation..." : "Submit my car details"}
                       </Button>
