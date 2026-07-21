@@ -24,6 +24,40 @@ export function BuyCarsView({
   selectedCity,
   onCityChange,
 }: BuyCarsViewProps) {
+  const [settings, setSettings] = React.useState({
+    buyCarsHeadingText: "Explore Our Handpicked Certified Fleet",
+    buyCarsSubheadingText: "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, single-owner status, certified non-accident frames, and instant deliveries."
+  });
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("1stcars_cms_website_settings");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setSettings(prev => ({ ...prev, ...parsed }));
+        } catch (e) {
+          console.error("Failed to parse website settings in BuyCarsView", e);
+        }
+      }
+    }
+
+    const handleUpdate = () => {
+      const stored = localStorage.getItem("1stcars_cms_website_settings");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setSettings(prev => ({ ...prev, ...parsed }));
+        } catch (e) {}
+      }
+    };
+
+    window.addEventListener("1stcars_settings_updated", handleUpdate);
+    return () => {
+      window.removeEventListener("1stcars_settings_updated", handleUpdate);
+    };
+  }, []);
+
   // Filter States
   const [filters, setFilters] = React.useState<FilterState>({
     search: "",
@@ -195,10 +229,10 @@ export function BuyCarsView({
             1stCars Curated Collection
           </p>
           <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">
-            Acquire Curated <span className="text-[#2E7D32]">Masterpieces</span>
+            {settings.buyCarsHeadingText || "Explore Our Handpicked Certified Fleet"}
           </h1>
           <p className="text-sm text-slate-500 mt-2 max-w-2xl">
-            Explore and custom filter our pristine 1stMark Certified luxury, exotic, and ultra-high performance vehicle inventory.
+            {settings.buyCarsSubheadingText || "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, single-owner status, certified non-accident frames, and instant deliveries."}
           </p>
         </div>
 
