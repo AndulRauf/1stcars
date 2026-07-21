@@ -4,9 +4,11 @@ import { supabase } from "@/src/lib/supabaseClient";
 
 interface FooterProps {
   onViewChange?: (view: any, pageId?: string) => void;
+  currentView?: string;
+  hideTrustBadges?: boolean;
 }
 
-export function Footer({ onViewChange }: FooterProps) {
+export function Footer({ onViewChange, currentView, hideTrustBadges }: FooterProps) {
   const currentYear = new Date().getFullYear();
   const [footerPages, setFooterPages] = React.useState<any[]>([]);
 
@@ -65,43 +67,45 @@ export function Footer({ onViewChange }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Highlight Section / Trust Badges */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 mb-12 border-b border-[#2E7D32]/10">
-          <div className="flex items-start space-x-4">
-            <div className="bg-[#2E7D32]/5 p-3 rounded-2xl text-primary border border-[#2E7D32]/15 shadow-sm">
-              <Shield className="h-6 w-6 text-primary" />
+        {!hideTrustBadges && currentView !== "sell_car" && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-12 mb-12 border-b border-[#2E7D32]/10">
+            <div className="flex items-start space-x-4">
+              <div className="bg-[#2E7D32]/5 p-3 rounded-2xl text-primary border border-[#2E7D32]/15 shadow-sm">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h4 className="font-bold text-base text-slate-900 tracking-tight">{settings.highlight1Title}</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  {settings.highlight1Desc}
+                </p>
+              </div>
             </div>
-            <div>
-              <h4 className="font-bold text-base text-slate-900 tracking-tight">{settings.highlight1Title}</h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                {settings.highlight1Desc}
-              </p>
-            </div>
-          </div>
 
-          <div className="flex items-start space-x-4">
-            <div className="bg-[#2E7D32]/5 p-3 rounded-2xl text-primary border border-[#2E7D32]/15 shadow-sm">
-              <Award className="h-6 w-6 text-primary" />
+            <div className="flex items-start space-x-4">
+              <div className="bg-[#2E7D32]/5 p-3 rounded-2xl text-primary border border-[#2E7D32]/15 shadow-sm">
+                <Award className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h4 className="font-bold text-base text-slate-900 tracking-tight">{settings.highlight2Title}</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  {settings.highlight2Desc}
+                </p>
+              </div>
             </div>
-            <div>
-              <h4 className="font-bold text-base text-slate-900 tracking-tight">{settings.highlight2Title}</h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                {settings.highlight2Desc}
-              </p>
-            </div>
-          </div>
 
-          <div className="flex items-start space-x-4">
-            <div className="bg-[#2E7D32]/5 p-3 rounded-2xl text-primary border border-[#2E7D32]/15 shadow-sm">
-              <Sparkles className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <h4 className="font-bold text-base text-slate-900 tracking-tight">{settings.highlight3Title}</h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                {settings.highlight3Desc}
-              </p>
+            <div className="flex items-start space-x-4">
+              <div className="bg-[#2E7D32]/5 p-3 rounded-2xl text-primary border border-[#2E7D32]/15 shadow-sm">
+                <Sparkles className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <h4 className="font-bold text-base text-slate-900 tracking-tight">{settings.highlight3Title}</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  {settings.highlight3Desc}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 pb-12">

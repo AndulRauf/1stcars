@@ -1207,9 +1207,12 @@ export default function App() {
       )}
 
       {/* 9. PREMIUM FOOTER */}
-      <Footer onViewChange={(view, pageId) => {
-        handleNavigate(view, { pageId });
-      }} />
+      <Footer 
+        currentView={currentView}
+        onViewChange={(view, pageId) => {
+          handleNavigate(view, { pageId });
+        }} 
+      />
 
     </div>
   );
