@@ -86,6 +86,64 @@ const brandData: {
       { name: "Glanza", category: "Hatchback", years: "2019 - Now", image: "🚗", variants: ["E", "S", "G", "V"] },
       { name: "Urban Cruiser", category: "SUV", years: "2020 - Now", image: "🚗", variants: ["Mid", "High", "Premium"] }
     ]
+  },
+  "Porsche": {
+    models: [
+      { name: "911 Carrera", category: "Coupe", years: "1964 - Now", image: "🏎️", variants: ["Carrera", "Carrera S", "Turbo S", "GT3 RS"] },
+      { name: "Cayenne", category: "Luxury SUV", years: "2002 - Now", image: "🚙", variants: ["Base", "E-Hybrid", "S", "Turbo GT"] },
+      { name: "Macan", category: "Luxury SUV", years: "2014 - Now", image: "🚙", variants: ["Base", "T", "S", "GTS"] },
+      { name: "Taycan", category: "Electric", years: "2019 - Now", image: "⚡", variants: ["Base", "4S", "Turbo", "Turbo S"] },
+      { name: "Panamera", category: "Luxury Sedan", years: "2009 - Now", image: "🚗", variants: ["Base", "4", "4 E-Hybrid", "GTS"] }
+    ]
+  },
+  "BMW": {
+    models: [
+      { name: "3 Series", category: "Luxury Sedan", years: "1975 - Now", image: "🚗", variants: ["330i", "330li", "M340i", "320d"] },
+      { name: "5 Series", category: "Luxury Sedan", years: "1972 - Now", image: "🚗", variants: ["530i", "520d", "M550i", "M5"] },
+      { name: "X1", category: "Luxury SUV", years: "2009 - Now", image: "🚙", variants: ["sDrive20i", "sDrive20d", "M Sport"] },
+      { name: "X3", category: "Luxury SUV", years: "2003 - Now", image: "🚙", variants: ["xDrive30i", "xDrive20d", "M40i"] },
+      { name: "X5", category: "Luxury SUV", years: "1999 - Now", image: "🚙", variants: ["xDrive40i", "xDrive30d", "M Sport"] }
+    ]
+  },
+  "Mercedes-Benz": {
+    models: [
+      { name: "C-Class", category: "Luxury Sedan", years: "1993 - Now", image: "🚗", variants: ["C 200", "C 220d", "C 300d", "C 43 AMG"] },
+      { name: "E-Class", category: "Luxury Sedan", years: "1953 - Now", image: "🚗", variants: ["E 200", "E 220d", "E 350d", "E 63 AMG"] },
+      { name: "GLA", category: "Luxury SUV", years: "2013 - Now", image: "🚙", variants: ["GLA 200", "GLA 220d", "4MATIC"] },
+      { name: "GLC", category: "Luxury SUV", years: "2015 - Now", image: "🚙", variants: ["GLC 200", "GLC 220d", "4MATIC"] },
+      { name: "GLE", category: "Luxury SUV", years: "1997 - Now", image: "🚙", variants: ["GLE 300d", "GLE 450", "GLE 400d"] }
+    ]
+  },
+  "Audi": {
+    models: [
+      { name: "A4", category: "Luxury Sedan", years: "1994 - Now", image: "🚗", variants: ["Premium", "Premium Plus", "Technology"] },
+      { name: "A6", category: "Luxury Sedan", years: "1994 - Now", image: "🚗", variants: ["Premium Plus", "Technology"] },
+      { name: "Q3", category: "Luxury SUV", years: "2011 - Now", image: "🚙", variants: ["Premium", "Premium Plus", "Technology", "Sportback"] },
+      { name: "Q5", category: "Luxury SUV", years: "2008 - Now", image: "🚙", variants: ["Premium Plus", "Technology"] },
+      { name: "Q7", category: "Luxury SUV", years: "2005 - Now", image: "🚙", variants: ["Premium Plus", "Technology"] }
+    ]
+  },
+  "Bentley": {
+    models: [
+      { name: "Continental GT", category: "Luxury Coupe", years: "2003 - Now", image: "🏎️", variants: ["V8", "W12", "Mulliner", "Speed"] },
+      { name: "Flying Spur", category: "Luxury Sedan", years: "2005 - Now", image: "🚗", variants: ["V8", "W12", "Hybrid"] },
+      { name: "Bentayga", category: "Luxury SUV", years: "2015 - Now", image: "🚙", variants: ["V8", "W12 Speed", "E-Hybrid"] }
+    ]
+  },
+  "Kia": {
+    models: [
+      { name: "Seltos", category: "SUV", years: "2019 - Now", image: "🚗", variants: ["HTE", "HTK", "HTK+", "HTX", "GTX+", "X-Line"] },
+      { name: "Sonet", category: "SUV", years: "2020 - Now", image: "🚗", variants: ["HTE", "HTK", "HTK+", "HTX", "GTX+", "X-Line"] },
+      { name: "Carens", category: "MUV", years: "2022 - Now", image: "🚗", variants: ["Premium", "Prestige", "Prestige+", "Luxury", "Luxury+"] },
+      { name: "Carnival", category: "Luxury MUV", years: "1998 - Now", image: "🚙", variants: ["Prestige", "Limousine", "Limousine Plus"] }
+    ]
+  },
+  "MG": {
+    models: [
+      { name: "Hector", category: "SUV", years: "2019 - Now", image: "🚗", variants: ["Style", "Shine", "Smart", "Sharp", "Savvy"] },
+      { name: "Astor", category: "SUV", years: "2021 - Now", image: "🚗", variants: ["Style", "Super", "Smart", "Sharp", "Savvy"] },
+      { name: "ZS EV", category: "Electric", years: "2020 - Now", image: "⚡", variants: ["Executive", "Excite", "Exclusive", "Exclusive Pro"] }
+    ]
   }
 };
 
@@ -458,11 +516,11 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                   {[
                     { step: 1, label: selectedBrand ? `✔ ${selectedBrand}` : "1 Brand" },
                     { step: 2, label: selectedModel ? `✔ ${selectedModel}` : "2 Model" },
-                    { step: 3, label: selectedBrand && selectedModel ? `✔ ${selectedYear}` : "3 Year" },
-                    { step: 4, label: selectedBrand && selectedModel ? `✔ ${selectedFuel}` : "4 Fuel" },
-                    { step: 5, label: selectedBrand && selectedModel ? `✔ ${selectedVariant}` : "5 Variant" },
+                    { step: 3, label: selectedBrand && selectedModel && selectedVariant ? `✔ ${selectedVariant}` : "3 Variant" },
+                    { step: 4, label: selectedBrand && selectedModel && selectedYear ? `✔ ${selectedYear}` : "4 Year" },
+                    { step: 5, label: selectedBrand && selectedModel && selectedFuel ? `✔ ${selectedFuel}` : "5 Fuel" },
                     { step: 6, label: selectedRTO ? `✔ ${selectedRTO}` : "6 RTO" },
-                    { step: 7, label: selectedBrand && selectedModel && selectedRTO ? `✔ KMs` : "7 KMs" },
+                    { step: 7, label: selectedBrand && selectedModel && selectedRTO && selectedKMs ? `✔ KMs` : "7 KMs" },
                     { step: 8, label: "8 Verify" }
                   ].map((item) => {
                     const isCompleted = wizardStep > item.step;
@@ -515,7 +573,7 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                     </div>
 
                     {/* Grid of brand tiles */}
-                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
+                    <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 gap-2">
                       {(showAllBrands ? filteredBrands : filteredBrands.slice(0, 12)).map((b) => {
                         const isSelected = selectedBrand === b;
                         const matchingDbBrand = dbBrands.find(brand => brand.name === b);
@@ -660,112 +718,13 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                   </div>
                 )}
 
-                {/* STEP 3: SELECT YEAR */}
+                {/* STEP 3: SELECT VARIANT */}
                 {wizardStep === 3 && (
                   <div className="space-y-6">
                     <div>
                       <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
                         <span>Selected Car:</span>
                         <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel}</span>
-                      </div>
-                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Which year is your car?</h3>
-                      <p className="text-xs text-slate-400 font-semibold">Select manufacturing year on RC plate</p>
-                    </div>
-
-                    {/* Grid of years */}
-                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                      {yearsList.map((y) => {
-                        const isSelected = selectedYear === y;
-                        return (
-                          <button
-                            key={y}
-                            type="button"
-                            onClick={() => {
-                              setSelectedYear(y);
-                              setWizardStep(4);
-                            }}
-                            className={`p-3.5 rounded-xl border text-center text-xs font-black transition-all ${
-                              isSelected
-                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32]"
-                                : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
-                            }`}
-                          >
-                            {y}
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
-                      <button
-                        type="button"
-                        onClick={() => setWizardStep(2)}
-                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
-                      >
-                        <ArrowLeft className="h-3.5 w-3.5" /> Back
-                      </button>
-                      <div className="text-slate-400">Step 3 of 8</div>
-                    </div>
-                  </div>
-                )}
-
-                {/* STEP 4: SELECT FUEL */}
-                {wizardStep === 4 && (
-                  <div className="space-y-6">
-                    <div>
-                      <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
-                        <span>Selected Car:</span>
-                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} ({selectedYear})</span>
-                      </div>
-                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Fuel type</h3>
-                      <p className="text-xs text-slate-400 font-semibold">Specify the primary propulsion fuel</p>
-                    </div>
-
-                    {/* Grid of Fuel Types */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {["Petrol", "Diesel", "CNG", "Electric", "Hybrid"].map((f) => {
-                        const isSelected = selectedFuel === f;
-                        return (
-                          <button
-                            key={f}
-                            type="button"
-                            onClick={() => {
-                              setSelectedFuel(f);
-                              setWizardStep(5);
-                            }}
-                            className={`p-4 rounded-2xl border text-left flex items-center justify-between transition-all ${
-                              isSelected
-                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32]"
-                                : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
-                            }`}
-                          >
-                            <span className="text-xs font-black">{f}</span>
-                            <ChevronRight className="h-4 w-4 text-slate-400" />
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
-                      <button
-                        type="button"
-                        onClick={() => setWizardStep(3)}
-                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
-                      >
-                        <ArrowLeft className="h-3.5 w-3.5" /> Back
-                      </button>
-                      <div className="text-slate-400">Step 4 of 8</div>
-                    </div>
-                  </div>
-                )}
-
-                {/* STEP 5: SELECT VARIANT */}
-                {wizardStep === 5 && (
-                  <div className="space-y-6">
-                    <div>
-                      <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
-                        <span>Selected Car:</span>
-                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} ({selectedYear} · {selectedFuel})</span>
                       </div>
                       <h3 className="text-lg font-black text-slate-900 tracking-tight">Pick your variant</h3>
                       <p className="text-xs text-slate-400 font-semibold">Select trim level / variant standard</p>
@@ -785,7 +744,7 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                               type="button"
                               onClick={() => {
                                 setSelectedVariant(v);
-                                setWizardStep(6);
+                                setWizardStep(4);
                               }}
                               className={`p-4 rounded-2xl border text-left flex items-center justify-between transition-all ${
                                 isSelected
@@ -815,12 +774,111 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                         />
                         <Button
                           type="button"
-                          onClick={() => setWizardStep(6)}
+                          onClick={() => setWizardStep(4)}
                           className="bg-[#2E7D32] hover:bg-[#25632a] text-white text-xs font-bold px-4"
                         >
                           Next
                         </Button>
                       </div>
+                    </div>
+
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setWizardStep(2)}
+                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
+                      >
+                        <ArrowLeft className="h-3.5 w-3.5" /> Back
+                      </button>
+                      <div className="text-slate-400">Step 3 of 8</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 4: SELECT YEAR */}
+                {wizardStep === 4 && (
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
+                        <span>Selected Car:</span>
+                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} · {selectedVariant}</span>
+                      </div>
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Which year is your car?</h3>
+                      <p className="text-xs text-slate-400 font-semibold">Select manufacturing year on RC plate</p>
+                    </div>
+
+                    {/* Grid of years */}
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                      {yearsList.map((y) => {
+                        const isSelected = selectedYear === y;
+                        return (
+                          <button
+                            key={y}
+                            type="button"
+                            onClick={() => {
+                              setSelectedYear(y);
+                              setWizardStep(5);
+                            }}
+                            className={`p-3.5 rounded-xl border text-center text-xs font-black transition-all ${
+                              isSelected
+                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32]"
+                                : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
+                            }`}
+                          >
+                            {y}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
+                      <button
+                        type="button"
+                        onClick={() => setWizardStep(3)}
+                        className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
+                      >
+                        <ArrowLeft className="h-3.5 w-3.5" /> Back
+                      </button>
+                      <div className="text-slate-400">Step 4 of 8</div>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 5: SELECT FUEL */}
+                {wizardStep === 5 && (
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
+                        <span>Selected Car:</span>
+                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} ({selectedVariant} · {selectedYear})</span>
+                      </div>
+                      <h3 className="text-lg font-black text-slate-900 tracking-tight">Fuel type</h3>
+                      <p className="text-xs text-slate-400 font-semibold">Specify the primary propulsion fuel</p>
+                    </div>
+
+                    {/* Grid of Fuel Types */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {["Petrol", "Diesel", "CNG", "Electric", "Hybrid"].map((f) => {
+                        const isSelected = selectedFuel === f;
+                        return (
+                          <button
+                            key={f}
+                            type="button"
+                            onClick={() => {
+                              setSelectedFuel(f);
+                              setWizardStep(6);
+                            }}
+                            className={`p-4 rounded-2xl border text-left flex items-center justify-between transition-all ${
+                              isSelected
+                                ? "border-[#2E7D32] bg-emerald-50 text-[#2E7D32]"
+                                : "border-slate-100 hover:border-slate-300 bg-[#FAF9F6] text-slate-800"
+                            }`}
+                          >
+                            <span className="text-xs font-black">{f}</span>
+                            <ChevronRight className="h-4 w-4 text-slate-400" />
+                          </button>
+                        );
+                      })}
                     </div>
 
                     <div className="flex justify-between items-center pt-4 border-t border-slate-100 text-xs font-bold">
@@ -842,7 +900,7 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                     <div>
                       <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
                         <span>Selected Car:</span>
-                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} · {selectedVariant}</span>
+                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} · {selectedVariant} · {selectedYear} · {selectedFuel}</span>
                       </div>
                       <h3 className="text-lg font-black text-slate-900 tracking-tight">Where is the car registered?</h3>
                       <p className="text-xs text-slate-400 font-semibold">Pick the Gujarat RTO office on your number plate</p>
@@ -915,7 +973,7 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                     <div>
                       <div className="flex items-center gap-1.5 text-xs text-[#2E7D32] font-black uppercase tracking-wider mb-1">
                         <span>Selected Car:</span>
-                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} · {selectedVariant} · {selectedRTO}</span>
+                        <span className="bg-emerald-100 px-2 py-0.5 rounded-md">{selectedBrand} {selectedModel} · {selectedVariant} · {selectedYear} · {selectedFuel} · {selectedRTO}</span>
                       </div>
                       <h3 className="text-lg font-black text-slate-900 tracking-tight">How many kms driven?</h3>
                       <p className="text-xs text-slate-400 font-semibold">Provide close estimate of total odometer reading</p>
