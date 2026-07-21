@@ -543,17 +543,17 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
         // Handle mock schema arrays
         const tableStateMap: Record<string, [any[], (d: any[]) => void]> = {
           staff: [getStoredMockList("staff"), (d) => persistMockTable("staff", d)],
-          dealers: [dealers, setDealers],
-          inspectors: [inspectors, setInspectors],
-          sales: [salesAssociates, setSalesAssociates],
-          park_sell: [parkSell, setParkSell],
-          models: [models, setModels],
-          cities: [cities, setCities],
-          faqs: [faqs, setFaqs],
-          testimonials: [testimonials, setTestimonials],
-          finance: [financePartners, setFinancePartners],
-          warranty: [warrantyPlans, setWarrantyPlans],
-          expenses: [expenses, setExpenses]
+          dealers: [dealers, (d) => persistMockTable("dealers", d)],
+          inspectors: [inspectors, (d) => persistMockTable("inspectors", d)],
+          sales: [salesAssociates, (d) => persistMockTable("sales_associates", d)],
+          park_sell: [parkSell, (d) => persistMockTable("park_sell", d)],
+          models: [models, (d) => persistMockTable("models", d)],
+          cities: [cities, (d) => persistMockTable("cities", d)],
+          faqs: [faqs, (d) => persistMockTable("faqs", d)],
+          testimonials: [testimonials, (d) => persistMockTable("testimonials", d)],
+          finance: [financePartners, (d) => persistMockTable("finance", d)],
+          warranty: [warrantyPlans, (d) => persistMockTable("warranty", d)],
+          expenses: [expenses, (d) => persistMockTable("expenses", d)]
         };
 
         const mapData = tableStateMap[activeModule];
@@ -611,17 +611,17 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
       } else {
         const tableStateMap: Record<string, [any[], (d: any[]) => void]> = {
           staff: [getStoredMockList("staff"), (d) => persistMockTable("staff", d)],
-          dealers: [dealers, setDealers],
-          inspectors: [inspectors, setInspectors],
-          sales: [salesAssociates, setSalesAssociates],
-          park_sell: [parkSell, setParkSell],
-          models: [models, setModels],
-          cities: [cities, setCities],
-          faqs: [faqs, setFaqs],
-          testimonials: [testimonials, setTestimonials],
-          finance: [financePartners, setFinancePartners],
-          warranty: [warrantyPlans, setWarrantyPlans],
-          expenses: [expenses, setExpenses]
+          dealers: [dealers, (d) => persistMockTable("dealers", d)],
+          inspectors: [inspectors, (d) => persistMockTable("inspectors", d)],
+          sales: [salesAssociates, (d) => persistMockTable("sales_associates", d)],
+          park_sell: [parkSell, (d) => persistMockTable("park_sell", d)],
+          models: [models, (d) => persistMockTable("models", d)],
+          cities: [cities, (d) => persistMockTable("cities", d)],
+          faqs: [faqs, (d) => persistMockTable("faqs", d)],
+          testimonials: [testimonials, (d) => persistMockTable("testimonials", d)],
+          finance: [financePartners, (d) => persistMockTable("finance", d)],
+          warranty: [warrantyPlans, (d) => persistMockTable("warranty", d)],
+          expenses: [expenses, (d) => persistMockTable("expenses", d)]
         };
 
         const mapData = tableStateMap[activeModule];

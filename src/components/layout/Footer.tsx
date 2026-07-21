@@ -1,7 +1,5 @@
 import * as React from "react";
 import { Mail, Phone, MapPin, ArrowUpRight, Github, Heart, Shield, Award, Sparkles } from "lucide-react";
-import { Input } from "@/src/components/ui/Input";
-import { Button } from "@/src/components/ui/Button";
 import { supabase } from "@/src/lib/supabaseClient";
 
 interface FooterProps {
@@ -106,7 +104,7 @@ export function Footer({ onViewChange }: FooterProps) {
         </div>
 
         {/* Main Footer Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 pb-12">
           
           {/* Brand Col */}
           <div className="lg:col-span-2 flex flex-col space-y-5">
@@ -176,28 +174,6 @@ export function Footer({ onViewChange }: FooterProps) {
                 Access your dealer dashboard, manager workspace, and sales representative portals.
               </p>
             </div>
-          </div>
-
-          {/* Column 3: Premium Club Newsletter */}
-          <div className="flex flex-col space-y-4">
-            <h5 className="font-bold text-xs text-slate-900 tracking-widest uppercase mb-1">
-              Join the VIP Club
-            </h5>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Get weekly updates on rare luxury arrivals and private collector auctions before they hit the open market.
-            </p>
-            <form onSubmit={handleSubscribe} className="flex flex-col space-y-2.5">
-              <Input
-                type="email"
-                placeholder="vip.collector@email.com"
-                className="bg-white border-slate-200 text-slate-900 focus-visible:border-primary focus-visible:ring-primary placeholder:text-slate-400 h-10 py-1"
-                aria-label="Email address for newsletter"
-                required
-              />
-              <Button type="submit" className="w-full bg-primary hover:bg-primary-hover text-white h-10 py-1 text-xs font-bold">
-                Receive Access
-              </Button>
-            </form>
           </div>
         </div>
 
