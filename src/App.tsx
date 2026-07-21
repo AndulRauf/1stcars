@@ -136,7 +136,11 @@ export default function App() {
     sellCarBannerTitle: "Sell Your Car Instantly From Home",
     sellCarBannerDesc: "Book a 100% free home inspection, receive live bids from our verified dealer network, and complete the sale in 24 hours with free RC transfer.",
     sellCarFormHeading: "Get Your Car Valued",
-    sellCarFormSubheading: "Fill in your car details and we'll get back to you with a competitive cash quote"
+    sellCarFormSubheading: "Fill in your car details and we'll get back to you with a competitive cash quote",
+    otpProvider: "simulated",
+    customOtpUrl: "",
+    customOtpHeaders: "",
+    customOtpPayload: ""
   });
 
   const [faqs, setFaqs] = React.useState<any[]>([]);
@@ -241,6 +245,27 @@ export default function App() {
   // General Notification Toast
   const [toastMessage, setToastMessage] = React.useState<string | null>(null);
   const [toastType, setToastType] = React.useState<"success" | "info" | "error">("success");
+
+  // Global simulated SMS state
+  const [globalSimulatedSms, setGlobalSimulatedSms] = React.useState<{ mobile: string; body: string; code: string } | null>(null);
+
+  React.useEffect(() => {
+    const handleSimSms = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      if (customEvent.detail) {
+        setGlobalSimulatedSms({
+          mobile: customEvent.detail.mobile,
+          body: `[1stCars] Your premium selection gateway secure login OTP is ${customEvent.detail.code}. Please do not share this with anyone. Valid for 5 minutes.`,
+          code: customEvent.detail.code
+        });
+      }
+    };
+    
+    window.addEventListener("1stcars_simulate_sms", handleSimSms);
+    return () => {
+      window.removeEventListener("1stcars_simulate_sms", handleSimSms);
+    };
+  }, []);
 
   // Subscribe to global toast emitter
   React.useEffect(() => {
@@ -404,6 +429,51 @@ export default function App() {
                 : "text-[#2E7D32]"
           )} />
           <p className="text-xs font-bold leading-tight">{toastMessage}</p>
+        </div>
+      )}
+
+      {/* Global Simulated SMS Notification Banner */}
+      {globalSimulatedSms && (
+        <div className="fixed top-24 right-6 z-[100] w-full max-w-sm px-4">
+          <div className="bg-slate-950/95 text-white backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-[#2E7D32]/25 flex flex-col gap-2 animate-bounce">
+            <div className="flex items-center justify-between border-b border-white/10 pb-1.5">
+              <span className="flex items-center gap-1.5 text-[10px] font-black text-emerald-400 uppercase tracking-wider">
+                💬 Messages • SMS Gateway Mock
+              </span>
+              <button 
+                onClick={() => setGlobalSimulatedSms(null)}
+                className="text-white/40 hover:text-white/80 text-xs font-bold"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="text-[11px] leading-relaxed font-semibold text-slate-100">
+              <strong className="text-white">+91 {globalSimulatedSms.mobile}</strong>: {globalSimulatedSms.body}
+            </div>
+            <button
+              onClick={() => {
+                if (!authModal.isOpen) {
+                  setAuthModal({ isOpen: true, mode: "login" });
+                  // small timeout to let AuthModal mount event listener
+                  setTimeout(() => {
+                    const event = new CustomEvent("1stcars_autofill_otp", {
+                      detail: { code: globalSimulatedSms.code }
+                    });
+                    window.dispatchEvent(event);
+                  }, 150);
+                } else {
+                  const event = new CustomEvent("1stcars_autofill_otp", {
+                    detail: { code: globalSimulatedSms.code }
+                  });
+                  window.dispatchEvent(event);
+                }
+                setGlobalSimulatedSms(null);
+              }}
+              className="mt-1 bg-[#2E7D32] hover:bg-[#25632a] text-white text-[10px] font-black uppercase tracking-wider rounded-lg py-2 transition-all cursor-pointer shadow-lg shadow-[#2E7D32]/20"
+            >
+              ⚡ {!authModal.isOpen ? "Autofill & Sign In:" : "Autofill OTP Code:"} {globalSimulatedSms.code}
+            </button>
+          </div>
         </div>
       )}
 

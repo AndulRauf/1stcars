@@ -78,6 +78,22 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
     return () => clearTimeout(timer);
   }, [countdown]);
 
+  // Listen to global autofill events
+  React.useEffect(() => {
+    const handleAutofill = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      if (customEvent.detail && customEvent.detail.code) {
+        setEnteredOtp(customEvent.detail.code);
+        setOtpSent(true); // Ensure OTP inputs are active
+        toast.success("Secure OTP autofilled from active gateway!");
+      }
+    };
+    window.addEventListener("1stcars_autofill_otp", handleAutofill);
+    return () => {
+      window.removeEventListener("1stcars_autofill_otp", handleAutofill);
+    };
+  }, []);
+
   React.useEffect(() => {
     setMode(initialMode);
     setError("");
@@ -130,6 +146,122 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
     }
   };
 
+  // Simulated SMS Notification banner state
+  const [simulatedSms, setSimulatedSms] = React.useState<{ mobile: string; body: string; code: string } | null>(null);
+
+  const sendOtpCode = async (mobile: string, code: string) => {
+    // If we are in mock mode, always simulate
+    if (isUsingMock) {
+      triggerSmsNotification(mobile, code);
+      return { success: true, simulated: true };
+    }
+
+    let otpProvider = "simulated";
+    let customUrl = "";
+    let customHeaders = "";
+    let customPayload = "";
+
+    try {
+      const stored = localStorage.getItem("1stcars_cms_website_settings");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        otpProvider = parsed.otpProvider || "simulated";
+        customUrl = parsed.customOtpUrl || "";
+        customHeaders = parsed.customOtpHeaders || "";
+        customPayload = parsed.customOtpPayload || "";
+      }
+    } catch (e) {}
+
+    if (otpProvider === "supabase_native") {
+      // Supabase native SMS OTP
+      const cleanMobile = mobile.startsWith("+") ? mobile : `+91${mobile}`;
+      const { error: authErr } = await supabase.auth.signInWithOtp({
+        phone: cleanMobile
+      });
+      if (authErr) {
+        throw new Error(authErr.message || "Failed to send Supabase Native SMS OTP.");
+      }
+      return { success: true, native: true };
+    } else if (otpProvider === "custom_gateway") {
+      // Custom HTTP REST SMS API
+      if (!customUrl) {
+        throw new Error("Custom SMS Gateway URL is not configured. Please set it in Admin Panel -> Website Settings.");
+      }
+      
+      const cleanMobile = mobile.startsWith("+91") ? mobile.replace("+91", "") : mobile;
+      
+      // Interpolate values
+      const interpolatedUrl = customUrl
+        .replace(/{otp}/g, code)
+        .replace(/{mobile}/g, cleanMobile);
+
+      let headersObj: Record<string, string> = {
+        "Content-Type": "application/json"
+      };
+
+      if (customHeaders) {
+        try {
+          headersObj = { ...headersObj, ...JSON.parse(customHeaders) };
+        } catch (e) {
+          throw new Error("Failed to parse Custom SMS Gateway headers. Ensure they are in valid JSON format.");
+        }
+      }
+
+      let payloadObj: any = null;
+      if (customPayload) {
+        try {
+          const interpolatedPayload = customPayload
+            .replace(/{otp}/g, code)
+            .replace(/{mobile}/g, cleanMobile);
+          payloadObj = JSON.parse(interpolatedPayload);
+        } catch (e) {
+          payloadObj = customPayload
+            .replace(/{otp}/g, code)
+            .replace(/{mobile}/g, cleanMobile);
+        }
+      }
+
+      const method = payloadObj ? "POST" : "GET";
+      
+      // Use standard fetch
+      const response = await fetch(interpolatedUrl, {
+        method,
+        headers: headersObj,
+        body: payloadObj ? (typeof payloadObj === "string" ? payloadObj : JSON.stringify(payloadObj)) : undefined
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`SMS Gateway returned status ${response.status}: ${text || "Unknown error"}`);
+      }
+
+      return { success: true, custom: true };
+    } else {
+      // Simulated OTP (Default)
+      triggerSmsNotification(mobile, code);
+      return { success: true, simulated: true };
+    }
+  };
+
+  const triggerSmsNotification = (mobile: string, code: string) => {
+    setSimulatedSms({
+      mobile,
+      body: `[1stCars] Your premium selection gateway secure login OTP is ${code}. Please do not share this with anyone. Valid for 5 minutes.`,
+      code
+    });
+    
+    // Let's also trigger the global event so anyone can capture it
+    const event = new CustomEvent("1stcars_simulate_sms", {
+      detail: { mobile, code }
+    });
+    window.dispatchEvent(event);
+
+    // Auto-dismiss after 15 seconds
+    setTimeout(() => {
+      setSimulatedSms(null);
+    }, 15000);
+  };
+
   const handleResendOtp = async () => {
     setError("");
     setSuccess("");
@@ -138,10 +270,17 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
       const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
       setGeneratedOtp(otpCode);
       setCountdown(30);
-      toast.success(`🔑 SMS Gateway: New verification code is ${otpCode}`);
-      setSuccess(`New OTP code sent! Use: ${otpCode}`);
+      
+      const res = await sendOtpCode(loginMobile, otpCode);
+      if (res.simulated) {
+        toast.success(`🔑 SMS Gateway: New verification code is ${otpCode}`);
+        setSuccess(`New simulated OTP sent! Code is ${otpCode}. See virtual screen banner.`);
+      } else {
+        toast.success("🔑 OTP code sent successfully to your device!");
+        setSuccess(`A new verification code has been dispatched to +91 ${loginMobile}.`);
+      }
     } catch (err: any) {
-      setError("Failed to resend verification code.");
+      setError(err.message || "Failed to resend verification code.");
     } finally {
       setLoading(false);
     }
@@ -162,6 +301,18 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
         }
 
         try {
+          // If using mock database, we bypass remote checks
+          if (isUsingMock) {
+            const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+            setGeneratedOtp(otpCode);
+            setOtpSent(true);
+            setCountdown(30);
+            await sendOtpCode(loginMobile, otpCode);
+            setSuccess(`OTP sent successfully to +91 ${loginMobile}! Check your notifications.`);
+            setLoading(false);
+            return;
+          }
+
           const { data: profiles, error: fetchErr } = await supabase
             .from("profiles")
             .select("*")
@@ -185,14 +336,94 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
           setOtpSent(true);
           setCountdown(30);
           
-          toast.success(`🔑 SMS Gateway: Verification code is ${otpCode}`);
-          setSuccess(`OTP sent successfully to +91 ${loginMobile}! Check your notifications.`);
+          const result = await sendOtpCode(loginMobile, otpCode);
+          if (result.simulated) {
+            toast.success(`🔑 SMS Gateway: Verification code is ${otpCode}`);
+            setSuccess(`OTP sent successfully to +91 ${loginMobile}! Check your notifications.`);
+          } else {
+            toast.success("🔑 OTP sent successfully!");
+            setSuccess(`A secure OTP has been sent via SMS gateway to +91 ${loginMobile}.`);
+          }
         } catch (err: any) {
           setError(err.message || "Failed to process request.");
         } finally {
           setLoading(false);
         }
       } else {
+        let otpProvider = "simulated";
+        try {
+          const stored = localStorage.getItem("1stcars_cms_website_settings");
+          if (stored) {
+            otpProvider = JSON.parse(stored).otpProvider || "simulated";
+          }
+        } catch (e) {}
+
+        // If we are using mock database, bypass Supabase verify
+        if (isUsingMock) {
+          if (enteredOtp !== generatedOtp && enteredOtp !== "123456") {
+            setError("Incorrect OTP verification code. Please try again.");
+            setLoading(false);
+            return;
+          }
+
+          // Generate a fake user based on roles list
+          const demoUser = demoAccounts.find(d => d.email.includes("admin")) || demoAccounts[0];
+          const finalUser = {
+            id: "mock-user-id",
+            name: "Premium Member",
+            email: "member@1stcars.com",
+            mobile: loginMobile,
+            role: "Admin", // default to Admin so they can manage
+            city: "Mumbai"
+          };
+
+          setSuccess("OTP verified successfully! Welcome to 1stCars Dashboard...");
+          setTimeout(() => {
+            onLoginSuccess(finalUser);
+            onClose();
+          }, 1000);
+          setLoading(false);
+          return;
+        }
+
+        if (otpProvider === "supabase_native") {
+          try {
+            const cleanMobile = loginMobile.startsWith("+") ? loginMobile : `+91${loginMobile}`;
+            const { data, error: verifyErr } = await supabase.auth.verifyOtp({
+              phone: cleanMobile,
+              token: enteredOtp,
+              type: "sms"
+            });
+
+            if (verifyErr) {
+              setError(verifyErr.message || "Invalid OTP code.");
+              setLoading(false);
+              return;
+            }
+
+            if (data.user) {
+              const { data: profile } = await supabase
+                .from("profiles")
+                .select("*")
+                .eq("id", data.user.id)
+                .single();
+
+              const finalUser = profile || data.user;
+              setSuccess("OTP verified natively! Welcome to 1stCars...");
+              setTimeout(() => {
+                onLoginSuccess(finalUser);
+                onClose();
+              }, 1000);
+            }
+          } catch (err: any) {
+            setError(err.message || "Authentication verification error.");
+          } finally {
+            setLoading(false);
+          }
+          return;
+        }
+
+        // Custom SMS Gateway or Simulated OTP verification (validate against generatedOtp)
         if (enteredOtp !== generatedOtp && enteredOtp !== "123456") {
           setError("Incorrect OTP verification code. Please try again.");
           setLoading(false);
@@ -201,7 +432,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
 
         try {
           const { data, error: authErr } = await supabase.auth.signInWithPassword({
-            email: loginMobile,
+            email: `${loginMobile}@1stcars.com`, // standard internal format or use standard email format
             password: "password123"
           });
 
@@ -300,6 +531,38 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
       
+      {/* Simulated SMS Notification Banner */}
+      {simulatedSms && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[60] w-full max-w-sm px-4">
+          <div className="bg-slate-950/95 text-white backdrop-blur-md rounded-2xl p-4 shadow-2xl border border-white/20 flex flex-col gap-2 animate-bounce">
+            <div className="flex items-center justify-between border-b border-white/10 pb-1.5">
+              <span className="flex items-center gap-1.5 text-[10px] font-black text-emerald-400 uppercase tracking-wider">
+                💬 Messages • Live Notification
+              </span>
+              <button 
+                onClick={() => setSimulatedSms(null)}
+                className="text-white/40 hover:text-white/80 text-xs font-bold"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="text-[11px] leading-relaxed font-semibold text-slate-100">
+              <strong className="text-white">+91 {simulatedSms.mobile}</strong>: {simulatedSms.body}
+            </div>
+            <button
+              onClick={() => {
+                setEnteredOtp(simulatedSms.code);
+                toast.success("OTP code autofilled! Click Verify to login.");
+                setSimulatedSms(null);
+              }}
+              className="mt-1 bg-[#2E7D32] hover:bg-[#25632a] text-white text-[10px] font-black uppercase tracking-wider rounded-lg py-2 transition-all cursor-pointer shadow-lg shadow-[#2E7D32]/20"
+            >
+              ⚡ Autofill OTP: {simulatedSms.code}
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Modal Box */}
       <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border border-[#2E7D32]/15 p-6 md:p-8 flex flex-col justify-between text-left space-y-6 max-h-[90vh] overflow-y-auto">
         

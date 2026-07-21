@@ -108,6 +108,11 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
   const [currentPage, setCurrentPage] = React.useState(1);
   const itemsPerPage = 5;
 
+  // SMS Gateway testing hooks
+  const [testMobile, setTestMobile] = React.useState("");
+  const [testStatus, setTestStatus] = React.useState("");
+  const [testLoading, setTestLoading] = React.useState(false);
+
   // Modal form states
   const [isFormOpen, setIsFormOpen] = React.useState(false);
   const [formMode, setFormMode] = React.useState<"add" | "edit">("add");
@@ -883,6 +888,101 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     }
 
     toast.success("Prismatically updated Website Theme, branding parameters, SEO tags, and analytics successfully.");
+  };
+
+  const handleSendTestSms = async () => {
+    if (!testMobile || testMobile.length !== 10 || !/^\d+$/.test(testMobile)) {
+      toast.error("Please enter a valid 10-digit test mobile number.");
+      return;
+    }
+    setTestLoading(true);
+    setTestStatus("Sending secure test code...");
+    try {
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
+      
+      const otpProvider = websiteSettings.otpProvider || "simulated";
+      const customUrl = websiteSettings.customOtpUrl || "";
+      const customHeaders = websiteSettings.customOtpHeaders || "";
+      const customPayload = websiteSettings.customOtpPayload || "";
+
+      if (otpProvider === "supabase_native") {
+        const cleanMobile = `+91${testMobile}`;
+        const { error: authErr } = await supabase.auth.signInWithOtp({
+          phone: cleanMobile
+        });
+        if (authErr) {
+          throw new Error(authErr.message || "Failed to send Supabase Native SMS OTP.");
+        }
+        toast.success("🔥 Real Supabase native phone OTP dispatched!");
+        setTestStatus("Dispatched successfully through Supabase Auth! Check your mobile.");
+      } else if (otpProvider === "custom_gateway") {
+        if (!customUrl) {
+          throw new Error("Custom SMS Gateway URL is not configured. Please set it below.");
+        }
+        
+        // Interpolate values
+        const interpolatedUrl = customUrl
+          .replace(/{otp}/g, code)
+          .replace(/{mobile}/g, testMobile);
+
+        let headersObj: Record<string, string> = {
+          "Content-Type": "application/json"
+        };
+
+        if (customHeaders) {
+          try {
+            headersObj = { ...headersObj, ...JSON.parse(customHeaders) };
+          } catch (e) {
+            throw new Error("Failed to parse Custom SMS Gateway headers. Ensure they are in valid JSON.");
+          }
+        }
+
+        let payloadObj: any = null;
+        if (customPayload) {
+          try {
+            const interpolatedPayload = customPayload
+              .replace(/{otp}/g, code)
+              .replace(/{mobile}/g, testMobile);
+            payloadObj = JSON.parse(interpolatedPayload);
+          } catch (e) {
+            payloadObj = customPayload
+              .replace(/{otp}/g, code)
+              .replace(/{mobile}/g, testMobile);
+          }
+        }
+
+        const method = payloadObj ? "POST" : "GET";
+        
+        const response = await fetch(interpolatedUrl, {
+          method,
+          headers: headersObj,
+          body: payloadObj ? (typeof payloadObj === "string" ? payloadObj : JSON.stringify(payloadObj)) : undefined
+        });
+
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(`SMS Gateway returned status ${response.status}: ${text || "Unknown error"}`);
+        }
+
+        toast.success("🔥 Real Custom SMS Dispatched Successfully!");
+        setTestStatus(`Dispatched successfully to +91 ${testMobile}! Code is ${code}.`);
+      } else {
+        // Simulated
+        toast.success(`🔑 Simulated: Code is ${code}. SMS simulation triggered!`);
+        setTestStatus(`Simulated Success! Verification code is ${code}.`);
+        
+        // Custom event so that the visual pop-up banner also shows up!
+        const event = new CustomEvent("1stcars_simulate_sms", {
+          detail: { mobile: testMobile, code }
+        });
+        window.dispatchEvent(event);
+      }
+    } catch (err: any) {
+      toast.error(`Failed to dispatch: ${err.message}`);
+      setTestStatus(`Error: ${err.message}`);
+    } finally {
+      setTestLoading(false);
+    }
   };
 
   const getCombinedBrandsModels = () => {
@@ -1890,6 +1990,167 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Live SMS & OTP Gateway Hub */}
+              <div className="p-5 bg-emerald-50/40 border border-emerald-100 rounded-2xl space-y-5">
+                <div>
+                  <h4 className="font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <ShieldCheck className="h-4.5 w-4.5 text-[#2E7D32]" /> Live SMS & Secure OTP Gateway Hub
+                  </h4>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Configure, test, and activate your authentication system for customer marketing and logins</p>
+                </div>
+
+                <div className="space-y-4">
+                  {/* Provider Selection */}
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1.5">Active Authentication Mode</label>
+                    <select
+                      value={websiteSettings.otpProvider || "simulated"}
+                      onChange={(e) => {
+                        const provider = e.target.value;
+                        let updated = { ...websiteSettings, otpProvider: provider };
+                        
+                        // Apply presets when selecting custom_gateway to help the user configure popular services
+                        if (provider === "custom_gateway") {
+                          updated.customOtpUrl = "https://api.fast2sms.com/dev/bulkV2?authorization=YOUR_API_KEY&variables_values={otp}&route=otp&numbers={mobile}";
+                          updated.customOtpHeaders = JSON.stringify({ "Content-Type": "application/json" }, null, 2);
+                          updated.customOtpPayload = "";
+                        }
+                        
+                        setWebsiteSettings(updated);
+                      }}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-2.5 outline-none font-bold text-slate-700 focus:ring-1 focus:ring-[#2E7D32]"
+                    >
+                      <option value="simulated">📱 Simulated Sandbox (Visual push-notifications - recommended for testing)</option>
+                      <option value="supabase_native">🔥 Supabase Native Phone Auth (Requires real phone provider configured)</option>
+                      <option value="custom_gateway">⚡ Custom REST SMS Gateway (Twilio, Fast2SMS, MSG91, Twilio-like APIs)</option>
+                    </select>
+                  </div>
+
+                  {websiteSettings.otpProvider === "custom_gateway" && (
+                    <div className="space-y-4 border-l-2 border-emerald-500 pl-4 py-1 animate-fade-in">
+                      {/* Presets Helper */}
+                      <div>
+                        <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Predefined Configuration Templates</label>
+                        <div className="flex flex-wrap gap-1.5 mt-1">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setWebsiteSettings({
+                                ...websiteSettings,
+                                customOtpUrl: "https://api.fast2sms.com/dev/bulkV2?authorization=YOUR_API_KEY&variables_values={otp}&route=otp&numbers={mobile}",
+                                customOtpHeaders: "{}",
+                                customOtpPayload: ""
+                              });
+                              toast.info("Fast2SMS India preset applied! Fill in your api key.");
+                            }}
+                            className="px-2 py-1 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-slate-50 cursor-pointer"
+                          >
+                            Fast2SMS (GET)
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setWebsiteSettings({
+                                ...websiteSettings,
+                                customOtpUrl: "https://api.twilio.com/2010-04-01/Accounts/YOUR_ACCOUNT_SID/Messages.json",
+                                customOtpHeaders: JSON.stringify({ "Authorization": "Basic BASE64_ENCODED_SID_AND_TOKEN" }, null, 2),
+                                customOtpPayload: "From=YOUR_TWILIO_NUMBER&To=%2B91{mobile}&Body=Your+1stCars+OTP+code+is+{otp}"
+                              });
+                              toast.info("Twilio Global preset applied! Fill in SID, token & Twilio number.");
+                            }}
+                            className="px-2 py-1 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-slate-50 cursor-pointer"
+                          >
+                            Twilio (POST Form)
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setWebsiteSettings({
+                                ...websiteSettings,
+                                customOtpUrl: "https://api.msg91.com/api/v5/otp?template_id=YOUR_TEMPLATE_ID&mobile=91{mobile}&authkey=YOUR_AUTH_KEY&otp={otp}",
+                                customOtpHeaders: "{}",
+                                customOtpPayload: ""
+                              });
+                              toast.info("MSG91 India preset applied! Fill in template_id and authkey.");
+                            }}
+                            className="px-2 py-1 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-slate-50 cursor-pointer"
+                          >
+                            MSG91 (GET)
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Custom Gateway URL */}
+                      <div>
+                        <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">REST API Gateway URL</label>
+                        <input
+                          type="text"
+                          placeholder="e.g. https://api.fast2sms.com/dev/bulkV2?authorization=KEY&variables_values={otp}&route=otp&numbers={mobile}"
+                          value={websiteSettings.customOtpUrl || ""}
+                          onChange={(e) => setWebsiteSettings({ ...websiteSettings, customOtpUrl: e.target.value })}
+                          className="w-full h-9 bg-white border border-slate-200 rounded-lg px-2.5 outline-none font-mono text-[11px]"
+                        />
+                        <p className="text-[9px] text-slate-400 mt-1 font-bold">Use placeholders <strong className="text-slate-600 font-black">{`{otp}`}</strong> and <strong className="text-slate-600 font-black">{`{mobile}`}</strong> to let 1stCars dynamically inject verification values at run-time.</p>
+                      </div>
+
+                      {/* Custom Gateway Headers */}
+                      <div>
+                        <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">HTTP Request Headers (JSON)</label>
+                        <textarea
+                          placeholder={`{\n  "Authorization": "YOUR_API_KEY"\n}`}
+                          value={websiteSettings.customOtpHeaders || ""}
+                          onChange={(e) => setWebsiteSettings({ ...websiteSettings, customOtpHeaders: e.target.value })}
+                          className="w-full h-16 bg-white border border-slate-200 rounded-lg p-2 font-mono text-[11px] focus:ring-1 focus:ring-[#2E7D32]"
+                        />
+                      </div>
+
+                      {/* Custom Gateway Payload */}
+                      <div>
+                        <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">HTTP Request Payload (Optional - defaults to GET request if empty)</label>
+                        <textarea
+                          placeholder={`e.g. {\n  "otp": "{otp}",\n  "numbers": "{mobile}"\n}`}
+                          value={websiteSettings.customOtpPayload || ""}
+                          onChange={(e) => setWebsiteSettings({ ...websiteSettings, customOtpPayload: e.target.value })}
+                          className="w-full h-16 bg-white border border-slate-200 rounded-lg p-2 font-mono text-[11px] focus:ring-1 focus:ring-[#2E7D32]"
+                        />
+                        <p className="text-[9px] text-slate-400 mt-1 font-bold">Leave completely blank to send as a standard GET request. Provide a JSON/Form body to trigger a POST request.</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* SMS Gateway LIVE Testing Panel */}
+                  <div className="p-3.5 bg-white border border-slate-200/80 rounded-xl space-y-3">
+                    <span className="block text-[9px] font-black text-[#2E7D32] uppercase tracking-widest">⚡ Gateway Live-Connectivity Dispatch Test</span>
+                    <div className="flex gap-2">
+                      <div className="relative flex-1">
+                        <span className="absolute left-2.5 top-2.5 text-[11px] text-slate-400 font-bold">+91</span>
+                        <input
+                          type="tel"
+                          maxLength={10}
+                          placeholder="Test Phone (10 digits)"
+                          value={testMobile}
+                          onChange={(e) => setTestMobile(e.target.value.replace(/\D/g, ""))}
+                          className="w-full h-9 bg-[#FAF9F6] border border-slate-200 rounded-lg pl-9 pr-2 text-xs outline-none focus:ring-1 focus:ring-[#2E7D32] font-semibold"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        disabled={testLoading}
+                        onClick={handleSendTestSms}
+                        className="px-4 h-9 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-[10px] font-black uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center shrink-0 min-w-28"
+                      >
+                        {testLoading ? "Sending..." : "Send Test SMS"}
+                      </button>
+                    </div>
+                    {testStatus && (
+                      <p className={`text-[10px] font-bold p-2 rounded-md ${testStatus.startsWith("Error:") ? "bg-rose-50 text-rose-800 border border-rose-100" : "bg-emerald-50 text-emerald-800 border border-emerald-100"}`}>
+                        📢 <span className="font-semibold">{testStatus}</span>
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
