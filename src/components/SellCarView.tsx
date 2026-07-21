@@ -332,6 +332,42 @@ const gujaratRTOs = [
 ];
 
 export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarViewProps) {
+  const [settings, setSettings] = React.useState({
+    sellCarBannerTitle: "Sell Your Car Instantly From Home",
+    sellCarBannerDesc: "Book a 100% free home inspection, receive live bids from our verified dealer network, and complete the sale in 24 hours with free RC transfer.",
+    sellCarFormHeading: "Get Your Car Valued",
+    sellCarFormSubheading: "Fill in your car details and we'll get back to you with a competitive cash quote"
+  });
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("1stcars_cms_website_settings");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setSettings(prev => ({ ...prev, ...parsed }));
+        } catch (e) {
+          console.error("Failed to parse website settings in SellCarView", e);
+        }
+      }
+    }
+
+    const handleUpdate = () => {
+      const stored = localStorage.getItem("1stcars_cms_website_settings");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setSettings(prev => ({ ...prev, ...parsed }));
+        } catch (e) {}
+      }
+    };
+
+    window.addEventListener("1stcars_settings_updated", handleUpdate);
+    return () => {
+      window.removeEventListener("1stcars_settings_updated", handleUpdate);
+    };
+  }, []);
+
   // Stepper state
   const [wizardStep, setWizardStep] = React.useState<number>(1);
   const [formStep, setFormStep] = React.useState<"form" | "success">("form");
@@ -630,14 +666,11 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
           <div className="absolute right-0 bottom-0 top-0 w-1/3 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-[#ffffff10] via-transparent to-transparent pointer-events-none hidden md:block" />
           
           <div className="max-w-2xl space-y-4">
-            <span className="bg-white/10 text-emerald-300 font-bold text-xs uppercase tracking-widest px-3 py-1.5 rounded-full inline-block">
-              ⚡ Spinny-Inspired Premium Experience
-            </span>
             <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-none">
-              Sell Your Car Instantly From <span className="text-emerald-300">Home</span>
+              {settings.sellCarBannerTitle}
             </h1>
             <p className="text-sm md:text-base text-emerald-100 max-w-xl font-medium leading-relaxed">
-              Book a 100% free home inspection, receive live bids from our verified dealer network, and complete the sale in 24 hours with free RC transfer.
+              {settings.sellCarBannerDesc}
             </p>
           </div>
         </div>
@@ -654,10 +687,10 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
                 {/* Header */}
                 <div className="mb-6">
                   <h2 className="text-2xl font-black text-slate-950 tracking-tight leading-tight">
-                    Get Your Car Valued
+                    {settings.sellCarFormHeading}
                   </h2>
                   <p className="text-xs text-slate-500 font-medium">
-                    Fill in your car details and we'll get back to you with a competitive cash quote
+                    {settings.sellCarFormSubheading}
                   </p>
                 </div>
 

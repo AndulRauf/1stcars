@@ -132,7 +132,11 @@ export default function App() {
     buyCarsSubheadingText: "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, single-owner status, certified non-accident frames, and instant deliveries.",
     detailsButtonText: "Details & Booking",
     inspectionButtonText: "Book Showroom Inspection",
-    valuationButtonText: "Calculate Valuation"
+    valuationButtonText: "Calculate Valuation",
+    sellCarBannerTitle: "Sell Your Car Instantly From Home",
+    sellCarBannerDesc: "Book a 100% free home inspection, receive live bids from our verified dealer network, and complete the sale in 24 hours with free RC transfer.",
+    sellCarFormHeading: "Get Your Car Valued",
+    sellCarFormSubheading: "Fill in your car details and we'll get back to you with a competitive cash quote"
   });
 
   const [faqs, setFaqs] = React.useState<any[]>([]);
@@ -619,16 +623,16 @@ export default function App() {
             {/* Micro Trust points */}
             <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/60 max-w-lg">
               <div className="flex flex-col">
-                <span className="text-2xl font-black text-[#2E7D32] tracking-tighter">1st-Owner</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Single Owned</span>
+                <span className="text-xl font-black text-[#2E7D32] tracking-tighter shrink-0">{websiteSettings.highlight1Title || "1st-Owner"}</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-tight mt-0.5" title={websiteSettings.highlight1Desc}>{websiteSettings.highlight1Title || "Single Owned"}</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-black text-[#2E7D32] tracking-tighter">Accident-Free</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Trusted Quality</span>
+                <span className="text-xl font-black text-[#2E7D32] tracking-tighter shrink-0">{websiteSettings.highlight2Title || "Accident-Free"}</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-tight mt-0.5" title={websiteSettings.highlight2Desc}>Trusted Frame</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-black text-[#2E7D32] tracking-tighter">Genuine</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">KM Guaranteed</span>
+                <span className="text-xl font-black text-[#2E7D32] tracking-tighter shrink-0">{websiteSettings.highlight3Title || "Genuine"}</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-tight mt-0.5" title={websiteSettings.highlight3Desc}>KM Guaranteed</span>
               </div>
             </div>
           </div>

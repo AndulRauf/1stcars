@@ -26,7 +26,7 @@ type CMSModule =
   | "dashboard" | "cars" | "users" | "staff" | "dealers" | "inspectors" | "sales"
   | "inspections" | "auctions" | "park_sell" | "brands" | "cities"
   | "faqs" | "testimonials" | "finance" | "warranty" | "notifications" | "expenses"
-  | "reports" | "pages" | "footer_links" | "settings";
+  | "reports" | "pages" | "footer_links" | "settings" | "text_editor";
 
 export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSProps) {
   // Active sub-module within Admin CMS
@@ -94,7 +94,11 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     inspectionButtonText: "Book Instant Free Inspection",
     filterHeadingText: "Find Your Certified Dream Car",
     buyCarsHeadingText: "Explore Our Handpicked Certified Fleet",
-    buyCarsSubheadingText: "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, single-owner status, certified non-accident frames, and instant deliveries."
+    buyCarsSubheadingText: "Every vehicle on this list is fully vetted and owned directly by 1stCars. Enjoy straightforward pricing, single-owner status, certified non-accident frames, and instant deliveries.",
+    sellCarBannerTitle: "Sell Your Car Instantly From Home",
+    sellCarBannerDesc: "Book a 100% free home inspection, receive live bids from our verified dealer network, and complete the sale in 24 hours with free RC transfer.",
+    sellCarFormHeading: "Get Your Car Valued",
+    sellCarFormSubheading: "Fill in your car details and we'll get back to you with a competitive cash quote"
   });
 
   // UI States
@@ -1028,7 +1032,8 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
             { id: "reports", label: "Reports", icon: TrendingUp },
             { id: "pages", label: "Custom Pages", icon: BookOpen },
             { id: "footer_links", label: "Footer Links", icon: Link },
-            { id: "settings", label: "Theme Design", icon: Palette }
+            { id: "settings", label: "Theme Design", icon: Palette },
+            { id: "text_editor", label: "Text Editor", icon: Edit3 }
           ].map((item) => (
             <button
               key={item.id}
@@ -2109,6 +2114,373 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                 className="w-full bg-[#2E7D32] hover:bg-[#25632a] text-white font-extrabold text-xs tracking-wider uppercase h-12 rounded-xl flex items-center justify-center shadow-lg"
               >
                 ✔️ Save & Apply Dynamic Website Settings
+              </Button>
+            </div>
+          </div>
+        </form>
+      )}
+
+      {/* 4.5. WEBSITE TEXT COPY EDITOR PANEL */}
+      {activeModule === "text_editor" && (
+        <form onSubmit={handleSaveWebsiteSettings} className="bg-white border border-slate-100 rounded-3xl p-6 md:p-8 shadow-sm space-y-8 text-xs font-semibold">
+          
+          <div className="border-b border-slate-100 pb-4">
+            <h3 className="font-black text-lg text-slate-900 uppercase tracking-wider flex items-center gap-2">
+              <Edit3 className="h-5 w-5 text-[#2E7D32]" /> Complete Website Text & Copy Customizer
+            </h3>
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Edit every heading, subtitle, button, and description across the entire website from this panel</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div className="lg:col-span-8 space-y-8">
+              
+              {/* Category 1: Hero & Brand Identity */}
+              <div className="p-6 bg-[#FAF9F6] border border-slate-100 rounded-2xl space-y-4">
+                <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs border-b border-slate-200/60 pb-2">
+                  1. Hero Section & Brand Slogans
+                </h4>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Hero Banner Main Title</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.heroTitle || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, heroTitle: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Hero Banner Subtitle / Description</label>
+                    <textarea 
+                      rows={3}
+                      value={websiteSettings.heroSubtitle || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, heroSubtitle: e.target.value })}
+                      className="w-full bg-white border border-slate-200 rounded-lg p-3 outline-none focus:ring-1 focus:ring-[#2E7D32] resize-none font-medium text-slate-700"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Brand Accent Slogan</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.brandSlogan || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, brandSlogan: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Brand Brief Description (Footer)</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.brandDescription || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, brandDescription: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Category 2: Button Labels & Navigation Copy */}
+              <div className="p-6 bg-[#FAF9F6] border border-slate-100 rounded-2xl space-y-4">
+                <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs border-b border-slate-200/60 pb-2">
+                  2. Button Call-To-Actions & Nav Labels
+                </h4>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Buy Section CTA button</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.buyButtonText || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, buyButtonText: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Sell Section CTA button</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.sellButtonText || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, sellButtonText: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Search Fleet Button text</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.searchButtonText || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, searchButtonText: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Details & Booking CTA button</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.detailsButtonText || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, detailsButtonText: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Valuation Button text</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.valuationButtonText || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, valuationButtonText: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Inspection Booking Button text</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.inspectionButtonText || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, inspectionButtonText: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Filter Sidebar Heading</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.filterHeadingText || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, filterHeadingText: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Category 3: Highlight USP Points */}
+              <div className="p-6 bg-[#FAF9F6] border border-slate-100 rounded-2xl space-y-4">
+                <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs border-b border-slate-200/60 pb-2">
+                  3. Key Pillars & Trust Badges (USPs)
+                </h4>
+                
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="sm:col-span-1">
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">USP 1 Title</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.highlight1Title || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight1Title: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">USP 1 Description</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.highlight1Desc || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight1Desc: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="sm:col-span-1">
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">USP 2 Title</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.highlight2Title || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight2Title: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">USP 2 Description</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.highlight2Desc || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight2Desc: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="sm:col-span-1">
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">USP 3 Title</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.highlight3Title || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight3Title: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">USP 3 Description</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.highlight3Desc || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, highlight3Desc: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Category 4: Fleet Page Headers */}
+              <div className="p-6 bg-[#FAF9F6] border border-slate-100 rounded-2xl space-y-4">
+                <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs border-b border-slate-200/60 pb-2">
+                  4. Fleet & Inventory Section Copy
+                </h4>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Inventory Page Main Title</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.buyCarsHeadingText || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, buyCarsHeadingText: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Inventory Page Subtitle</label>
+                    <textarea 
+                      rows={3}
+                      value={websiteSettings.buyCarsSubheadingText || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, buyCarsSubheadingText: e.target.value })}
+                      className="w-full bg-white border border-slate-200 rounded-lg p-3 outline-none focus:ring-1 focus:ring-[#2E7D32] resize-none font-medium text-slate-700"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Category 5: Sell Car Page Copy */}
+              <div className="p-6 bg-[#FAF9F6] border border-slate-100 rounded-2xl space-y-4">
+                <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs border-b border-slate-200/60 pb-2">
+                  5. Sell Car View Page Copy
+                </h4>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Sell Car Page Banner Title</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.sellCarBannerTitle || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, sellCarBannerTitle: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Sell Car Page Banner Subtitle / Description</label>
+                    <textarea 
+                      rows={3}
+                      value={websiteSettings.sellCarBannerDesc || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, sellCarBannerDesc: e.target.value })}
+                      className="w-full bg-white border border-slate-200 rounded-lg p-3 outline-none focus:ring-1 focus:ring-[#2E7D32] resize-none font-medium text-slate-700"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Sell Valuation Form Heading</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.sellCarFormHeading || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, sellCarFormHeading: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Sell Valuation Form Subtitle</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.sellCarFormSubheading || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, sellCarFormSubheading: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Category 6: Footer copyrights & Support Info */}
+              <div className="p-6 bg-[#FAF9F6] border border-slate-100 rounded-2xl space-y-4">
+                <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs border-b border-slate-200/60 pb-2">
+                  6. Footer Copyrights & Support Contact Info
+                </h4>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Footer Copyrights Text</label>
+                    <input 
+                      type="text" 
+                      value={websiteSettings.footerText || ""}
+                      onChange={(e) => setWebsiteSettings({ ...websiteSettings, footerText: e.target.value })}
+                      className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Support Phone</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.supportPhone || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, supportPhone: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Support Email</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.supportEmail || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, supportEmail: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black uppercase text-slate-400 mb-1">Support Address</label>
+                      <input 
+                        type="text" 
+                        value={websiteSettings.supportAddress || ""}
+                        onChange={(e) => setWebsiteSettings({ ...websiteSettings, supportAddress: e.target.value })}
+                        className="w-full h-10 bg-white border border-slate-200 rounded-lg px-3 outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Sidebar Save Card */}
+            <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-6">
+              <div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl space-y-4">
+                <h4 className="font-black text-slate-900 uppercase tracking-wider text-xs">
+                  Save Copy Changes
+                </h4>
+                <p className="text-[10px] text-slate-500 leading-relaxed font-semibold">
+                  Once you save, these text changes will be applied instantly to the live database catalog and update the client-side visual content elements without any code compile delays.
+                </p>
+
+                <div className="border-t border-slate-200 pt-3 space-y-2.5 text-[11px] font-bold text-slate-700">
+                  <div className="flex justify-between">
+                    <span>Branding Theme:</span>
+                    <span className="font-mono text-primary font-black uppercase">{websiteSettings.logoUrl}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Selected Font:</span>
+                    <span className="text-slate-400">{websiteSettings.fontFamily}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Submit CTA */}
+              <Button
+                type="submit"
+                className="w-full bg-[#2E7D32] hover:bg-[#25632a] text-white font-extrabold text-xs tracking-wider uppercase h-12 rounded-xl flex items-center justify-center shadow-lg"
+              >
+                ✔️ Save & Apply Dynamic Website Copy
               </Button>
             </div>
           </div>
