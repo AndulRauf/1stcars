@@ -571,42 +571,42 @@ export default function App() {
         <div className="absolute top-1/4 left-10 w-96 h-96 bg-[#2E7D32]/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#2E7D32]/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           
-          {/* Hero Left Content */}
-          <div className="lg:col-span-7 flex flex-col space-y-6 text-left">
-            <div className="inline-flex">
+          {/* Hero Content */}
+          <div className="flex flex-col items-center justify-center space-y-6 max-w-4xl mx-auto">
+            <div className="inline-flex justify-center">
               <Badge variant="premium" className="px-3.5 py-1 text-[11px] font-extrabold tracking-widest text-[#2E7D32] bg-[#2E7D32]/5 border border-[#2E7D32]/10 uppercase rounded-full">
                 ★ {websiteSettings.brandSlogan || "1stMark Certified Luxury Marketplace"}
               </Badge>
             </div>
             
-            <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-[0.95]">
+            <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-[0.95] text-center">
               {websiteSettings.heroTitle && websiteSettings.heroTitle !== "Certified Cars" ? (
                 websiteSettings.heroTitle
               ) : (
                 <>
-                  Buy & Sell <br />
+                  Buy & Sell <br className="sm:hidden" />
                   <span className="text-[#2E7D32] relative">
                     Certified Cars 
                     <span className="absolute left-0 bottom-1 w-full h-[6px] bg-[#2E7D32]/10 -z-10 rounded"></span>
-                  </span> <br className="hidden sm:inline" />
+                  </span> <br />
                   With Total Confidence.
                 </>
               )}
             </h1>
             
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl font-medium">
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-medium text-center">
               {websiteSettings.heroSubtitle || "Inspired by rigorous pre-owned standards, reimagined for ultimate luxury. Explore 150-point inspected, hassle-free certified vehicles with single-owner pedigree, non-accident trust, and genuine km verification."}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row gap-4 pt-2 justify-center w-full max-w-md mx-auto">
               <Button 
                 onClick={() => {
                   setCurrentView("buy_cars");
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="bg-[#2E7D32] hover:bg-[#25632a] text-white font-extrabold px-8 py-4 text-xs tracking-wider uppercase shadow-xl shadow-[#2E7D32]/25 group flex items-center justify-center rounded-full"
+                className="bg-[#2E7D32] hover:bg-[#25632a] text-white font-extrabold px-8 py-4 text-xs tracking-wider uppercase shadow-xl shadow-[#2E7D32]/25 group flex items-center justify-center rounded-full w-full sm:w-auto"
               >
                 {websiteSettings.buyButtonText || "Buy Certified Cars"} 
                 <ArrowRight className="h-4.5 w-4.5 ml-2.5 transition-transform group-hover:translate-x-1" />
@@ -614,84 +614,25 @@ export default function App() {
               <Button 
                 variant="secondary"
                 onClick={scrollToSell}
-                className="bg-white border border-slate-200/80 text-slate-900 font-extrabold px-8 py-4 text-xs tracking-wider uppercase hover:bg-slate-50 shadow-sm flex items-center justify-center rounded-full"
+                className="bg-white border border-slate-200/80 text-slate-900 font-extrabold px-8 py-4 text-xs tracking-wider uppercase hover:bg-slate-50 shadow-sm flex items-center justify-center rounded-full w-full sm:w-auto"
               >
                 {websiteSettings.sellButtonText || "Sell Your Car"}
               </Button>
             </div>
 
             {/* Micro Trust points */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/60 max-w-lg">
-              <div className="flex flex-col">
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-slate-200/60 w-full max-w-md justify-center">
+              <div className="flex flex-col items-center">
                 <span className="text-xl font-black text-[#2E7D32] tracking-tighter shrink-0">{websiteSettings.highlight1Title || "1st-Owner"}</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-tight mt-0.5" title={websiteSettings.highlight1Desc}>{websiteSettings.highlight1Title || "Single Owned"}</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-tight mt-0.5 text-center" title={websiteSettings.highlight1Desc}>{websiteSettings.highlight1Title || "Single Owned"}</span>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col items-center">
                 <span className="text-xl font-black text-[#2E7D32] tracking-tighter shrink-0">{websiteSettings.highlight2Title || "Accident-Free"}</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-tight mt-0.5" title={websiteSettings.highlight2Desc}>Trusted Frame</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-tight mt-0.5 text-center" title={websiteSettings.highlight2Desc}>Trusted Frame</span>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col items-center">
                 <span className="text-xl font-black text-[#2E7D32] tracking-tighter shrink-0">{websiteSettings.highlight3Title || "Genuine"}</span>
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-tight mt-0.5" title={websiteSettings.highlight3Desc}>KM Guaranteed</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Hero Right Graphic */}
-          <div className="lg:col-span-5 relative w-full flex items-center justify-center">
-            {/* Elegant glassmorphism vehicle display box */}
-            <div className="w-full max-w-md bg-white border border-white/90 shadow-2xl shadow-slate-200/60 rounded-[36px] p-6 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#2E7D32]/10 rounded-full blur-2xl" />
-              
-              <div className="aspect-[4/3] w-full bg-slate-50 rounded-2xl flex flex-col justify-between p-6 relative overflow-hidden border border-slate-100">
-                <div className="flex justify-between items-start z-10">
-                  <Badge variant="premium" className="bg-[#2E7D32] text-white">1stMark Certified</Badge>
-                  <span className="text-[10px] font-mono font-bold text-slate-400 bg-white shadow-xs px-2.5 py-1 rounded-full">SPEC: ACTIVE</span>
-                </div>
-
-                {/* Minimalistic premium sports car silhouette mockup with pure SVG */}
-                <div className="my-auto w-full max-w-[260px] mx-auto opacity-95 hover:scale-105 transition-transform duration-500">
-                  <svg viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto drop-shadow-md">
-                    {/* Car outline */}
-                    <path d="M5 28C5 28 8 26 14 26C20 26 23 20 28 17C33 14 42 12 55 12C68 12 76 15 82 19C88 23 92 25 94 28C96 31 95 32 93 32H7" stroke="#2E7D32" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                    {/* Windshield */}
-                    <path d="M54 13L68 19" stroke="#2E7D32" strokeWidth="1.2" strokeLinecap="round"/>
-                    {/* Wheels */}
-                    <circle cx="24" cy="30" r="6.5" fill="#FFFFFF" stroke="#2E7D32" strokeWidth="1.5" />
-                    <circle cx="24" cy="30" r="2.5" fill="#2E7D32" />
-                    <circle cx="74" cy="30" r="6.5" fill="#FFFFFF" stroke="#2E7D32" strokeWidth="1.5" />
-                    <circle cx="74" cy="30" r="2.5" fill="#2E7D32" />
-                    {/* Shadow underneath */}
-                    <ellipse cx="49" cy="36" rx="42" ry="1.5" fill="#2E7D32" fillOpacity="0.12" />
-                  </svg>
-                </div>
-
-                <div className="z-10 mt-auto flex justify-between items-end border-t border-slate-100 pt-4">
-                  <div className="flex flex-col text-left">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">ASTON MARTIN</span>
-                    <span className="text-lg font-black text-slate-900 tracking-tight">DB11 V8 Spec</span>
-                  </div>
-                  <div className="flex flex-col items-end text-right">
-                    <span className="text-xs text-[#2E7D32] font-black tracking-tight">Est: ₹1,42,000/mo</span>
-                    <span className="text-sm font-black text-slate-800">₹1,28,40,000</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Status checklist widget within right panel */}
-              <div className="mt-5 space-y-3 bg-slate-50/50 p-4 rounded-2xl border border-slate-100 text-left text-xs font-semibold">
-                <div className="flex items-center text-slate-700">
-                  <CheckCircle className="h-4.5 w-4.5 text-[#2E7D32] mr-2.5 shrink-0" />
-                  <span>150-Point Inspection Checked & Approved</span>
-                </div>
-                <div className="flex items-center text-slate-700">
-                  <CheckCircle className="h-4.5 w-4.5 text-[#2E7D32] mr-2.5 shrink-0" />
-                  <span>Verified History Reports Included</span>
-                </div>
-                <div className="flex items-center text-slate-700">
-                  <CheckCircle className="h-4.5 w-4.5 text-[#2E7D32] mr-2.5 shrink-0" />
-                  <span>Includes 12-Month Mechanical Warranty</span>
-                </div>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-tight mt-0.5 text-center" title={websiteSettings.highlight3Desc}>KM Guaranteed</span>
               </div>
             </div>
           </div>
