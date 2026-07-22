@@ -1,5 +1,5 @@
 import * as React from "react";
-import { X, ShieldCheck, Mail, Lock, User, Phone, MapPin, Sparkles, Database, Check, Award } from "lucide-react";
+import { X, ShieldCheck, Mail, Lock, User, Phone, MapPin, Sparkles, Database, Check, Award, Upload } from "lucide-react";
 import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
 import { UserRole } from "@/src/lib/db";
@@ -18,11 +18,31 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   
-  // Registration States
+  // Dealer Registration States
   const [regName, setRegName] = React.useState("");
   const [regMobile, setRegMobile] = React.useState("");
-  const [regCity, setRegCity] = React.useState("Mumbai");
-  const [regRole, setRegRole] = React.useState<UserRole>("Buyer");
+  const [regCity, setRegCity] = React.useState("Surat");
+  const [dealershipName, setDealershipName] = React.useState("");
+  const [visitingCardUrl, setVisitingCardUrl] = React.useState("");
+  const [aadharCardUrl, setAadharCardUrl] = React.useState("");
+
+  const handleDealerPhotoUpload = (e: React.ChangeEvent<HTMLInputElement>, target: "visiting" | "aadhar") => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target?.result as string;
+        if (target === "visiting") {
+          setVisitingCardUrl(dataUrl);
+          toast.success("Visiting Card photo attached successfully!");
+        } else {
+          setAadharCardUrl(dataUrl);
+          toast.success("Aadhar Card photo attached successfully!");
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Mobile OTP States
   const [loginMobile, setLoginMobile] = React.useState("");
@@ -638,48 +658,75 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
       }
     } else if (mode === "register") {
       if (!regName || !email || !regMobile) {
-        setError("Please complete all required fields.");
+        setError("Please enter your Full Name, Mobile Number, and Email Address.");
         setLoading(false);
         return;
       }
-      const { data, error: authErr } = await supabase.auth.signUp({
-        email,
-        password: password || "password123",
-        options: {
-          data: {
-            name: regName,
-            mobile: regMobile,
-            city: regCity,
-            role: regRole
-          }
-        }
-      });
-      if (authErr) {
-        setError(authErr.message || "Failed to register user.");
+      if (!visitingCardUrl) {
+        setError("Please upload a photo of your Dealership Visiting Card.");
         setLoading(false);
-      } else if (data.user) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", data.user.id)
-          .single();
-
-        const finalUser = profile || {
-          id: data.user.id,
-          name: regName,
-          email,
-          mobile: regMobile,
-          city: regCity,
-          role: regRole,
-          created_at: new Date().toISOString()
-        };
-
-        setSuccess(`Registration successful! Welcome, ${finalUser.name}.`);
-        setTimeout(() => {
-          onLoginSuccess(finalUser);
-          onClose();
-        }, 1200);
+        return;
       }
+      if (!aadharCardUrl) {
+        setError("Please upload a photo of your Aadhar Card for identity verification.");
+        setLoading(false);
+        return;
+      }
+
+      const newDealerRecord = {
+        id: "dealer-" + Date.now(),
+        name: regName,
+        dealership_name: dealershipName || `${regName} Motors`,
+        email: email.trim(),
+        mobile: regMobile,
+        city: regCity,
+        role: "Dealer" as UserRole,
+        is_approved: false,
+        status: "pending_approval",
+        visiting_card_url: visitingCardUrl,
+        aadhar_card_url: aadharCardUrl,
+        created_at: new Date().toISOString()
+      };
+
+      // Save dealer record in localStorage list for Admin CMS
+      try {
+        const existingDealers = JSON.parse(localStorage.getItem("1stcars_cms_dealers") || "[]");
+        const updatedDealers = [newDealerRecord, ...existingDealers];
+        localStorage.setItem("1stcars_cms_dealers", JSON.stringify(updatedDealers));
+      } catch (e) {}
+
+      // Save in profiles table in Supabase if connected
+      try {
+        await supabase.from("profiles").upsert({
+          id: newDealerRecord.id,
+          name: newDealerRecord.name,
+          email: newDealerRecord.email,
+          mobile: newDealerRecord.mobile,
+          city: newDealerRecord.city,
+          role: "Dealer",
+          is_approved: false,
+          status: "pending_approval",
+          visiting_card_url: visitingCardUrl,
+          aadhar_card_url: aadharCardUrl,
+          created_at: newDealerRecord.created_at
+        });
+      } catch (e) {}
+
+      setSuccess(`Dealer registration submitted for ${regName}! Your profile, Visiting Card, and Aadhar Card have been sent to Admin for review. Once approved, you can log in to participate in live auctions.`);
+      toast.success("Dealer profile submitted to Admin for review!");
+
+      // Reset form fields
+      setRegName("");
+      setRegMobile("");
+      setEmail("");
+      setDealershipName("");
+      setVisitingCardUrl("");
+      setAadharCardUrl("");
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+      return;
     } else {
       // Forgot Password flow
       const { error: resetErr } = await supabase.auth.signOut(); // reset mock or placeholder
@@ -889,7 +936,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
                 <div className="relative">
                   <User className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
                   <Input
-                    placeholder="e.g. Amit Verma"
+                    placeholder="e.g. Rajesh Shah"
                     value={regName}
                     onChange={(e) => setRegName(e.target.value)}
                     required
@@ -915,13 +962,13 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Operational City</label>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Operational City *</label>
                   <div className="relative">
                     <MapPin className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
                     <select
                       value={regCity}
                       onChange={(e) => setRegCity(e.target.value)}
-                      className="w-full h-11 border border-slate-200 rounded-xl pl-10 pr-4 bg-white text-xs font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none"
+                      className="w-full h-11 border border-slate-200 rounded-xl pl-10 pr-4 bg-white text-xs font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none cursor-pointer"
                     >
                       <option value="Surat">Surat</option>
                       <option value="Bharuch">Bharuch</option>
@@ -932,25 +979,101 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
                 </div>
               </div>
 
-              {/* Role Picker */}
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Choose Your Account Role *</label>
-                <div className="grid grid-cols-3 gap-2">
-                  {rolesList.slice(0, 3).map((r) => (
-                    <button
-                      key={r.id}
-                      type="button"
-                      onClick={() => setRegRole(r.id)}
-                      className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
-                        regRole === r.id 
-                          ? "bg-[#2E7D32]/10 border-[#2E7D32] text-[#2E7D32]" 
-                          : "bg-slate-50 border-slate-100 text-slate-600 hover:border-slate-200"
-                      }`}
-                    >
-                      <p className="text-xs font-black">{r.id}</p>
-                    </button>
-                  ))}
+              <div className="space-y-1">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Dealership / Firm Name</label>
+                <div className="relative">
+                  <Award className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
+                  <Input
+                    placeholder="e.g. Royal Auto Cars Dealership"
+                    value={dealershipName}
+                    onChange={(e) => setDealershipName(e.target.value)}
+                    className="h-11 pl-10 rounded-xl"
+                  />
                 </div>
+              </div>
+
+              {/* Photo Uploads: Visiting Card Photo & Aadhar Card Photo */}
+              <div className="space-y-3 pt-1 border-t border-slate-100">
+                <p className="text-[10px] font-black text-[#2E7D32] uppercase tracking-wider flex items-center gap-1">
+                  <ShieldCheck className="h-3.5 w-3.5" /> Identity & Verification Documents
+                </p>
+
+                {/* 1. Visiting Card Photo */}
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">1. Visiting Card Photo *</label>
+                  {visitingCardUrl ? (
+                    <div className="relative h-24 w-full rounded-xl border border-emerald-200 bg-emerald-50/50 p-2 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 overflow-hidden">
+                        <img src={visitingCardUrl} alt="Visiting Card" className="h-20 w-28 object-cover rounded-lg border border-slate-200 shrink-0" />
+                        <div>
+                          <p className="text-xs font-black text-emerald-900">Visiting Card Attached</p>
+                          <p className="text-[10px] text-emerald-700 font-medium">Ready for Admin review</p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setVisitingCardUrl("")}
+                        className="px-2.5 py-1 text-[10px] font-black text-rose-600 bg-white border border-rose-200 rounded-lg hover:bg-rose-50 cursor-pointer shrink-0"
+                      >
+                        Change
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="border-2 border-dashed border-slate-200 hover:border-[#2E7D32] bg-slate-50 hover:bg-[#2E7D32]/5 rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer transition-all">
+                      <Upload className="h-5 w-5 text-slate-400 mb-1" />
+                      <span className="text-xs font-bold text-slate-700">Upload Visiting Card Photo</span>
+                      <span className="text-[9px] text-slate-400 font-semibold">JPG, PNG or WEBP (Max 5MB)</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleDealerPhotoUpload(e, "visiting")}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                </div>
+
+                {/* 2. Aadhar Card Photo */}
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">2. Aadhar Card Photo *</label>
+                  {aadharCardUrl ? (
+                    <div className="relative h-24 w-full rounded-xl border border-emerald-200 bg-emerald-50/50 p-2 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 overflow-hidden">
+                        <img src={aadharCardUrl} alt="Aadhar Card" className="h-20 w-28 object-cover rounded-lg border border-slate-200 shrink-0" />
+                        <div>
+                          <p className="text-xs font-black text-emerald-900">Aadhar Card Attached</p>
+                          <p className="text-[10px] text-emerald-700 font-medium">Identity verified for review</p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setAadharCardUrl("")}
+                        className="px-2.5 py-1 text-[10px] font-black text-rose-600 bg-white border border-rose-200 rounded-lg hover:bg-rose-50 cursor-pointer shrink-0"
+                      >
+                        Change
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="border-2 border-dashed border-slate-200 hover:border-[#2E7D32] bg-slate-50 hover:bg-[#2E7D32]/5 rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer transition-all">
+                      <Upload className="h-5 w-5 text-slate-400 mb-1" />
+                      <span className="text-xs font-bold text-slate-700">Upload Aadhar Card Photo</span>
+                      <span className="text-[9px] text-slate-400 font-semibold">JPG, PNG or WEBP (Max 5MB)</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleDealerPhotoUpload(e, "aadhar")}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                </div>
+              </div>
+
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-[10px] text-slate-600 font-semibold flex items-start gap-2">
+                <ShieldCheck className="h-4 w-4 text-[#2E7D32] shrink-0 mt-0.5" />
+                <span>
+                  Admin will review your profile, Visiting Card, and Aadhar Card. Once approved, you can log in to participate in live vehicle auctions.
+                </span>
               </div>
             </>
           )}
@@ -1116,33 +1239,31 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
               className="w-full bg-[#2E7D32] hover:bg-[#25632a] text-white font-black text-xs uppercase tracking-widest rounded-xl h-11 shadow-lg shadow-[#2E7D32]/10"
             >
               {loading 
-                ? "Authenticating Gateway..." 
+                ? "Processing Application..." 
                 : mode === "login" 
                   ? (loginMethod === "email" ? "Sign In" : (!otpSent ? "Send OTP" : "Verify OTP & Sign In"))
                   : mode === "register" 
-                    ? "Create Account" 
+                    ? "Submit Dealer Application for Admin Review" 
                     : "Send Reset Instructions"}
             </Button>
           </div>
         </form>
 
-
-
         {/* Footer toggle switcher */}
         <div className="text-center pt-2 text-xs font-semibold text-slate-400">
           {mode === "login" ? (
             <p>
-              Don't have an account?{" "}
+              Are you an official car dealer?{" "}
               <button 
                 onClick={() => setMode("register")}
                 className="text-[#2E7D32] font-black hover:underline cursor-pointer"
               >
-                Register Now
+                Register as Partnered Dealer
               </button>
             </p>
           ) : (
             <p>
-              Already registered?{" "}
+              Already registered dealer?{" "}
               <button 
                 onClick={() => setMode("login")}
                 className="text-[#2E7D32] font-black hover:underline cursor-pointer"

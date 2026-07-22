@@ -311,7 +311,7 @@ export function Navbar({
                     onClick={() => onAuthClick?.("register")}
                     className="bg-primary text-white font-bold shadow-lg shadow-[#2E7D32]/20 hover:bg-[#25632a] uppercase tracking-wider text-xs"
                   >
-                    Register
+                    Dealer Register
                   </Button>
                 </>
               )}

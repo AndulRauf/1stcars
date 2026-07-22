@@ -26,7 +26,7 @@ interface AdminCMSProps {
 }
 
 type CMSModule = 
-  | "dashboard" | "cars" | "users" | "staff" | "dealers" | "inspectors" | "sales"
+  | "dashboard" | "cars" | "users" | "buyer_enquiries" | "seller_enquiries" | "staff" | "dealers" | "inspectors" | "sales"
   | "inspections" | "auctions" | "park_sell" | "brands" | "cities"
   | "faqs" | "testimonials" | "finance" | "warranty" | "notifications" | "expenses"
   | "reports" | "pages" | "footer_links" | "settings" | "text_editor";
@@ -34,6 +34,9 @@ type CMSModule =
 export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSProps) {
   // Active sub-module within Admin CMS
   const [activeModule, setActiveModule] = React.useState<CMSModule>("dashboard");
+
+  // Photo preview modal state for Visiting Card / Aadhar Card documents
+  const [previewPhotoModal, setPreviewPhotoModal] = React.useState<{ title: string; url: string } | null>(null);
 
   // Local state for all CMS lists
   const [cars, setCars] = React.useState<any[]>([]);
@@ -383,6 +386,8 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
       dashboard: {},
       cars: { brand: "BMW", model: "X5 xDrive40i", variant: "M Sport", year: 2022, price: 9500000, km_driven: 15000, fuel: "Petrol", transmission: "Automatic", owner_count: 1, city: "Mumbai", reg_number: "MH02-FP-5005", color: "Carbon Black", insurance_type: "Comprehensive", overall_score: 9.2, status: "available", image_url: "🚙", images: [] },
       users: { name: "", email: "", mobile: "", role: "Buyer", city: "Mumbai" },
+      buyer_enquiries: { name: "", mobile: "", city: "Surat", vehicle: "", type: "Test Drive Request", preferred_date: "", preferred_time: "Morning", notes: "" },
+      seller_enquiries: { seller_name: "", seller_mobile: "", reg_number: "", brand: "", model: "", year: 2022, km_driven: 25000, city: "Surat", address: "", status: "pending", notes: "" },
       staff: { name: "", email: "", role: "Inspector", region: "Mumbai", shift: "Morning", status: "Active" },
       dealers: { name: "", manager: "", rating: 5.0, city: "Mumbai", credits: 500000, active_bids: 0 },
       inspectors: { name: "", email: "", certified_level: "Senior", region: "Mumbai", total_inspections: 0 },
@@ -812,8 +817,33 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     return raw ? JSON.parse(raw) : [];
   }
 
+  // Dealer Approval Action
+  const handleApproveDealer = async (dealerItem: any) => {
+    const updatedDealer = {
+      ...dealerItem,
+      is_approved: true,
+      status: "Approved",
+      dealerStatus: "Approved"
+    };
+
+    // Update local state & localStorage
+    const nextDealers = dealers.map(d => d.id === dealerItem.id ? updatedDealer : d);
+    setDealers(nextDealers);
+    localStorage.setItem("1stcars_cms_dealers", JSON.stringify(nextDealers));
+
+    // Sync status to Supabase profiles
+    try {
+      await supabase.from("profiles").update({
+        is_approved: true,
+        status: "Approved"
+      }).eq("id", dealerItem.id);
+    } catch (e) {}
+
+    toast.success(`Dealer "${dealerItem.name}" approved! They can now log in and participate in live auctions.`);
+  };
+
   // Dynamic CSV/XLS Download & Upload Bulk Listing Handlers
-  const handleExportXLS = (type: "cars" | "brands") => {
+  const handleExportXLS = (type: string) => {
     let headers: string[] = [];
     let rows: any[] = [];
     let filename = "";
@@ -826,10 +856,30 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
       ];
       rows = cars;
       filename = "1stcars-stock-catalog.xls";
-    } else {
+    } else if (type === "brands") {
       headers = ["brand_name", "model_name", "category", "engine", "power", "logo_url", "is_popular", "audience", "status"];
       rows = getCombinedBrandsModels();
       filename = "1stcars-brands-models-catalog.xls";
+    } else if (type === "buyer_enquiries") {
+      headers = ["created_at", "name", "mobile", "city", "vehicle", "type", "preferred_date", "preferred_time", "status", "notes"];
+      try {
+        rows = JSON.parse(localStorage.getItem("1stcars_sales_leads") || "[]");
+      } catch (e) {
+        rows = [];
+      }
+      filename = "1stcars-buyer-enquiries.xls";
+    } else if (type === "seller_enquiries") {
+      headers = ["created_at", "seller_name", "seller_mobile", "reg_number", "brand", "model", "year", "km_driven", "city", "address", "status", "notes"];
+      rows = inspections;
+      filename = "1stcars-seller-enquiries.xls";
+    } else if (type === "dealers") {
+      headers = ["created_at", "name", "dealership_name", "mobile", "email", "city", "status", "is_approved", "visiting_card_url", "aadhar_card_url"];
+      rows = dealers;
+      filename = "1stcars-dealer-registrations.xls";
+    } else {
+      headers = ["id", "name", "mobile", "email", "city", "status"];
+      rows = getActiveModuleData();
+      filename = `1stcars-${type}-export.xls`;
     }
 
     // Generate CSV contents with standard double quote wrap escaping
@@ -855,7 +905,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    toast.success(`Catalog spreadsheet exported successfully to ${filename}`);
+    toast.success(`Spreadsheet downloaded successfully: ${filename}`);
   };
 
   const handleImportXLS = (type: "cars" | "brands", event: React.ChangeEvent<HTMLInputElement>) => {
@@ -1189,6 +1239,14 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     switch (activeModule) {
       case "cars": return cars;
       case "users": return users;
+      case "buyer_enquiries":
+        try {
+          return JSON.parse(localStorage.getItem("1stcars_sales_leads") || "[]");
+        } catch (e) {
+          return [];
+        }
+      case "seller_enquiries":
+        return inspections;
       case "inspections": return inspections;
       case "auctions": return auctions;
       case "brands": return getCombinedBrandsModels();
@@ -1263,18 +1321,20 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
           </Button>
         </div>
 
-        {/* 20 Tab Grid Selector */}
+        {/* 23 Tab Grid Selector */}
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-1.5 max-h-48 overflow-y-auto pr-1">
           {[
             { id: "dashboard", label: "Dashboard", icon: BarChart3 },
-            { id: "cars", label: "Cars", icon: Car },
+            { id: "cars", label: "Cars Catalog", icon: Car },
+            { id: "buyer_enquiries", label: "Buyer Enquiries", icon: ClipboardList },
+            { id: "seller_enquiries", label: "Seller Enquiries", icon: FileText },
+            { id: "dealers", label: "Dealers & Approvals", icon: Award },
             { id: "users", label: "Users", icon: Users },
             { id: "staff", label: "Staff", icon: UserCheck },
-            { id: "dealers", label: "Dealers", icon: DollarSign },
             { id: "inspectors", label: "Inspectors", icon: Award },
             { id: "sales", label: "Sales Assc", icon: ClipboardList },
-            { id: "inspections", label: "Inspections", icon: ClipboardList },
-            { id: "auctions", label: "Auctions", icon: Hammer },
+            { id: "inspections", label: "150-Pt Inspections", icon: ClipboardList },
+            { id: "auctions", label: "Live Auctions", icon: Hammer },
             { id: "park_sell", label: "Park & Sell", icon: Layers },
             { id: "brands", label: "Brands & Models", icon: Play },
             { id: "cities", label: "Cities", icon: MapPin },
@@ -1465,39 +1525,54 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
             </div>
           </div>
 
-          {/* Bulk Spreadsheet Stock/Brand Actions */}
-          {(activeModule === "cars" || activeModule === "brands") && (
+          {/* Bulk Spreadsheet Stock/Brand/Enquiry/Dealer Actions */}
+          {(activeModule === "cars" || activeModule === "brands" || activeModule === "buyer_enquiries" || activeModule === "seller_enquiries" || activeModule === "dealers") && (
             <div className="p-4 bg-emerald-50/60 border border-emerald-500/20 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-left">
                 <h4 className="font-black text-xs text-emerald-950 uppercase tracking-wider flex items-center gap-1.5">
-                  <Sparkles className="h-4 w-4 text-emerald-700 shrink-0" /> Bulk spreadsheet {activeModule} catalog manager
+                  <Sparkles className="h-4 w-4 text-emerald-700 shrink-0" />
+                  {activeModule === "buyer_enquiries" 
+                    ? "Buyer Enquiries Management & Download Sheet" 
+                    : activeModule === "seller_enquiries" 
+                    ? "Seller Enquiries Management & Download Sheet" 
+                    : activeModule === "dealers" 
+                    ? "Dealer Verification & Application Manager" 
+                    : `Bulk spreadsheet ${activeModule} catalog manager`}
                 </h4>
                 <p className="text-[10px] text-emerald-800/80 font-bold uppercase tracking-widest mt-1">
-                  Download the current active catalog as Excel .xls or upload bulk new listings directly with .xls / .csv
+                  {activeModule === "buyer_enquiries" 
+                    ? "Download all test drive bookings and buy requests in a dedicated Excel/CSV sheet" 
+                    : activeModule === "seller_enquiries" 
+                    ? "Download all car valuation and evaluation requests in a separate Excel/CSV sheet" 
+                    : activeModule === "dealers" 
+                    ? "Review submitted Visiting Cards and Aadhar Cards to approve dealers for live vehicle auctions" 
+                    : "Download current catalog as Excel .xls or upload bulk new listings"}
                 </p>
               </div>
               <div className="flex items-center gap-2.5 shrink-0">
                 <Button
                   onClick={() => handleExportXLS(activeModule)}
-                  variant="secondary"
-                  className="bg-white border border-emerald-200 hover:bg-emerald-50 text-emerald-900 text-[10px] font-black uppercase tracking-wider h-9 px-3.5 rounded-xl flex items-center gap-1.5 shadow-xs"
+                  className="bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-black uppercase tracking-wider h-9 px-4 rounded-xl flex items-center gap-1.5 shadow-sm cursor-pointer"
                 >
-                  <ArrowDownToLine className="h-3.5 w-3.5" /> Download XLS
+                  <ArrowDownToLine className="h-3.5 w-3.5" /> Download {activeModule === "buyer_enquiries" ? "Buyer Sheet (.XLS)" : activeModule === "seller_enquiries" ? "Seller Sheet (.XLS)" : activeModule === "dealers" ? "Dealer Applications (.XLS)" : "Catalog XLS"}
                 </Button>
-                <div className="relative">
-                  <input
-                    type="file"
-                    id="bulk-xls-uploader"
-                    accept=".xls,.xlsx,.csv"
-                    onChange={(e) => handleImportXLS(activeModule, e)}
-                    className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
-                  />
-                  <Button
-                    className="bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-black uppercase tracking-wider h-9 px-3.5 rounded-xl flex items-center gap-1.5 shadow-sm"
-                  >
-                    <ArrowUpFromLine className="h-3.5 w-3.5" /> Upload Bulk XLS
-                  </Button>
-                </div>
+                {(activeModule === "cars" || activeModule === "brands") && (
+                  <div className="relative">
+                    <input
+                      type="file"
+                      id="bulk-xls-uploader"
+                      accept=".xls,.xlsx,.csv"
+                      onChange={(e) => handleImportXLS(activeModule, e)}
+                      className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+                    />
+                    <Button
+                      variant="secondary"
+                      className="bg-white border border-emerald-200 text-emerald-900 text-[10px] font-black uppercase tracking-wider h-9 px-3.5 rounded-xl flex items-center gap-1.5 shadow-xs"
+                    >
+                      <ArrowUpFromLine className="h-3.5 w-3.5" /> Upload Bulk XLS
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -1564,10 +1639,22 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                           <p className="text-[10px] text-indigo-600 font-black uppercase tracking-wider mt-0.5">High Bidder: {item.highest_bidder_name || "No bids placed yet"}</p>
                         </div>
                       )}
+                      {activeModule === "buyer_enquiries" && (
+                        <div>
+                          <p className="font-black text-slate-800">{item.name || "Buyer Enquiry"} ({item.mobile || "N/A"})</p>
+                          <p className="text-[10px] text-slate-400 font-bold mt-0.5">Vehicle: {item.vehicle || item.model || "General Inquiry"} • City: {item.city || "Surat"}</p>
+                        </div>
+                      )}
+                      {activeModule === "seller_enquiries" && (
+                        <div>
+                          <p className="font-black text-slate-800">{item.seller_name || item.name} ({item.seller_mobile || item.mobile})</p>
+                          <p className="text-[10px] text-slate-400 font-bold mt-0.5">Car: {item.brand} {item.model} ({item.year}) • Reg: {item.reg_number || "Pending"}</p>
+                        </div>
+                      )}
                       {activeModule === "dealers" && (
                         <div>
-                          <p className="font-black text-slate-800">Mgr: {item.manager}</p>
-                          <p className="text-[10px] text-slate-400 font-bold mt-0.5">City: {item.city} • Rating: {item.rating} / 5</p>
+                          <p className="font-black text-slate-800">{item.dealership_name || item.name} ({item.mobile})</p>
+                          <p className="text-[10px] text-slate-400 font-bold mt-0.5">Contact: {item.name || item.manager} • Email: {item.email || "N/A"} • City: {item.city || "Gujarat"}</p>
                         </div>
                       )}
                       {activeModule === "testimonials" && (
@@ -1615,10 +1702,42 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                           <p className="text-[10px] text-slate-400 font-bold mt-0.5">{item.km_driven} km • {item.fuel}</p>
                         </div>
                       )}
-                      {activeModule === "dealers" && (
+                      {activeModule === "buyer_enquiries" && (
                         <div>
-                          <p className="font-black text-slate-900">₹{(item.credits).toLocaleString()}</p>
-                          <p className="text-[10px] text-slate-400 font-bold mt-0.5">{item.active_bids} bids active</p>
+                          <p className="font-black text-indigo-600 uppercase text-[10px]">{item.type || "Test Drive Request"}</p>
+                          <p className="text-[10px] text-slate-400 font-bold mt-0.5">Pref: {item.preferred_date || "Flexible"} ({item.preferred_time || "Anytime"})</p>
+                        </div>
+                      )}
+                      {activeModule === "seller_enquiries" && (
+                        <div>
+                          <p className="font-black text-slate-900 text-[10px]">{item.km_driven ? `${item.km_driven} km` : "Valuation Request"} • {item.fuel || "Petrol"}</p>
+                          <p className="text-[10px] text-slate-400 font-bold mt-0.5 truncate max-w-xs">{item.address || "Doorstep Valuation"}</p>
+                        </div>
+                      )}
+                      {activeModule === "dealers" && (
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          {item.visiting_card_url ? (
+                            <button
+                              onClick={() => setPreviewPhotoModal({ title: `Visiting Card - ${item.name || item.dealership_name}`, url: item.visiting_card_url })}
+                              className="px-2.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg text-[10px] font-black uppercase flex items-center gap-1 hover:bg-emerald-100 cursor-pointer shadow-2xs"
+                              title="Click to view Visiting Card photo"
+                            >
+                              📷 Visiting Card
+                            </button>
+                          ) : (
+                            <span className="text-[10px] text-slate-400 italic">No Visiting Card</span>
+                          )}
+                          {item.aadhar_card_url ? (
+                            <button
+                              onClick={() => setPreviewPhotoModal({ title: `Aadhar Card - ${item.name || item.dealership_name}`, url: item.aadhar_card_url })}
+                              className="px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-800 rounded-lg text-[10px] font-black uppercase flex items-center gap-1 hover:bg-indigo-100 cursor-pointer shadow-2xs"
+                              title="Click to view Aadhar Card photo"
+                            >
+                              🪪 Aadhar Card
+                            </button>
+                          ) : (
+                            <span className="text-[10px] text-slate-400 italic">No Aadhar Card</span>
+                          )}
                         </div>
                       )}
                       {activeModule === "expenses" && (
@@ -1683,6 +1802,23 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                     </td>
                     <td className="p-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
+                        {activeModule === "dealers" && (
+                          <>
+                            {item.is_approved || item.status === "Approved" || item.status === "approved" ? (
+                              <span className="px-2.5 py-1 rounded-lg bg-emerald-100 border border-emerald-200 text-emerald-800 text-[10px] font-black uppercase tracking-wider flex items-center gap-1">
+                                <Check className="h-3 w-3 text-emerald-700" /> Approved
+                              </span>
+                            ) : (
+                              <button
+                                onClick={() => handleApproveDealer(item)}
+                                className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded-lg bg-[#2E7D32] hover:bg-[#25632a] text-white shadow-sm transition-all cursor-pointer flex items-center gap-1"
+                                title="Approve dealer for live auction participation"
+                              >
+                                <Check className="h-3 w-3" /> Approve Dealer
+                              </button>
+                            )}
+                          </>
+                        )}
                         {activeModule === "inspections" && (
                           <>
                             <button
@@ -3254,6 +3390,43 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
               </div>
 
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Document Photo Preview Modal (Visiting Card / Aadhar Card) */}
+      {previewPhotoModal && (
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 className="font-black text-sm text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-[#2E7D32]" /> {previewPhotoModal.title}
+              </h3>
+              <button
+                onClick={() => setPreviewPhotoModal(null)}
+                className="p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            
+            <div className="bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden min-h-[250px] max-h-[450px] flex items-center justify-center p-2">
+              <img
+                src={previewPhotoModal.url}
+                alt={previewPhotoModal.title}
+                className="max-h-[420px] max-w-full object-contain rounded-xl"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+
+            <div className="flex justify-end gap-3 pt-2">
+              <Button
+                onClick={() => setPreviewPhotoModal(null)}
+                className="bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider h-10 px-6 rounded-xl cursor-pointer"
+              >
+                Close Preview
+              </Button>
+            </div>
           </div>
         </div>
       )}
