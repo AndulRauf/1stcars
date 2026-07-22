@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Menu, X, Car, Heart, Search, ChevronRight, User, MapPin } from "lucide-react";
+import { Menu, X, Car, Heart, Search, ChevronRight, User, MapPin, Check } from "lucide-react";
 import { Button } from "@/src/components/ui/Button";
 import { cn } from "@/src/lib/utils";
 import { supabase } from "@/src/lib/supabaseClient";
@@ -30,6 +30,7 @@ export function Navbar({
   onCityChange,
 }: NavbarProps) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isCityModalOpen, setIsCityModalOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [settings, setSettings] = React.useState({
     logoUrl: "🏎️ 1stCars",
@@ -250,30 +251,16 @@ export function Navbar({
               <div className="h-6 w-px bg-slate-200 mx-1" />
 
               {/* City Filter Menu on Header */}
-              <div className="relative flex items-center">
-                <MapPin className="h-4 w-4 text-[#2E7D32] absolute left-3 pointer-events-none" />
-                <select
-                  value={selectedCity || "All Cities"}
-                  onChange={(e) => {
-                    onCityChange?.(e.target.value);
-                    if (onViewChange && currentView !== "buy_cars" && currentView !== "car_details") {
-                      onViewChange("buy_cars");
-                    }
-                  }}
-                  className="bg-[#2E7D32]/5 border border-[#2E7D32]/10 rounded-xl text-xs font-black text-[#2E7D32] uppercase tracking-wider pl-9 pr-8 py-2.5 outline-none cursor-pointer hover:bg-[#2E7D32]/10 transition-all appearance-none"
-                >
-                  <option value="All Cities">📍 All Gujarat</option>
-                  <option value="Surat">Surat</option>
-                  <option value="Bharuch">Bharuch</option>
-                  <option value="Vadodara">Vadodara</option>
-                  <option value="Vapi">Vapi</option>
-                </select>
-                <div className="pointer-events-none absolute right-3 flex items-center text-[#2E7D32]">
-                  <svg className="fill-current h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                  </svg>
-                </div>
-              </div>
+              <button
+                type="button"
+                onClick={() => setIsCityModalOpen(true)}
+                className="bg-[#2E7D32]/5 hover:bg-[#2E7D32]/10 border border-[#2E7D32]/15 text-[#2E7D32] rounded-xl text-xs font-black uppercase tracking-wider px-3.5 py-2 flex items-center gap-2 cursor-pointer transition-all shadow-2xs group"
+                title="Select Gujarat City Hub"
+              >
+                <MapPin className="h-4 w-4 text-[#2E7D32] shrink-0" />
+                <span>{selectedCity === "All Cities" || !selectedCity ? "📍 All Gujarat" : selectedCity}</span>
+                <ChevronRight className="h-3.5 w-3.5 text-[#2E7D32]/70 rotate-90 ml-0.5 group-hover:translate-y-0.5 transition-transform" />
+              </button>
 
               <div className="h-6 w-px bg-slate-200 mx-1" />
 
@@ -423,31 +410,20 @@ export function Navbar({
             <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">
               Operational Region (Gujarat Only)
             </label>
-            <div className="relative flex items-center w-full">
-              <MapPin className="h-4 w-4 text-[#2E7D32] absolute left-3 pointer-events-none" />
-              <select
-                value={selectedCity || "All Cities"}
-                onChange={(e) => {
-                  onCityChange?.(e.target.value);
-                  setIsOpen(false);
-                  if (onViewChange && currentView !== "buy_cars" && currentView !== "car_details") {
-                    onViewChange("buy_cars");
-                  }
-                }}
-                className="w-full bg-[#2E7D32]/5 border border-[#2E7D32]/10 rounded-xl text-xs font-black text-[#2E7D32] uppercase tracking-wider pl-9 pr-8 py-3 outline-none cursor-pointer appearance-none"
-              >
-                <option value="All Cities">📍 All Gujarat</option>
-                <option value="Surat">Surat</option>
-                <option value="Bharuch">Bharuch</option>
-                <option value="Vadodara">Vadodara</option>
-                <option value="Vapi">Vapi</option>
-              </select>
-              <div className="pointer-events-none absolute right-3 flex items-center text-[#2E7D32]">
-                <svg className="fill-current h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                </svg>
+            <button
+              type="button"
+              onClick={() => {
+                setIsOpen(false);
+                setIsCityModalOpen(true);
+              }}
+              className="w-full bg-[#2E7D32]/5 hover:bg-[#2E7D32]/10 border border-[#2E7D32]/15 text-[#2E7D32] rounded-xl text-xs font-black uppercase tracking-wider px-4 py-3 flex items-center justify-between cursor-pointer transition-all shadow-2xs group"
+            >
+              <div className="flex items-center gap-2.5">
+                <MapPin className="h-4 w-4 text-[#2E7D32] shrink-0" />
+                <span>{selectedCity === "All Cities" || !selectedCity ? "📍 All Gujarat" : selectedCity}</span>
               </div>
-            </div>
+              <ChevronRight className="h-4 w-4 text-[#2E7D32]/70 group-hover:translate-x-0.5 transition-transform" />
+            </button>
           </div>
 
           <div className="flex items-center justify-between px-4">
@@ -492,6 +468,87 @@ export function Navbar({
           )}
         </div>
       </div>
+
+      {/* Custom City Selector Popover Modal */}
+      {isCityModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-6 space-y-5 shadow-2xl relative border border-slate-100 animate-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3.5">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-xl bg-[#2E7D32]/10 text-[#2E7D32]">
+                  <MapPin className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-black text-sm text-slate-900 uppercase tracking-wider">Select Operational Region</h3>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">1stCars Certified Hubs (Gujarat)</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsCityModalOpen(false)}
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 cursor-pointer transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-1">
+              {[
+                { id: "All Cities", label: "📍 All Gujarat", desc: "View certified fleet across all hubs in Gujarat" },
+                { id: "Surat", label: "Surat", desc: "Main Flagship Experience Center & Hub" },
+                { id: "Bharuch", label: "Bharuch", desc: "Highway Express Depot & Inspection Center" },
+                { id: "Vadodara", label: "Vadodara", desc: "Alkapuri Luxury Collection Outlet" },
+                { id: "Vapi", label: "Vapi", desc: "South Gujarat Collection Hub" },
+              ].map((city) => {
+                const isSelected = (selectedCity || "All Cities") === city.id;
+                return (
+                  <button
+                    key={city.id}
+                    type="button"
+                    onClick={() => {
+                      onCityChange?.(city.id);
+                      setIsCityModalOpen(false);
+                      if (onViewChange && currentView !== "buy_cars" && currentView !== "car_details") {
+                        onViewChange("buy_cars");
+                      }
+                    }}
+                    className={cn(
+                      "w-full text-left p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between group",
+                      isSelected
+                        ? "bg-[#2E7D32]/10 border-[#2E7D32] text-[#2E7D32] shadow-xs"
+                        : "bg-slate-50 hover:bg-emerald-50/60 border-slate-200/80 text-slate-800 hover:border-emerald-200"
+                    )}
+                  >
+                    <div>
+                      <p className="font-black text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        {city.label}
+                      </p>
+                      <p className={cn("text-[10px] font-semibold mt-0.5", isSelected ? "text-[#2E7D32]/80" : "text-slate-400")}>
+                        {city.desc}
+                      </p>
+                    </div>
+                    {isSelected && (
+                      <div className="p-1 rounded-full bg-[#2E7D32] text-white shrink-0">
+                        <Check className="h-3.5 w-3.5" />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="pt-1">
+              <Button
+                type="button"
+                onClick={() => setIsCityModalOpen(false)}
+                className="w-full bg-[#2E7D32] hover:bg-[#25632a] text-white font-extrabold text-xs uppercase tracking-wider h-11 rounded-xl cursor-pointer shadow-md shadow-[#2E7D32]/20"
+              >
+                Apply Location Filter
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

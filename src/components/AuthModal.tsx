@@ -968,12 +968,12 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
                     <select
                       value={regCity}
                       onChange={(e) => setRegCity(e.target.value)}
-                      className="w-full h-11 border border-slate-200 rounded-xl pl-10 pr-4 bg-white text-xs font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none cursor-pointer"
+                      className="w-full h-11 border border-slate-200 rounded-xl pl-10 pr-4 bg-white text-slate-900 text-xs font-semibold focus:ring-2 focus:ring-[#2E7D32] outline-none cursor-pointer"
                     >
-                      <option value="Surat">Surat</option>
-                      <option value="Bharuch">Bharuch</option>
-                      <option value="Vadodara">Vadodara</option>
-                      <option value="Vapi">Vapi</option>
+                      <option value="Surat" className="bg-white text-slate-900">Surat</option>
+                      <option value="Bharuch" className="bg-white text-slate-900">Bharuch</option>
+                      <option value="Vadodara" className="bg-white text-slate-900">Vadodara</option>
+                      <option value="Vapi" className="bg-white text-slate-900">Vapi</option>
                     </select>
                   </div>
                 </div>

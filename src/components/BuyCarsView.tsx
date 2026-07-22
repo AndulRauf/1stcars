@@ -288,13 +288,13 @@ export function BuyCarsView({
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-white border border-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-xl focus:ring-[#2E7D32] focus:border-[#2E7D32] outline-none"
+                className="bg-white border border-slate-200 text-slate-800 text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-xl focus:ring-2 focus:ring-[#2E7D32]/20 focus:border-[#2E7D32] outline-none cursor-pointer shadow-2xs"
               >
-                <option value="featured">Featured Status</option>
-                <option value="price_asc">Price: Low to High</option>
-                <option value="price_desc">Price: High to Low</option>
-                <option value="year_desc">Year: Newest First</option>
-                <option value="mileage_asc">KM Driven: Lowest</option>
+                <option value="featured" className="bg-white text-slate-900 font-semibold py-1">Featured Status</option>
+                <option value="price_asc" className="bg-white text-slate-900 font-semibold py-1">Price: Low to High</option>
+                <option value="price_desc" className="bg-white text-slate-900 font-semibold py-1">Price: High to Low</option>
+                <option value="year_desc" className="bg-white text-slate-900 font-semibold py-1">Year: Newest First</option>
+                <option value="mileage_asc" className="bg-white text-slate-900 font-semibold py-1">KM Driven: Lowest</option>
               </select>
             </div>
 
@@ -391,19 +391,25 @@ export function BuyCarsView({
             {/* City Filter */}
             <div className="space-y-2">
               <label className="block text-xs font-black text-slate-400 uppercase tracking-widest">
-                City / Location
+                City Hub / Location
               </label>
-              <select
-                value={filters.city}
-                onChange={(e) => handleFilterChange("city", e.target.value)}
-                className="w-full bg-[#FAF9F6] border border-slate-100 rounded-xl text-xs font-bold text-slate-700 py-3 px-4 outline-none"
-              >
+              <div className="flex flex-wrap gap-1.5">
                 {CITIES_DATA.map((city) => (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
+                  <button
+                    key={city}
+                    type="button"
+                    onClick={() => handleFilterChange("city", city)}
+                    className={cn(
+                      "px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer border",
+                      filters.city === city
+                        ? "bg-[#2E7D32] text-white border-[#2E7D32] shadow-md shadow-[#2E7D32]/10"
+                        : "bg-[#FAF9F6] text-slate-600 hover:bg-slate-100 border-slate-100"
+                    )}
+                  >
+                    {city === "All Cities" ? "📍 All Gujarat" : city}
+                  </button>
                 ))}
-              </select>
+              </div>
             </div>
 
             {/* Budget Ranges */}

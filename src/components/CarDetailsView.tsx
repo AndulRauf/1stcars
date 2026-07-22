@@ -1073,10 +1073,10 @@ export function CarDetailsView({
                       onChange={(e) => setBookingForm({ ...bookingForm, preferredTime: e.target.value })}
                       className="w-full bg-[#FAF9F6] border border-slate-100 rounded-xl py-3 px-4 text-xs font-bold focus:outline-none focus:border-[#2E7D32] text-slate-700"
                     >
-                      <option value="11:00 AM - 01:00 PM">Morning (11:00 AM - 01:00 PM)</option>
-                      <option value="01:00 PM - 03:00 PM">Afternoon (01:00 PM - 03:00 PM)</option>
-                      <option value="03:00 PM - 05:00 PM">Late Afternoon (03:00 PM - 05:00 PM)</option>
-                      <option value="05:00 PM - 07:00 PM">Evening (05:00 PM - 07:00 PM)</option>
+                      <option value="11:00 AM - 01:00 PM" className="bg-white text-slate-900">Morning (11:00 AM - 01:00 PM)</option>
+                      <option value="01:00 PM - 03:00 PM" className="bg-white text-slate-900">Afternoon (01:00 PM - 03:00 PM)</option>
+                      <option value="03:00 PM - 05:00 PM" className="bg-white text-slate-900">Late Afternoon (03:00 PM - 05:00 PM)</option>
+                      <option value="05:00 PM - 07:00 PM" className="bg-white text-slate-900">Evening (05:00 PM - 07:00 PM)</option>
                     </select>
                   </div>
 
