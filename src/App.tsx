@@ -158,8 +158,8 @@ export default function App() {
     instagram: "https://instagram.com/1stcars",
     youtube: "https://youtube.com/1stcars",
     supportEmail: "concierge@1stcars.com",
-    supportPhone: "+91 99999 99999",
-    supportAddress: "722 S. Greenwood Avenue, Suite A, Los Angeles",
+    supportPhone: "+91 98765 43210",
+    supportAddress: "1stCars Flagship Hub, Ring Road, Bhatar, Surat, Gujarat 395007, India",
     brandSlogan: "The Luxury Pre-Owned Hub",
     brandDescription: "We curate only top-tier luxury, sports, and specialty vehicles. Our mission is to bridge pristine engineering with absolute luxury service.",
     highlight1Title: "Single Owned",
@@ -199,6 +199,10 @@ export default function App() {
       if (storedSettings) {
         try {
           const parsed = JSON.parse(storedSettings);
+          if (parsed.supportAddress && (parsed.supportAddress.includes("Los Angeles") || parsed.supportAddress.includes("Greenwood") || parsed.supportAddress.includes("722"))) {
+            parsed.supportAddress = "1stCars Flagship Hub, Ring Road, Bhatar, Surat, Gujarat 395007, India";
+            localStorage.setItem("1stcars_cms_website_settings", JSON.stringify(parsed));
+          }
           setWebsiteSettings(prev => ({ ...prev, ...parsed }));
           if (parsed.primaryColor) {
             document.documentElement.style.setProperty("--primary-theme-color", parsed.primaryColor);
@@ -1152,7 +1156,7 @@ export default function App() {
               Ready to Drive Your Certified Vehicle?
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 font-semibold max-w-lg mx-auto leading-relaxed">
-              Contact our Los Angeles concierge center to schedule a private showroom tour, request home evaluation, or register for rare classic car arrivals.
+              Contact our Surat flagship concierge center to schedule a private showroom tour, request home evaluation, or register for rare luxury car arrivals.
             </p>
           </div>
 

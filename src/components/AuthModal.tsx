@@ -1001,7 +1001,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
                     <div className="relative">
                       <Phone className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
                       <Input
-                        placeholder="Enter 10-digit mobile e.g. 9999999999"
+                        placeholder="Enter 10-digit mobile number"
                         type="tel"
                         value={loginMobile}
                         onChange={(e) => setLoginMobile(e.target.value.replace(/\D/g, "").slice(0, 10))}

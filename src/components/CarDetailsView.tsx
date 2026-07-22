@@ -103,7 +103,7 @@ export function CarDetailsView({
   const [bookingForm, setBookingForm] = React.useState({
     name: "",
     mobile: "",
-    city: car.cities?.[0] || "Los Angeles",
+    city: car.cities?.[0] || car.location || "Surat",
     preferredDate: "",
     preferredTime: "11:00 AM - 01:00 PM",
     type: "test_drive" as "test_drive" | "buy_now" | "whatsapp" | "call_request",
@@ -132,8 +132,8 @@ export function CarDetailsView({
       await supabase.from("sales_notifications").insert([
         {
           name: "Visitor (Instant Inquirer)",
-          mobile: "+1 (800) 555-0199",
-          city: car.cities?.[0] || "Los Angeles",
+          mobile: "+91 98765 43210",
+          city: car.cities?.[0] || car.location || "Surat",
           preferred_date: new Date().toISOString().split("T")[0],
           preferred_time: "Immediate Connection Requested",
           car_id: car.id,
@@ -1045,7 +1045,7 @@ export function CarDetailsView({
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Your City</label>
                     <input
                       type="text"
-                      placeholder="e.g. Beverly Hills"
+                      placeholder="e.g. Surat, Adajan, Vesu"
                       required
                       value={bookingForm.city}
                       onChange={(e) => setBookingForm({ ...bookingForm, city: e.target.value })}

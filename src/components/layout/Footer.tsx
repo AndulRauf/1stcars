@@ -14,8 +14,8 @@ export function Footer({ onViewChange, currentView, hideTrustBadges }: FooterPro
 
   const [settings, setSettings] = React.useState({
     supportEmail: "concierge@1stcars.com",
-    supportPhone: "+91 99999 99999",
-    supportAddress: "722 S. Greenwood Avenue, Suite A, Los Angeles",
+    supportPhone: "+91 98765 43210",
+    supportAddress: "1stCars Flagship Hub, Ring Road, Bhatar, Surat, Gujarat 395007, India",
     brandSlogan: "The Luxury Pre-Owned Hub",
     brandDescription: "We curate only top-tier luxury, sports, and specialty vehicles. Our mission is to bridge pristine engineering with absolute luxury service.",
     footerText: "© 2026 1stCars Luxury Marketplace. All rights reserved.",
@@ -33,6 +33,10 @@ export function Footer({ onViewChange, currentView, hideTrustBadges }: FooterPro
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
+          if (parsed.supportAddress && (parsed.supportAddress.includes("Los Angeles") || parsed.supportAddress.includes("Greenwood") || parsed.supportAddress.includes("722"))) {
+            parsed.supportAddress = "1stCars Flagship Hub, Ring Road, Bhatar, Surat, Gujarat 395007, India";
+            localStorage.setItem("1stcars_cms_website_settings", JSON.stringify(parsed));
+          }
           setSettings((prev) => ({ ...prev, ...parsed }));
         } catch (e) {
           console.error("Failed to parse website settings in Footer", e);

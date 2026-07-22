@@ -76,8 +76,8 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     twitter: "https://twitter.com/1stcars",
     youtube: "https://youtube.com/1stcars",
     supportEmail: "concierge@1stcars.com",
-    supportPhone: "+91 99999 99999",
-    supportAddress: "722 S. Greenwood Avenue, Suite A, Los Angeles",
+    supportPhone: "+91 98765 43210",
+    supportAddress: "1stCars Flagship Hub, Ring Road, Bhatar, Surat, Gujarat 395007, India",
     brandSlogan: "The Luxury Pre-Owned Hub",
     brandDescription: "We curate only top-tier luxury, sports, and specialty vehicles. Our mission is to bridge pristine engineering with absolute luxury service.",
     highlight1Title: "Single Owned",
@@ -343,6 +343,10 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
       if (storedSettings) {
         try {
           const parsed = JSON.parse(storedSettings);
+          if (parsed.supportAddress && (parsed.supportAddress.includes("Los Angeles") || parsed.supportAddress.includes("Greenwood") || parsed.supportAddress.includes("722"))) {
+            parsed.supportAddress = "1stCars Flagship Hub, Ring Road, Bhatar, Surat, Gujarat 395007, India";
+            localStorage.setItem("1stcars_cms_website_settings", JSON.stringify(parsed));
+          }
           setWebsiteSettings((prev: any) => ({ ...prev, ...parsed }));
         } catch (e) {
           console.error("Failed to parse stored settings:", e);

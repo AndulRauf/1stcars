@@ -111,7 +111,7 @@ export function CarCard({
     { label: "Transmission", value: car.transmission, icon: Award },
     { label: "KM Driven", value: `${(car.mileage * 1.609).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} km`, icon: Gauge },
     { label: "Owner", value: car.owners === 1 ? "1st Owner" : `${car.owners}nd Owner`, icon: User },
-    { label: "City", value: car.cities?.[0] || "Los Angeles", icon: MapPin },
+    { label: "City", value: car.cities?.[0] || car.location || "Surat", icon: MapPin },
   ];
 
   return (
