@@ -79,60 +79,7 @@ export function Footer({ onViewChange, currentView, hideTrustBadges, onAuthClick
     <footer className="bg-[#F8F6F0] text-slate-900 border-t border-[#2E7D32]/10 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Top Highlight Section / Trust Badges */}
-        {!hideTrustBadges && currentView !== "sell_car" && (
-          <div className="pb-12 mb-12 border-b border-[#2E7D32]/10 space-y-6">
-            <div className="text-center sm:text-left">
-              <span className="inline-flex items-center text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-[#2E7D32] bg-[#2E7D32]/10 border border-[#2E7D32]/20 px-3.5 py-1.5 rounded-full shadow-2xs">
-                🏎️ 1STCARS LUXURY PRE-OWNED STANDARDS • VETTED DOCUMENT
-              </span>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-              <div className="bg-white/80 border border-[#2E7D32]/15 rounded-2xl p-4.5 sm:p-5 shadow-2xs hover:shadow-md hover:border-[#2E7D32]/30 transition-all flex items-start space-x-4">
-                <div className="bg-[#2E7D32]/10 p-3 rounded-xl text-[#2E7D32] border border-[#2E7D32]/20 shadow-xs shrink-0">
-                  <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-[#2E7D32]" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-extrabold text-sm sm:text-base text-slate-900 tracking-tight leading-snug">
-                    {settings.highlight1Title || "150-Point Certificate"}
-                  </h4>
-                  <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                    {settings.highlight1Desc || "Every vehicle in our collection undergoes rigorous mechanical & structural inspections."}
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white/80 border border-[#2E7D32]/15 rounded-2xl p-4.5 sm:p-5 shadow-2xs hover:shadow-md hover:border-[#2E7D32]/30 transition-all flex items-start space-x-4">
-                <div className="bg-[#2E7D32]/10 p-3 rounded-xl text-[#2E7D32] border border-[#2E7D32]/20 shadow-xs shrink-0">
-                  <Award className="h-5 w-5 sm:h-6 sm:w-6 text-[#2E7D32]" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-extrabold text-sm sm:text-base text-slate-900 tracking-tight leading-snug">
-                    {settings.highlight2Title || "Single Owned, Non Accident Trusted*"}
-                  </h4>
-                  <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                    {settings.highlight2Desc || "Verified single owner history with zero chassis frame damage guarantee."}
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white/80 border border-[#2E7D32]/15 rounded-2xl p-4.5 sm:p-5 shadow-2xs hover:shadow-md hover:border-[#2E7D32]/30 transition-all flex items-start space-x-4">
-                <div className="bg-[#2E7D32]/10 p-3 rounded-xl text-[#2E7D32] border border-[#2E7D32]/20 shadow-xs shrink-0">
-                  <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-[#2E7D32]" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-extrabold text-sm sm:text-base text-slate-900 tracking-tight leading-snug">
-                    {settings.highlight3Title || "Aggregator Marketplace"}
-                  </h4>
-                  <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                    {settings.highlight3Desc || "Connecting verified Car Buyers, Sellers, and Dealers with transparent deal mediation."}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 pb-12">
