@@ -140,7 +140,7 @@ export default function App() {
 
   // Dynamic website configuration states from Admin CMS settings
   const [websiteSettings, setWebsiteSettings] = React.useState({
-    logoUrl: "🏎️ 1stCars",
+    logoUrl: "/logo.png",
     logoSize: 150,
     favicon: "⭐",
     primaryColor: "#2E7D32",
@@ -199,10 +199,11 @@ export default function App() {
       if (storedSettings) {
         try {
           const parsed = JSON.parse(storedSettings);
-          if (!parsed.supportAddress || parsed.supportAddress.includes("Los Angeles") || parsed.supportAddress.includes("Greenwood") || parsed.supportAddress.includes("722") || parsed.supportAddress.includes("Bhatar")) {
+          if (!parsed.supportAddress || parsed.supportAddress.includes("Los Angeles") || parsed.supportAddress.includes("Greenwood") || parsed.supportAddress.includes("722") || parsed.supportAddress.includes("Bhatar") || !parsed.logoUrl || parsed.logoUrl === "🏎️ 1stCars" || parsed.logoUrl === "⭐") {
             parsed.supportAddress = "1stCars Seller Hub, Ring 101 Vikas Arced, Vadod ,   Masma, Olpad, Surat, Gujarat 394540, India";
             parsed.supportPhone = "+91 8866377722";
             parsed.supportEmail = "suport@1stcars.in";
+            parsed.logoUrl = "/logo.png";
             localStorage.setItem("1stcars_cms_website_settings", JSON.stringify(parsed));
           }
           setWebsiteSettings(prev => ({ ...prev, ...parsed }));

@@ -2,80 +2,73 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-// Construct high quality SVG matching the 1stCars tire emblem logo
+// Construct high quality SVG matching the uploaded 1stCars tire emblem logo
 const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <defs>
-    <clipPath id="wheelClip">
-      <circle cx="200" cy="256" r="165" />
-    </clipPath>
-  </defs>
-
-  <!-- Speed lines on right side -->
-  <g fill="#135D38">
-    <!-- Top long speed line -->
-    <path d="M 280 108 L 476 108 A 14 14 0 0 1 476 136 L 332 136 L 298 160 L 280 160 Z" />
-    <!-- Top short speed line -->
-    <path d="M 330 162 L 434 162 A 13 13 0 0 1 434 188 L 344 188 Z" />
+  <g fill="none" fill-rule="evenodd">
+    <!-- Speed lines on right side (Dark Forest Green) -->
+    <path fill="#28592B" d="M 270 98 L 472 98 C 484 98 492 106 492 118 L 492 122 C 492 134 484 142 472 142 L 350 142 L 305 174 L 270 174 Z" />
+    <path fill="#28592B" d="M 330 174 L 428 174 C 438 174 446 182 446 192 L 446 196 C 446 206 438 214 428 214 L 350 214 Z" />
     
-    <!-- Bottom long speed line -->
-    <path d="M 280 404 L 476 404 A 14 14 0 0 0 476 376 L 332 376 L 298 352 L 280 352 Z" />
-    <!-- Bottom short speed line -->
-    <path d="M 330 350 L 404 350 A 13 13 0 0 0 404 324 L 344 324 Z" />
-  </g>
+    <path fill="#28592B" d="M 270 414 L 472 414 C 484 414 492 406 492 394 L 492 390 C 492 378 484 370 472 370 L 350 370 L 305 338 L 270 338 Z" />
+    <path fill="#28592B" d="M 330 338 L 428 338 C 438 338 446 330 446 320 L 446 316 C 446 306 438 298 428 298 L 350 298 Z" />
 
-  <!-- Outer green tire border -->
-  <circle cx="200" cy="256" r="165" fill="#135D38" />
+    <!-- Outer green tire border -->
+    <circle cx="200" cy="256" r="172" fill="#28592B" />
 
-  <!-- Olive / Gold tread band -->
-  <circle cx="200" cy="256" r="156" fill="#A2B46D" />
+    <!-- Light Olive Green tread band -->
+    <circle cx="200" cy="256" r="162" fill="#91A95D" />
 
-  <!-- Tread grooves pattern -->
-  <g stroke="#135D38" stroke-width="5" fill="none" stroke-linecap="round">
-    <!-- Repeating tread arc marks along the ring -->
-    <path d="M 200 100 Q 220 106 230 118" />
-    <path d="M 238 108 Q 256 118 262 134" />
-    <path d="M 272 124 Q 288 138 290 156" />
-    <path d="M 300 148 Q 312 166 310 186" />
-    <path d="M 320 178 Q 328 198 322 218" />
-    <path d="M 328 210 Q 332 230 322 250" />
-    <path d="M 326 244 Q 326 264 314 282" />
-    <path d="M 316 274 Q 312 294 296 310" />
-    <path d="M 298 302 Q 290 320 270 334" />
-    <path d="M 274 326 Q 262 342 240 352" />
-    <path d="M 244 346 Q 228 358 204 362" />
-    <path d="M 210 358 Q 190 366 168 362" />
-    <path d="M 174 362 Q 152 364 134 352" />
-    <path d="M 140 354 Q 120 348 106 332" />
-    <path d="M 112 338 Q 94 324 84 306" />
-    <path d="M 90 312 Q 76 294 72 274" />
-    <path d="M 76 280 Q 66 260 70 238" />
-    <path d="M 70 246 Q 68 224 78 206" />
-    <path d="M 74 212 Q 78 192 92 176" />
-    <path d="M 86 182 Q 96 164 114 150" />
-    <path d="M 108 156 Q 122 140 142 130" />
-    <path d="M 134 134 Q 152 120 174 114" />
-    <path d="M 166 116 Q 186 108 208 108" />
-  </g>
+    <!-- Tread notches pattern -->
+    <g stroke="#28592B" stroke-width="6" stroke-linecap="round">
+      <path d="M 200 96 Q 225 102 238 116" />
+      <path d="M 242 106 Q 262 118 270 134" />
+      <path d="M 276 122 Q 292 138 296 158" />
+      <path d="M 304 146 Q 316 166 314 188" />
+      <path d="M 324 176 Q 332 198 326 220" />
+      <path d="M 332 208 Q 336 230 326 252" />
+      <path d="M 330 242 Q 330 264 318 284" />
+      <path d="M 320 272 Q 316 294 298 312" />
+      <path d="M 300 300 Q 290 320 270 336" />
+      <path d="M 274 324 Q 260 342 238 352" />
+      <path d="M 242 344 Q 224 358 200 362" />
+      <path d="M 208 358 Q 186 366 164 362" />
+      <path d="M 170 360 Q 148 362 128 350" />
+      <path d="M 134 352 Q 112 346 96 328" />
+      <path d="M 104 334 Q 86 318 74 298" />
+      <path d="M 82 304 Q 68 284 64 262" />
+      <path d="M 68 270 Q 58 248 64 224" />
+      <path d="M 62 232 Q 62 210 74 190" />
+      <path d="M 68 196 Q 74 174 90 156" />
+      <path d="M 80 162 Q 92 142 112 128" />
+      <path d="M 102 134 Q 118 118 140 108" />
+      <path d="M 128 112 Q 150 98 174 92" />
+      <path d="M 160 94 Q 182 88 204 88" />
+    </g>
 
-  <!-- Inner green hub boundary -->
-  <circle cx="200" cy="256" r="118" fill="#135D38" />
+    <!-- Inner green hub boundary ring -->
+    <circle cx="200" cy="256" r="120" fill="#28592B" />
 
-  <!-- White ring -->
-  <circle cx="200" cy="256" r="110" fill="none" stroke="#FFFFFF" stroke-width="12" />
+    <!-- Concentric inner detail rings -->
+    <circle cx="200" cy="256" r="114" stroke="#234E25" stroke-width="2" fill="none" />
+    <circle cx="200" cy="256" r="108" stroke="#316733" stroke-width="3" fill="none" />
+    <circle cx="200" cy="256" r="100" stroke="#234E25" stroke-width="2" fill="none" />
 
-  <!-- Inner green hub -->
-  <circle cx="200" cy="256" r="104" fill="#135D38" />
+    <!-- Center Hub Fill (Dark Forest Green) -->
+    <circle cx="200" cy="256" r="94" fill="#245226" />
 
-  <!-- White Number "1" -->
-  <g fill="#FFFFFF">
-    <!-- Clean bold 1 -->
-    <path d="M 186 190 
-             C 178 198 166 206 154 212 
-             L 154 228 
-             C 166 222 178 214 186 206 
-             L 186 322 
-             L 214 322 
-             L 214 190 
+    <!-- Center Light Olive Green Number "1" -->
+    <path fill="#91A95D" d="M 182 178 
+             C 172 188 158 198 144 204
+             L 144 224
+             C 158 218 172 210 182 200
+             L 182 318
+             C 182 324 186 328 192 328
+             L 208 328
+             C 214 328 218 324 218 318
+             L 218 178
+             C 218 172 214 168 208 168
+             L 192 168
+             C 186 168 182 172 182 178
              Z" />
   </g>
 </svg>`;
@@ -84,11 +77,23 @@ async function generateIcons() {
   const publicDir = path.join(process.cwd(), 'public');
 
   // Save SVG
+  fs.writeFileSync(path.join(publicDir, 'logo.svg'), svgContent);
   fs.writeFileSync(path.join(publicDir, 'favicon.svg'), svgContent);
-  console.log('Saved favicon.svg');
+  console.log('Saved logo.svg and favicon.svg');
 
   // Generate PNG files
   const svgBuffer = Buffer.from(svgContent);
+
+  // Main logo.png and 1stcars-logo.png
+  await sharp(svgBuffer)
+    .resize(512, 512)
+    .png()
+    .toFile(path.join(publicDir, 'logo.png'));
+
+  await sharp(svgBuffer)
+    .resize(512, 512)
+    .png()
+    .toFile(path.join(publicDir, '1stcars-logo.png'));
 
   // 192x192 PWA Icon
   await sharp(svgBuffer)
@@ -120,7 +125,8 @@ async function generateIcons() {
     .png()
     .toFile(path.join(publicDir, 'favicon-16x16.png'));
 
-  console.log('Successfully generated all icon PNGs!');
+  console.log('Successfully generated all logo PNGs and SVG files!');
 }
 
 generateIcons().catch(console.error);
+

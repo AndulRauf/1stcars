@@ -67,21 +67,21 @@ export function parseCurrentUrl(): RouteParams {
   }
 
   // Route 2: Sell Car
-  if (pathname === "/sell-car" || pathname === "/sell" || pathname === "/sell-your-car") {
+  if (pathname === "/sell-car" || pathname === "/sell" || pathname === "/sell-your-car" || pathname === "/sellcar" || pathname === "/sell_car") {
     return { view: "sell_car" };
   }
 
   // Route 3: 1stMark Certification
-  if (pathname === "/certification" || pathname === "/1stmark-certification" || pathname === "/1stmark") {
+  if (pathname === "/certification" || pathname === "/1stmark-certification" || pathname === "/1stmark" || pathname === "/1stmark-certified") {
     return { view: "firstmark_certification" };
   }
 
   // Route 4: Dashboards / Portal
-  if (pathname === "/dashboard" || pathname === "/account" || pathname === "/role-dashboards" || pathname === "/my-account") {
+  if (pathname === "/dashboard" || pathname === "/account" || pathname === "/role-dashboards" || pathname === "/my-account" || pathname === "/admin" || pathname === "/login" || pathname === "/portal" || pathname === "/admin-panel") {
     return { view: "role_dashboards" };
   }
 
-  if (pathname === "/sales-portal" || pathname === "/sales-dashboard") {
+  if (pathname === "/sales-portal" || pathname === "/sales-dashboard" || pathname === "/sales") {
     return { view: "sales_dashboard" };
   }
 

@@ -86,13 +86,21 @@ export function Footer({ onViewChange, currentView, hideTrustBadges, onAuthClick
           
           {/* Brand Col */}
           <div className="lg:col-span-2 flex flex-col space-y-5">
-            <div className="flex flex-col">
-              <span className="text-2xl font-black tracking-tighter text-[#2E7D32]">
-                1stCars
-              </span>
-              <span className="text-xs font-bold tracking-widest text-slate-500 uppercase mt-0.5">
-                {settings.brandSlogan}
-              </span>
+            <div className="flex items-center space-x-3">
+              <img 
+                src={(settings as any).logoUrl || "/logo.png"} 
+                alt="1stCars Logo" 
+                className="h-10 w-10 object-contain rounded-lg border border-slate-200 bg-white p-0.5 shadow-xs"
+                referrerPolicy="no-referrer"
+              />
+              <div className="flex flex-col">
+                <span className="text-2xl font-black tracking-tighter text-[#2E7D32]">
+                  1stCars
+                </span>
+                <span className="text-xs font-bold tracking-widest text-slate-500 uppercase mt-0.5">
+                  {settings.brandSlogan}
+                </span>
+              </div>
             </div>
             <p className="text-sm text-slate-500 leading-relaxed max-w-sm">
               {settings.brandDescription}

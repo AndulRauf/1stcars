@@ -33,7 +33,7 @@ export function Navbar({
   const [isCityModalOpen, setIsCityModalOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [settings, setSettings] = React.useState({
-    logoUrl: "🏎️ 1stCars",
+    logoUrl: "/logo.png",
     logoSize: 150,
     brandSlogan: "Premium Selection"
   });
@@ -65,6 +65,9 @@ export function Navbar({
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
+          if (!parsed.logoUrl || parsed.logoUrl === "🏎️ 1stCars" || parsed.logoUrl === "⭐") {
+            parsed.logoUrl = "/logo.png";
+          }
           setSettings(prev => ({ ...prev, ...parsed }));
         } catch (e) {
           console.error("Failed to parse website settings in Navbar", e);
@@ -78,6 +81,9 @@ export function Navbar({
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
+          if (!parsed.logoUrl || parsed.logoUrl === "🏎️ 1stCars" || parsed.logoUrl === "⭐") {
+            parsed.logoUrl = "/logo.png";
+          }
           setSettings(prev => ({ ...prev, ...parsed }));
         } catch (e) {}
       }

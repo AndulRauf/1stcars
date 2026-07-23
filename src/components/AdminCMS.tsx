@@ -60,7 +60,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
   const [warrantyPlans, setWarrantyPlans] = React.useState<any[]>([]);
   const [expenses, setExpenses] = React.useState<any[]>([]);
   const [websiteSettings, setWebsiteSettings] = React.useState<any>({
-    logoUrl: "🏎️ 1stCars",
+    logoUrl: "/logo.png",
     logoSize: 150,
     favicon: "⭐",
     primaryColor: "#2E7D32",
@@ -346,11 +346,12 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
       if (storedSettings) {
         try {
           const parsed = JSON.parse(storedSettings);
-          if (!parsed.supportAddress || parsed.supportAddress.includes("Los Angeles") || parsed.supportAddress.includes("Greenwood") || parsed.supportAddress.includes("722") || parsed.supportAddress.includes("Bhatar") || (parsed.buyCarsSubheadingText && parsed.buyCarsSubheadingText.includes("owned directly"))) {
+          if (!parsed.supportAddress || parsed.supportAddress.includes("Los Angeles") || parsed.supportAddress.includes("Greenwood") || parsed.supportAddress.includes("722") || parsed.supportAddress.includes("Bhatar") || (parsed.buyCarsSubheadingText && parsed.buyCarsSubheadingText.includes("owned directly")) || !parsed.logoUrl || parsed.logoUrl === "🏎️ 1stCars" || parsed.logoUrl === "⭐") {
             parsed.supportAddress = "1stCars Seller Hub, Ring 101 Vikas Arced, Vadod ,   Masma, Olpad, Surat, Gujarat 394540, India";
             parsed.supportPhone = "+91 8866377722";
             parsed.supportEmail = "suport@1stcars.in";
             parsed.buyCarsSubheadingText = "1stCars is Gujarat's premier aggregator platform connecting Car Buyers, Sellers, and Dealers. Every vehicle undergoes strict 1stMark certification for Single Owned status, Non-Accident trusted frame, and Genuine KM verification.";
+            parsed.logoUrl = "/logo.png";
             localStorage.setItem("1stcars_cms_website_settings", JSON.stringify(parsed));
           }
           setWebsiteSettings((prev: any) => ({ ...prev, ...parsed }));
