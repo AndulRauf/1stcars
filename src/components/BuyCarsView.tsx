@@ -226,6 +226,28 @@ export function BuyCarsView({
 
   // Pagination bounds
   const totalPages = Math.ceil(filteredAndSortedCars.length / ITEMS_PER_PAGE) || 1;
+
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (currentPage > 3) pages.push("...");
+      
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      
+      for (let i = start; i <= end; i++) {
+        if (!pages.includes(i)) pages.push(i);
+      }
+      
+      if (currentPage < totalPages - 2) pages.push("...");
+      if (!pages.includes(totalPages)) pages.push(totalPages);
+    }
+    return pages;
+  };
+
   const paginatedCars = React.useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     return filteredAndSortedCars.slice(startIndex, startIndex + ITEMS_PER_PAGE);
@@ -621,43 +643,69 @@ export function BuyCarsView({
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-between border-t border-slate-100 pt-8 mt-10">
-                <p className="text-xs font-semibold text-slate-400">
-                  Showing Page <span className="font-extrabold text-slate-600">{currentPage}</span> of <span className="font-extrabold text-slate-600">{totalPages}</span> — Curating {filteredAndSortedCars.length} masterpieces
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200/80 pt-6 mt-10">
+                <p className="text-xs font-semibold text-slate-500 text-center sm:text-left order-2 sm:order-1">
+                  Showing Page <span className="font-bold text-slate-800">{currentPage}</span> of{" "}
+                  <span className="font-bold text-slate-800">{totalPages}</span> — Curating{" "}
+                  <span className="font-bold text-[#2E7D32]">{filteredAndSortedCars.length}</span> masterpieces
                 </p>
 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-1.5 order-1 sm:order-2 max-w-full overflow-x-auto no-scrollbar py-1 px-1">
                   <button
                     disabled={currentPage === 1}
-                    onClick={() => setCurrentPage((c) => Math.max(1, c - 1))}
-                    className="p-2.5 rounded-xl bg-white border border-slate-100 text-slate-600 hover:bg-[#2E7D32]/5 disabled:opacity-30 disabled:hover:bg-white disabled:pointer-events-none transition-all cursor-pointer"
+                    onClick={() => {
+                      setCurrentPage((c) => Math.max(1, c - 1));
+                      window.scrollTo({ top: 250, behavior: "smooth" });
+                    }}
+                    className="flex items-center gap-1 px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-[#2E7D32]/10 hover:text-[#2E7D32] hover:border-[#2E7D32]/30 disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-slate-700 disabled:hover:border-slate-200 transition-all cursor-pointer text-xs font-bold shrink-0 shadow-xs"
                     aria-label="Previous page"
                   >
-                    <ChevronLeft className="h-4.5 w-4.5" />
+                    <ChevronLeft className="h-4 w-4" />
+                    <span className="hidden sm:inline">Prev</span>
                   </button>
 
-                  {Array.from({ length: totalPages }).map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrentPage(i + 1)}
-                      className={cn(
-                        "w-9 h-9 rounded-xl font-bold text-xs transition-all cursor-pointer",
-                        currentPage === i + 1
-                          ? "bg-[#2E7D32] text-white shadow-md shadow-[#2E7D32]/10"
-                          : "bg-white border border-slate-100 text-slate-600 hover:bg-[#2E7D32]/5"
-                      )}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
+                  <div className="flex items-center gap-1 sm:gap-1.5">
+                    {getPageNumbers().map((p, idx) => {
+                      if (p === "...") {
+                        return (
+                          <span key={`dots-${idx}`} className="px-1.5 text-xs font-bold text-slate-400 select-none">
+                            …
+                          </span>
+                        );
+                      }
+                      const pageNum = p as number;
+                      const isActive = currentPage === pageNum;
+                      return (
+                        <button
+                          key={pageNum}
+                          onClick={() => {
+                            setCurrentPage(pageNum);
+                            window.scrollTo({ top: 250, behavior: "smooth" });
+                          }}
+                          className={cn(
+                            "min-w-9 h-9 px-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer shrink-0 flex items-center justify-center",
+                            isActive
+                              ? "bg-[#2E7D32] text-white shadow-sm shadow-[#2E7D32]/20 border border-[#2E7D32]"
+                              : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300"
+                          )}
+                        >
+                          {pageNum}
+                        </button>
+                      );
+                    })}
+                  </div>
 
                   <button
                     disabled={currentPage === totalPages}
-                    onClick={() => setCurrentPage((c) => Math.min(totalPages, c + 1))}
-                    className="p-2.5 rounded-xl bg-white border border-slate-100 text-slate-600 hover:bg-[#2E7D32]/5 disabled:opacity-30 disabled:hover:bg-white disabled:pointer-events-none transition-all cursor-pointer"
+                    onClick={() => {
+                      setCurrentPage((c) => Math.min(totalPages, c + 1));
+                      window.scrollTo({ top: 250, behavior: "smooth" });
+                    }}
+                    className="flex items-center gap-1 px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-[#2E7D32]/10 hover:text-[#2E7D32] hover:border-[#2E7D32]/30 disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-slate-700 disabled:hover:border-slate-200 transition-all cursor-pointer text-xs font-bold shrink-0 shadow-xs"
                     aria-label="Next page"
                   >
-                    <ChevronRight className="h-4.5 w-4.5" />
+                    <span className="hidden sm:inline">Next</span>
+                    <ChevronRight className="h-4 w-4" />
                   </button>
                 </div>
               </div>
