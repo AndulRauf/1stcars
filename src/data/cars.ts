@@ -1,477 +1,5464 @@
-import { Car } from "@/src/types";
+import { Car } from "../types";
 
 export const CARS_DATA: Car[] = [
   {
-    id: "car-1",
-    brand: "Tata",
-    model: "Nexon EV Max",
-    variant: "XZ+ Lux Dark Edition 40.5kWh",
-    year: 2023,
-    price: 1749000,
-    emi: 26000,
-    location: "Surat Elite Gallery",
-    fuel: "Electric",
-    transmission: "Automatic",
-    mileage: 12000,
-    bodyType: "EV",
-    certified: true,
-    imageBg: "bg-emerald-950/10",
-    featured: true,
-    color: "Midnight Black / Teal Accent",
-    regCity: "Surat",
-    regYear: 2023,
-    rtoCode: "GJ05-ER-4050",
-    insuranceValidity: "Comprehensive (Valid till March 2027)",
-    groundClearance: "205 mm",
-    bootCapacity: "350 Litres",
-    fuelTank: "40.5 kWh Battery Pack",
-    keyCount: 2,
-    owners: 1,
-    specifications: [
-      "Battery Pack: 40.5 kWh High Energy Density Li-ion",
-      "Max Power: 141.04 hp @ 4500 rpm",
-      "Peak Torque: 250 Nm Instant Torque",
-      "ARAI Range: 437 km (Real-world 320+ km)",
-      "0-100 km/h: 8.9 seconds",
-      "Fast Charging: 0-80% in 56 minutes (50kW DC Charger)",
-      "Top Speed: 140 km/h Electronic Governor"
+    "id": "car-surat-1",
+    "brand": "Tata",
+    "model": "Nexon EV Max",
+    "variant": "XZ+ Lux Dark Edition 40.5kWh",
+    "year": 2023,
+    "price": 1749000,
+    "emi": 26000,
+    "location": "Surat Flagship",
+    "fuel": "Electric",
+    "transmission": "Automatic",
+    "mileage": 12000,
+    "bodyType": "EV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80"
     ],
-    features: [
-      "Multi-Mode Regenerative Braking (4 Levels)",
-      "Pristine Voice-Assisted Electric Sunroof",
-      "Front Seat Cooling & Ventilation",
-      "Harman 7-inch Touchscreen with 8 Speaker Sound",
-      "Smart Air Purifier with PM2.5 Air Quality Display",
-      "Wireless Smartphone Fast Charging Pad",
-      "Electronic Parking Brake with Auto Hold",
-      "i-VBAC Electronic Stability Program"
+    "featured": true,
+    "color": "Midnight Black",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-AD-2485",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "40.5 kWh Pack",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: XZ+ Lux Dark Edition 40.5kWh",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 437 km Range",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
     ],
-    inspectionSummary: {
-      overallScore: 9.8,
-      engine: "Battery State of Health (SOH) tested at 99.1%. High voltage wiring pristine.",
-      brakes: "95% brake pad life remaining. Regenerative brake calibration verified.",
-      electronics: "ZConnect telematics firmware updated. Dual airbags & ESP sensor sweep clean.",
-      exterior: "100% original factory paint depth. Zero structural misalignment.",
-      interior: "Signature dark leatherette upholstery stain-free and sanitized."
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.9,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Midnight Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
     },
-    warrantyInfo: {
-      months: 36,
-      miles: 125000,
-      coverage: "8 Years / 1,60,000 km High Voltage Battery & Motor Warranty"
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
     },
-    cities: ["Surat", "Vadodara"]
+    "cities": [
+      "Surat"
+    ]
   },
   {
-    id: "car-2",
-    brand: "Mahindra",
-    model: "XUV700 AX7 Luxury",
-    variant: "AX7 Luxury Pack 2.0 Turbo Petrol AT",
-    year: 2022,
-    price: 2449000,
-    emi: 36000,
-    location: "Vadodara Premium Hub",
-    fuel: "Petrol",
-    transmission: "Automatic",
-    mileage: 18000,
-    bodyType: "SUV",
-    certified: true,
-    imageBg: "bg-blue-950/10",
-    featured: true,
-    color: "Midnight Black Metallic",
-    regCity: "Vadodara",
-    regYear: 2022,
-    rtoCode: "GJ06-AB-7007",
-    insuranceValidity: "Zero-Dep Comprehensive (Valid till November 2026)",
-    groundClearance: "200 mm",
-    bootCapacity: "460 Litres (Expandable to 1050L)",
-    fuelTank: "60 Litres",
-    keyCount: 2,
-    owners: 1,
-    specifications: [
-      "Engine: 2.0L mStallion TGDi Turbocharged Petrol",
-      "Max Power: 197 hp @ 5000 rpm",
-      "Peak Torque: 380 Nm @ 1750-3000 rpm",
-      "Transmission: 6-Speed Aisin Torque Converter AT",
-      "0-100 km/h: 9.2 seconds",
-      "ARAI Mileage: 13.2 km/l",
-      "Seating Capacity: 7 Passenger Luxury Suite"
+    "id": "car-surat-2",
+    "brand": "Mahindra",
+    "model": "Thar Earth Edition",
+    "variant": "4WD LX Hard Top 2.2 Diesel",
+    "year": 2023,
+    "price": 1680000,
+    "emi": 25000,
+    "location": "Surat Flagship",
+    "fuel": "Diesel",
+    "transmission": "Manual",
+    "mileage": 14500,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
     ],
-    features: [
-      "Advanced ADAS Level 2 Radar & Camera Safety Suite",
-      "Continuous Dual 10.25-inch HD Cockpit Screens",
-      "Sony 3D 12-Speaker Immersive Audio with 360 Spatial Sound",
-      "Panoramic Skyroof (Largest glass roof in segment)",
-      "Smart Flush Door Handles & Dynamic LED Indicators",
-      "Dual Zone Fully Automatic Temperature Control",
-      "Blind View Monitor & 360-degree Surround Camera",
-      "Wireless Apple CarPlay & Android Auto"
+    "featured": true,
+    "color": "Desert Fury Satin",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-BE-5764",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 4WD LX Hard Top 2.2 Diesel",
+      "Transmission: Manual Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
     ],
-    inspectionSummary: {
-      overallScore: 9.6,
-      engine: "mStallion turbo petrol in peak response. Zero fluid leaks, compression test 100%.",
-      brakes: "90% pad life. Electronic park brake and Auto-Hold operate smoothly.",
-      electronics: "All ADAS cameras and front millimeter radar calibrated and error-free.",
-      exterior: "Midnight Black shade pristine. No stone chips or micro-scratches.",
-      interior: "White leatherette 7-seater interior professionally steam detailed."
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Desert Fury Satin paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
     },
-    warrantyInfo: {
-      months: 24,
-      miles: 50000,
-      coverage: "1stMark Extended Segment-First Bumper-to-Bumper Protection"
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
     },
-    cities: ["Vadodara", "Vapi"]
+    "cities": [
+      "Surat"
+    ]
   },
   {
-    id: "car-3",
-    brand: "Maruti Suzuki",
-    model: "Swift ZXI+",
-    variant: "ZXI Plus DualTone 1.2 DualJet",
-    year: 2021,
-    price: 829000,
-    emi: 12000,
-    location: "Bharuch Premium Yard",
-    fuel: "Petrol",
-    transmission: "Manual",
-    mileage: 24000,
-    bodyType: "Hatchback",
-    certified: true,
-    imageBg: "bg-rose-950/10",
-    featured: true,
-    color: "Solid Fire Red with Pearl Black Roof",
-    regCity: "Bharuch",
-    regYear: 2021,
-    rtoCode: "GJ16-CK-3321",
-    insuranceValidity: "Comprehensive (Valid till July 2026)",
-    groundClearance: "163 mm",
-    bootCapacity: "268 Litres",
-    fuelTank: "37 Litres",
-    keyCount: 2,
-    owners: 1,
-    specifications: [
-      "Engine: 1.2L K12N DualJet Dual VVT Petrol Engine",
-      "Max Power: 89 hp @ 6000 rpm",
-      "Peak Torque: 113 Nm @ 4400 rpm",
-      "Transmission: 5-Speed Slick Manual Transmission",
-      "ARAI Certified Mileage: 23.2 km/l",
-      "Idle Start-Stop Smart Technology"
+    "id": "car-surat-3",
+    "brand": "Hyundai",
+    "model": "Creta SX (O)",
+    "variant": "1.5 Turbo Petrol DCT Dual Tone",
+    "year": 2023,
+    "price": 1850000,
+    "emi": 27500,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 16200,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
     ],
-    features: [
-      "Precision Reverse Parking Camera with Dynamic Guidelines",
-      "Keyless Smart Entry & Engine Push Button Start/Stop",
-      "7-inch SmartPlay Studio Touchscreen Infotainment",
-      "Auto LED Projector Headlamps with Signature DRLs",
-      "Precision-Cut 15-inch Dual-Tone Alloy Wheels",
-      "Leather-Wrapped Flat Bottom Multifunction Steering Wheel",
-      "Cruise Control & Auto Folding Side Mirrors"
+    "featured": true,
+    "color": "Atlas White / Black Roof",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-CF-4678",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo Petrol DCT Dual Tone",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
     ],
-    inspectionSummary: {
-      overallScore: 9.5,
-      engine: "Ultra-refined K12N DualJet engine runs silent. Fresh synthetic oil service.",
-      brakes: "88% front brake pad life. Rear brake shoes fully adjusted and cleaned.",
-      electronics: "SmartPlay Studio head unit calibrated. Keyless transponder tested.",
-      exterior: "Solid Fire Red bodywork intact. Minor micro touch-up on rear bumper corner.",
-      interior: "Sporty black cabin fabric vacuumed, shampooed, and sanitized."
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.4,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Atlas White / Black Roof paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
     },
-    warrantyInfo: {
-      months: 12,
-      miles: 20000,
-      coverage: "1stMark Certified Gold Powertrain Coverage"
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
     },
-    cities: ["Bharuch", "Surat"]
+    "cities": [
+      "Surat"
+    ]
   },
   {
-    id: "car-4",
-    brand: "Tata",
-    model: "Tigor EV Lux",
-    variant: "XZ+ Lux Ziptron 26kWh",
-    year: 2022,
-    price: 1249000,
-    emi: 18500,
-    location: "Vapi Operational Center",
-    fuel: "Electric",
-    transmission: "Automatic",
-    mileage: 14500,
-    bodyType: "EV",
-    certified: true,
-    imageBg: "bg-[#2E7D32]/5",
-    featured: true,
-    color: "Signature Teal Blue Metallic",
-    regCity: "Vapi",
-    regYear: 2022,
-    rtoCode: "GJ15-EV-1020",
-    insuranceValidity: "Comprehensive (Valid till October 2026)",
-    groundClearance: "172 mm",
-    bootCapacity: "316 Litres",
-    fuelTank: "26 kWh Ziptron Battery",
-    keyCount: 2,
-    owners: 1,
-    specifications: [
-      "Motor: Permanent Magnet Synchronous Motor",
-      "Max Power: 74 hp",
-      "Peak Torque: 170 Nm Instant Torque",
-      "ARAI Range: 315 km Certified",
-      "Protection: IP67 Waterproof & Dustproof Battery Pack",
-      "Fast Charge: 10-80% in 59 minutes (25kW DC)"
+    "id": "car-surat-4",
+    "brand": "Toyota",
+    "model": "Fortuner Legender",
+    "variant": "2.8 Diesel 4x4 Automatic",
+    "year": 2022,
+    "price": 4450000,
+    "emi": 65000,
+    "location": "Surat Flagship",
+    "fuel": "Diesel",
+    "transmission": "Automatic",
+    "mileage": 22000,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
     ],
-    features: [
-      "Signature EV Teal Blue Exterior & Interior Accents",
-      "Sleek Projector Headlamps with DRL Ring",
-      "Automatic Climate Control with Smart Grid",
-      "Harman Premium Audio System with 8 Speakers",
-      "Instant Cool Cabin Pre-conditioning via iTPMS",
-      "Multi-Drive Modes (Drive & Sport Response)"
+    "featured": true,
+    "color": "Platinum White Pearl",
+    "regCity": "Surat",
+    "regYear": 2022,
+    "rtoCode": "GJ05-DG-3112",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.8 Diesel 4x4 Automatic",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
     ],
-    inspectionSummary: {
-      overallScore: 9.7,
-      engine: "Ziptron permanent magnet drive motor operates at 100% efficiency cycle.",
-      brakes: "92% pad life. Regenerative braking control parameters verified.",
-      electronics: "HV climate loop, digital instrument cluster, cell SOH 98.8%.",
-      exterior: "Sleek dual-tone finish. Zero panel gaps, 100% original factory paint.",
-      interior: "Premium fabric seats spotless. Dashboard plastics scratch-free."
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Platinum White Pearl paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
     },
-    warrantyInfo: {
-      months: 24,
-      miles: 60000,
-      coverage: "8 Years / 1,60,000 km Ziptron Battery & Motor Protection"
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
     },
-    cities: ["Vapi", "Bharuch"]
+    "cities": [
+      "Surat"
+    ]
   },
   {
-    id: "car-5",
-    brand: "Mahindra",
-    model: "Scorpio-N Z8L",
-    variant: "Z8L 4XPLOR Diesel 6AT 7-Seater",
-    year: 2023,
-    price: 2299000,
-    emi: 34000,
-    location: "Surat Elite Gallery",
-    fuel: "Diesel",
-    transmission: "Automatic",
-    mileage: 9800,
-    bodyType: "SUV",
-    certified: true,
-    imageBg: "bg-slate-900/10",
-    featured: true,
-    color: "Deep Forest Metallic Green",
-    regCity: "Surat",
-    regYear: 2023,
-    rtoCode: "GJ05-SN-8800",
-    insuranceValidity: "Zero-Dep Comprehensive (Valid till June 2027)",
-    groundClearance: "187 mm",
-    bootCapacity: "460 Litres",
-    fuelTank: "57 Litres",
-    keyCount: 2,
-    owners: 1,
-    specifications: [
-      "Engine: 2.2L mHawk Common Rail Diesel Engine",
-      "Max Power: 172 hp @ 3500 rpm",
-      "Peak Torque: 400 Nm @ 1750-2750 rpm",
-      "Transmission: 6-Speed Torque Converter Automatic",
-      "Terrain Suite: 4XPLOR Intelligent Terrain Management (Normal, Snow, Mud, Sand)",
-      "0-100 km/h: 9.8 seconds"
+    "id": "car-surat-5",
+    "brand": "Maruti Suzuki",
+    "model": "Grand Vitara",
+    "variant": "Alpha+ Strong Hybrid CVT",
+    "year": 2023,
+    "price": 1820000,
+    "emi": 27000,
+    "location": "Surat Flagship",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 11000,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
     ],
-    features: [
-      "AdrenoX Connected Car Tech with Built-In Alexa Voice Control",
-      "Rich Coffee Black Leatherette 7-Seater Cabin Upholstery",
-      "Dual Zone Automatic Air Conditioning with Rear Vents",
-      "Electric Sunroof & Qi Wireless Smartphone Charger",
-      "Sony Immersive 12-Speaker Sound System with Dual Subwoofer",
-      "Dual LED Projector Headlamps & Sequential Turn Indicators"
+    "featured": true,
+    "color": "Nexa Blue",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-EH-7862",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Alpha+ Strong Hybrid CVT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
     ],
-    inspectionSummary: {
-      overallScore: 9.9,
-      engine: "mHawk high-torque diesel performs flawlessly. DPF regeneration clean.",
-      brakes: "94% brake pad life remaining. Electronic calipers high response.",
-      electronics: "AdrenoX connected suite checked. All screens fully updated.",
-      exterior: "Deep Forest shade in absolute showroom state. Ceramic paint coated.",
-      interior: "3-row luxury leatherette seating completely fresh."
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.2,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Nexa Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
     },
-    warrantyInfo: {
-      months: 36,
-      miles: 100000,
-      coverage: "Manufacturer balance + 12-Month extended 1stMark Premium"
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
     },
-    cities: ["Surat", "Vapi"]
+    "cities": [
+      "Surat"
+    ]
   },
   {
-    id: "car-6",
-    brand: "Porsche",
-    model: "911 Carrera S",
-    variant: "3.0L Twin-Turbo Flat-6 PDK",
-    year: 2022,
-    price: 14500000,
-    emi: 215000,
-    location: "Surat Elite Gallery",
-    fuel: "Petrol",
-    transmission: "Automatic",
-    mileage: 4200,
-    bodyType: "Sedan",
-    certified: true,
-    imageBg: "bg-slate-900/10",
-    featured: true,
-    color: "Guards Red / Black Leather",
-    regCity: "Surat",
-    regYear: 2022,
-    rtoCode: "GJ05-PS-0911",
-    insuranceValidity: "Zero-Dep Insurance (Valid till January 2027)",
-    groundClearance: "100 mm",
-    bootCapacity: "132 Litres (Front Luggage Trunk)",
-    fuelTank: "64 Litres",
-    keyCount: 2,
-    owners: 1,
-    specifications: [
-      "Engine: 3.0L Twin-Turbocharger Boxer 6-Cylinder",
-      "Max Power: 443 hp @ 6500 rpm",
-      "Peak Torque: 530 Nm @ 2300-5000 rpm",
-      "Transmission: 8-Speed Porsche Doppelkupplung (PDK)",
-      "0-100 km/h: 3.5 seconds (Sport Chrono Package)",
-      "Top Speed: 308 km/h"
+    "id": "car-surat-6",
+    "brand": "Kia",
+    "model": "Seltos GTX+",
+    "variant": "1.5 Turbo Petrol DCT",
+    "year": 2023,
+    "price": 1790000,
+    "emi": 26500,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 13800,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
     ],
-    features: [
-      "Sport Chrono Package with Mode Switch Dial on Steering",
-      "BOSE Surround Sound System (12 Speakers, 570W)",
-      "Staggered 20/21-inch Carrera S Forged Alloy Wheels",
-      "Porsche Active Suspension Management (PASM -10mm)",
-      "LED Matrix Main Headlights with Porsche Dynamic Light System Plus (PDLS+)",
-      "Sport Exhaust System with Tailpipes in High-Gloss Black"
+    "featured": false,
+    "color": "Pewter Olive",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-FI-9316",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo Petrol DCT",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
     ],
-    inspectionSummary: {
-      overallScore: 9.8,
-      engine: "Pristine flat-six powertrain. Zero fluid dampness, 100% compression.",
-      brakes: "95% brake life remaining. Ceramic composite sensors fully active.",
-      electronics: "All dynamic PASM dampers and active rear wing aero tested.",
-      exterior: "Guards Red finish completely original. Digital paint depth verified.",
-      interior: "Premium Nappa leather interior detailed to perfection."
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Pewter Olive paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
     },
-    warrantyInfo: {
-      months: 24,
-      miles: 40000,
-      coverage: "1stMark Exotic Elite Comprehensive Vehicle Coverage"
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
     },
-    cities: ["Surat", "Vadodara"]
+    "cities": [
+      "Surat"
+    ]
   },
   {
-    id: "car-7",
-    brand: "BMW",
-    model: "M3 Competition",
-    variant: "3.0L M TwinPower Turbo xDrive",
-    year: 2023,
-    price: 11000000,
-    emi: 165000,
-    location: "Vadodara Premium Hub",
-    fuel: "Petrol",
-    transmission: "Automatic",
-    mileage: 2100,
-    bodyType: "Sedan",
-    certified: true,
-    imageBg: "bg-blue-950/10",
-    featured: true,
-    color: "Isle of Man Green Metallic",
-    regCity: "Vadodara",
-    regYear: 2023,
-    rtoCode: "GJ06-M3-0003",
-    insuranceValidity: "Comprehensive (Valid till August 2027)",
-    groundClearance: "120 mm",
-    bootCapacity: "480 Litres",
-    fuelTank: "59 Litres",
-    keyCount: 2,
-    owners: 1,
-    specifications: [
-      "Engine: 3.0L M TwinPower Turbo Inline 6 Cylinder",
-      "Max Power: 503 hp @ 6250 rpm",
-      "Peak Torque: 650 Nm @ 2750-5500 rpm",
-      "Drivetrain: M xDrive All-Wheel Drive with 2WD Drift Mode",
-      "0-100 km/h: 3.5 seconds",
-      "Transmission: 8-Speed M Steptronic with Drivelogic"
+    "id": "car-surat-7",
+    "brand": "Honda",
+    "model": "City ZX",
+    "variant": "1.5 i-VTEC CVT Sunroof",
+    "year": 2022,
+    "price": 1280000,
+    "emi": 19000,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 19500,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
     ],
-    features: [
-      "Lightweight Carbon Fiber Reinforced Plastic Roof Panel",
-      "BMW Laserlight Headlamps with Distinctive Blue Accents",
-      "M Carbon Bucket Racing Seats with Illuminated M3 Badges",
-      "Harman Kardon Surround Sound System",
-      "M Adaptive Suspension with Comfort, Sport, and Sport+ Modes",
-      "M Traction Control with 10-stage Adjustment"
+    "featured": false,
+    "color": "Radiant Red Metallic",
+    "regCity": "Surat",
+    "regYear": 2022,
+    "rtoCode": "GJ05-GJ-5210",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 i-VTEC CVT Sunroof",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
     ],
-    inspectionSummary: {
-      overallScore: 9.9,
-      engine: "Like-new powertrain state. Break-in service completed on schedule at BMW dealer.",
-      brakes: "99% brake pads. High-response compound rotors in immaculate shape.",
-      electronics: "Live Cockpit Professional Curved Display fully calibrated.",
-      exterior: "Isle of Man Green paint in outstanding showroom state.",
-      interior: "Carbon bucket trims and Alcantara steering as brand new."
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Radiant Red Metallic paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
     },
-    warrantyInfo: {
-      months: 36,
-      miles: 60000,
-      coverage: "BMW Factory Balance + 1stMark Platinum Warranty"
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
     },
-    cities: ["Vadodara", "Bharuch"]
+    "cities": [
+      "Surat"
+    ]
   },
   {
-    id: "car-8",
-    brand: "Land Rover",
-    model: "Defender 110 HSE",
-    variant: "3.0L D300 Ingenium Diesel AWD",
-    year: 2022,
-    price: 12000000,
-    emi: 175000,
-    location: "Vapi Operational Center",
-    fuel: "Diesel",
-    transmission: "AWD",
-    mileage: 11400,
-    bodyType: "SUV",
-    certified: true,
-    imageBg: "bg-emerald-950/10",
-    featured: true,
-    color: "Carpathian Grey Metallic",
-    regCity: "Vapi",
-    regYear: 2022,
-    rtoCode: "GJ15-DF-0110",
-    insuranceValidity: "Zero-Dep Comprehensive (Valid till April 2026)",
-    groundClearance: "291 mm (Air Suspension Height)",
-    bootCapacity: "857 Litres",
-    fuelTank: "89 Litres",
-    keyCount: 2,
-    owners: 1,
-    specifications: [
-      "Engine: 3.0L 6-Cylinder MHEV Turbocharged Ingenium Diesel",
-      "Max Power: 296 hp @ 4000 rpm",
-      "Peak Torque: 650 Nm @ 1500-2500 rpm",
-      "Terrain System: AWD with Terrain Response 2 Configurable Modes",
-      "Wading Depth: 900 mm Water Crossing Capability",
-      "Transmission: 8-Speed Automatic with Twin-Speed Transfer Box"
+    "id": "car-surat-8",
+    "brand": "BMW",
+    "model": "3 Series 330i",
+    "variant": "M Sport Line Shadow Edition",
+    "year": 2022,
+    "price": 4850000,
+    "emi": 72000,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 15400,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
     ],
-    features: [
-      "Electronic Air Suspension with Automatic Height Control",
-      "Sliding Panoramic Glass Sunroof",
-      "Meridian Surround Sound System (700W 14-Speaker)",
-      "ClearSight Ground View 3D Surround Camera System",
-      "Interactive 12.3-inch Driver Display Cockpit",
-      "20-inch Style 5098 5-Spoke Satin Dark Grey Alloy Wheels"
+    "featured": false,
+    "color": "Portimao Blue",
+    "regCity": "Surat",
+    "regYear": 2022,
+    "rtoCode": "GJ05-HK-1258",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: M Sport Line Shadow Edition",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
     ],
-    inspectionSummary: {
-      overallScore: 9.7,
-      engine: "Refined 3.0L Ingenium diesel. Extreme low-end torque validated.",
-      brakes: "92% brake pads. Heavy duty calipers clean, fluid flushed.",
-      electronics: "Pivi Pro infotainment updated. Air suspension system leak-free.",
-      exterior: "Carpathian Grey finish in showroom condition. Ceramic coating live.",
-      interior: "Acorn Windsor leather upholstery immaculate and conditioned."
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.5,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Portimao Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
     },
-    warrantyInfo: {
-      months: 24,
-      miles: 50000,
-      coverage: "Comprehensive 1stMark Elite SUV Coverage"
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
     },
-    cities: ["Vapi", "Surat"]
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-9",
+    "brand": "Mercedes-Benz",
+    "model": "C-Class C200",
+    "variant": "Avantgarde Mild Hybrid AT",
+    "year": 2023,
+    "price": 5600000,
+    "emi": 83000,
+    "location": "Surat Flagship",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 9800,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Mojave Silver",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-IL-6033",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Avantgarde Mild Hybrid AT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.2,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Mojave Silver paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-10",
+    "brand": "Audi",
+    "model": "Q5 45 TFSI",
+    "variant": "Technology Pack Quattro",
+    "year": 2022,
+    "price": 5800000,
+    "emi": 86000,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 17500,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Navarra Blue Metallic",
+    "regCity": "Surat",
+    "regYear": 2022,
+    "rtoCode": "GJ05-JM-5433",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Technology Pack Quattro",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Navarra Blue Metallic paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-11",
+    "brand": "Volkswagen",
+    "model": "Virtus GT",
+    "variant": "1.5 TSI DSG Performance",
+    "year": 2023,
+    "price": 1640000,
+    "emi": 24500,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 12500,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Wild Cherry Red",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-KN-8837",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 TSI DSG Performance",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Wild Cherry Red paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-12",
+    "brand": "Tata",
+    "model": "Safari Accomplished+",
+    "variant": "6-Seater Dark Edition AT",
+    "year": 2023,
+    "price": 2380000,
+    "emi": 35000,
+    "location": "Surat Flagship",
+    "fuel": "Diesel",
+    "transmission": "Automatic",
+    "mileage": 15000,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Oberon Black",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-LO-2394",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 6-Seater Dark Edition AT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Oberon Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-13",
+    "brand": "Mahindra",
+    "model": "Scorpio-N Z8L",
+    "variant": "2.2 mHawk Diesel 4X4 AT",
+    "year": 2023,
+    "price": 2250000,
+    "emi": 33500,
+    "location": "Surat Flagship",
+    "fuel": "Diesel",
+    "transmission": "AWD",
+    "mileage": 18900,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Deep Forest Green",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-MP-8838",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.2 mHawk Diesel 4X4 AT",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.5,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Deep Forest Green paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-14",
+    "brand": "MG",
+    "model": "Hector Sharp Pro",
+    "variant": "1.5 Turbo CVT Panoramic",
+    "year": 2022,
+    "price": 1720000,
+    "emi": 25500,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 21000,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Havana Grey",
+    "regCity": "Surat",
+    "regYear": 2022,
+    "rtoCode": "GJ05-NQ-8790",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo CVT Panoramic",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Havana Grey paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-15",
+    "brand": "Hyundai",
+    "model": "Verna SX (O)",
+    "variant": "1.5 Turbo DCT ADAS",
+    "year": 2023,
+    "price": 1580000,
+    "emi": 23500,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 10400,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Starry Night",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-OR-1385",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo DCT ADAS",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.9,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Starry Night paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-16",
+    "brand": "Maruti Suzuki",
+    "model": "Brezza ZXi+",
+    "variant": "1.5 K15C DualJet AT Dual Tone",
+    "year": 2023,
+    "price": 1240000,
+    "emi": 18500,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 14200,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Brave Khakhi",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-PS-6820",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 K15C DualJet AT Dual Tone",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Brave Khakhi paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-17",
+    "brand": "Skoda",
+    "model": "Slavia 1.5 TSI",
+    "variant": "Style DSG Sunroof",
+    "year": 2022,
+    "price": 1520000,
+    "emi": 22500,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 18500,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Crystal Blue",
+    "regCity": "Surat",
+    "regYear": 2022,
+    "rtoCode": "GJ05-QT-8136",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Style DSG Sunroof",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.2,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Crystal Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-18",
+    "brand": "Toyota",
+    "model": "Innova Hycross",
+    "variant": "ZX (O) Hybrid Ottoman Seats",
+    "year": 2023,
+    "price": 2980000,
+    "emi": 44000,
+    "location": "Surat Flagship",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 16800,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Blackish Ageha Glass Flake",
+    "regCity": "Surat",
+    "regYear": 2023,
+    "rtoCode": "GJ05-RU-2796",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: ZX (O) Hybrid Ottoman Seats",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.9,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Blackish Ageha Glass Flake paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-19",
+    "brand": "Porsche",
+    "model": "Macan GTS",
+    "variant": "2.9L V2 Twin-Turbo PDK AWD",
+    "year": 2022,
+    "price": 9800000,
+    "emi": 145000,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 8400,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Python Green",
+    "regCity": "Surat",
+    "regYear": 2022,
+    "rtoCode": "GJ05-SV-6391",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.9L V2 Twin-Turbo PDK AWD",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.4,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Python Green paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-surat-20",
+    "brand": "Land Rover",
+    "model": "Range Rover Velar",
+    "variant": "2.0 R-Dynamic S Petrol AWD",
+    "year": 2022,
+    "price": 7800000,
+    "emi": 115000,
+    "location": "Surat Flagship",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 14200,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Santorini Black",
+    "regCity": "Surat",
+    "regYear": 2022,
+    "rtoCode": "GJ05-TW-1663",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.0 R-Dynamic S Petrol AWD",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Santorini Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Surat"
+    ]
+  },
+  {
+    "id": "car-bharuch-1",
+    "brand": "Tata",
+    "model": "Nexon EV Max",
+    "variant": "XZ+ Lux Dark Edition 40.5kWh",
+    "year": 2023,
+    "price": 1749000,
+    "emi": 26000,
+    "location": "Bharuch Express",
+    "fuel": "Electric",
+    "transmission": "Automatic",
+    "mileage": 13200,
+    "bodyType": "EV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Midnight Black",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-AD-3899",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "40.5 kWh Pack",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: XZ+ Lux Dark Edition 40.5kWh",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 437 km Range",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Midnight Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-2",
+    "brand": "Mahindra",
+    "model": "Thar Earth Edition",
+    "variant": "4WD LX Hard Top 2.2 Diesel",
+    "year": 2023,
+    "price": 1680000,
+    "emi": 25000,
+    "location": "Bharuch Express",
+    "fuel": "Diesel",
+    "transmission": "Manual",
+    "mileage": 15700,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Desert Fury Satin",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-BE-2568",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 4WD LX Hard Top 2.2 Diesel",
+      "Transmission: Manual Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Desert Fury Satin paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-3",
+    "brand": "Hyundai",
+    "model": "Creta SX (O)",
+    "variant": "1.5 Turbo Petrol DCT Dual Tone",
+    "year": 2023,
+    "price": 1850000,
+    "emi": 27500,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 17400,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Atlas White / Black Roof",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-CF-6897",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo Petrol DCT Dual Tone",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Atlas White / Black Roof paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-4",
+    "brand": "Toyota",
+    "model": "Fortuner Legender",
+    "variant": "2.8 Diesel 4x4 Automatic",
+    "year": 2022,
+    "price": 4450000,
+    "emi": 65000,
+    "location": "Bharuch Express",
+    "fuel": "Diesel",
+    "transmission": "Automatic",
+    "mileage": 23200,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Platinum White Pearl",
+    "regCity": "Bharuch",
+    "regYear": 2022,
+    "rtoCode": "GJ16-DG-9511",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.8 Diesel 4x4 Automatic",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.2,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Platinum White Pearl paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-5",
+    "brand": "Maruti Suzuki",
+    "model": "Grand Vitara",
+    "variant": "Alpha+ Strong Hybrid CVT",
+    "year": 2023,
+    "price": 1820000,
+    "emi": 27000,
+    "location": "Bharuch Express",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 12200,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Nexa Blue",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-EH-7950",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Alpha+ Strong Hybrid CVT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Nexa Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-6",
+    "brand": "Kia",
+    "model": "Seltos GTX+",
+    "variant": "1.5 Turbo Petrol DCT",
+    "year": 2023,
+    "price": 1790000,
+    "emi": 26500,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 15000,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Pewter Olive",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-FI-5550",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo Petrol DCT",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.5,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Pewter Olive paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-7",
+    "brand": "Honda",
+    "model": "City ZX",
+    "variant": "1.5 i-VTEC CVT Sunroof",
+    "year": 2022,
+    "price": 1280000,
+    "emi": 19000,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 20700,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Radiant Red Metallic",
+    "regCity": "Bharuch",
+    "regYear": 2022,
+    "rtoCode": "GJ16-GJ-6154",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 i-VTEC CVT Sunroof",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.5,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Radiant Red Metallic paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-8",
+    "brand": "BMW",
+    "model": "3 Series 330i",
+    "variant": "M Sport Line Shadow Edition",
+    "year": 2022,
+    "price": 4850000,
+    "emi": 72000,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 16600,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Portimao Blue",
+    "regCity": "Bharuch",
+    "regYear": 2022,
+    "rtoCode": "GJ16-HK-9304",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: M Sport Line Shadow Edition",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Portimao Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-9",
+    "brand": "Mercedes-Benz",
+    "model": "C-Class C200",
+    "variant": "Avantgarde Mild Hybrid AT",
+    "year": 2023,
+    "price": 5600000,
+    "emi": 83000,
+    "location": "Bharuch Express",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 11000,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Mojave Silver",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-IL-6213",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Avantgarde Mild Hybrid AT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.4,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Mojave Silver paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-10",
+    "brand": "Audi",
+    "model": "Q5 45 TFSI",
+    "variant": "Technology Pack Quattro",
+    "year": 2022,
+    "price": 5800000,
+    "emi": 86000,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 18700,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Navarra Blue Metallic",
+    "regCity": "Bharuch",
+    "regYear": 2022,
+    "rtoCode": "GJ16-JM-9617",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Technology Pack Quattro",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Navarra Blue Metallic paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-11",
+    "brand": "Volkswagen",
+    "model": "Virtus GT",
+    "variant": "1.5 TSI DSG Performance",
+    "year": 2023,
+    "price": 1640000,
+    "emi": 24500,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 13700,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Wild Cherry Red",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-KN-4227",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 TSI DSG Performance",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.2,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Wild Cherry Red paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-12",
+    "brand": "Tata",
+    "model": "Safari Accomplished+",
+    "variant": "6-Seater Dark Edition AT",
+    "year": 2023,
+    "price": 2380000,
+    "emi": 35000,
+    "location": "Bharuch Express",
+    "fuel": "Diesel",
+    "transmission": "Automatic",
+    "mileage": 16200,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Oberon Black",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-LO-4666",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 6-Seater Dark Edition AT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.9,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Oberon Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-13",
+    "brand": "Mahindra",
+    "model": "Scorpio-N Z8L",
+    "variant": "2.2 mHawk Diesel 4X4 AT",
+    "year": 2023,
+    "price": 2250000,
+    "emi": 33500,
+    "location": "Bharuch Express",
+    "fuel": "Diesel",
+    "transmission": "AWD",
+    "mileage": 20100,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Deep Forest Green",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-MP-2234",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.2 mHawk Diesel 4X4 AT",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.2,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Deep Forest Green paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-14",
+    "brand": "MG",
+    "model": "Hector Sharp Pro",
+    "variant": "1.5 Turbo CVT Panoramic",
+    "year": 2022,
+    "price": 1720000,
+    "emi": 25500,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 22200,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Havana Grey",
+    "regCity": "Bharuch",
+    "regYear": 2022,
+    "rtoCode": "GJ16-NQ-5150",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo CVT Panoramic",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.2,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Havana Grey paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-15",
+    "brand": "Hyundai",
+    "model": "Verna SX (O)",
+    "variant": "1.5 Turbo DCT ADAS",
+    "year": 2023,
+    "price": 1580000,
+    "emi": 23500,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 11600,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Starry Night",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-OR-5754",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo DCT ADAS",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.9,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Starry Night paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-16",
+    "brand": "Maruti Suzuki",
+    "model": "Brezza ZXi+",
+    "variant": "1.5 K15C DualJet AT Dual Tone",
+    "year": 2023,
+    "price": 1240000,
+    "emi": 18500,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 15400,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Brave Khakhi",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-PS-4914",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 K15C DualJet AT Dual Tone",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Brave Khakhi paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-17",
+    "brand": "Skoda",
+    "model": "Slavia 1.5 TSI",
+    "variant": "Style DSG Sunroof",
+    "year": 2022,
+    "price": 1520000,
+    "emi": 22500,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 19700,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Crystal Blue",
+    "regCity": "Bharuch",
+    "regYear": 2022,
+    "rtoCode": "GJ16-QT-6138",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Style DSG Sunroof",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Crystal Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-18",
+    "brand": "Toyota",
+    "model": "Innova Hycross",
+    "variant": "ZX (O) Hybrid Ottoman Seats",
+    "year": 2023,
+    "price": 2980000,
+    "emi": 44000,
+    "location": "Bharuch Express",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 18000,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Blackish Ageha Glass Flake",
+    "regCity": "Bharuch",
+    "regYear": 2023,
+    "rtoCode": "GJ16-RU-5604",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: ZX (O) Hybrid Ottoman Seats",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.4,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Blackish Ageha Glass Flake paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-19",
+    "brand": "Porsche",
+    "model": "Macan GTS",
+    "variant": "2.9L V2 Twin-Turbo PDK AWD",
+    "year": 2022,
+    "price": 9800000,
+    "emi": 145000,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 9600,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Python Green",
+    "regCity": "Bharuch",
+    "regYear": 2022,
+    "rtoCode": "GJ16-SV-3795",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.9L V2 Twin-Turbo PDK AWD",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Python Green paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-bharuch-20",
+    "brand": "Land Rover",
+    "model": "Range Rover Velar",
+    "variant": "2.0 R-Dynamic S Petrol AWD",
+    "year": 2022,
+    "price": 7800000,
+    "emi": 115000,
+    "location": "Bharuch Express",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 15400,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Santorini Black",
+    "regCity": "Bharuch",
+    "regYear": 2022,
+    "rtoCode": "GJ16-TW-9593",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.0 R-Dynamic S Petrol AWD",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.4,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Santorini Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Bharuch"
+    ]
+  },
+  {
+    "id": "car-vapi-1",
+    "brand": "Tata",
+    "model": "Nexon EV Max",
+    "variant": "XZ+ Lux Dark Edition 40.5kWh",
+    "year": 2023,
+    "price": 1749000,
+    "emi": 26000,
+    "location": "Vapi GIDC",
+    "fuel": "Electric",
+    "transmission": "Automatic",
+    "mileage": 14400,
+    "bodyType": "EV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Midnight Black",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-AD-5592",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "40.5 kWh Pack",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: XZ+ Lux Dark Edition 40.5kWh",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 437 km Range",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.9,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Midnight Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-2",
+    "brand": "Mahindra",
+    "model": "Thar Earth Edition",
+    "variant": "4WD LX Hard Top 2.2 Diesel",
+    "year": 2023,
+    "price": 1680000,
+    "emi": 25000,
+    "location": "Vapi GIDC",
+    "fuel": "Diesel",
+    "transmission": "Manual",
+    "mileage": 16900,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Desert Fury Satin",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-BE-6301",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 4WD LX Hard Top 2.2 Diesel",
+      "Transmission: Manual Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Desert Fury Satin paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-3",
+    "brand": "Hyundai",
+    "model": "Creta SX (O)",
+    "variant": "1.5 Turbo Petrol DCT Dual Tone",
+    "year": 2023,
+    "price": 1850000,
+    "emi": 27500,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 18600,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Atlas White / Black Roof",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-CF-1063",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo Petrol DCT Dual Tone",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.5,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Atlas White / Black Roof paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-4",
+    "brand": "Toyota",
+    "model": "Fortuner Legender",
+    "variant": "2.8 Diesel 4x4 Automatic",
+    "year": 2022,
+    "price": 4450000,
+    "emi": 65000,
+    "location": "Vapi GIDC",
+    "fuel": "Diesel",
+    "transmission": "Automatic",
+    "mileage": 24400,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Platinum White Pearl",
+    "regCity": "Vapi",
+    "regYear": 2022,
+    "rtoCode": "GJ15-DG-5924",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.8 Diesel 4x4 Automatic",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Platinum White Pearl paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-5",
+    "brand": "Maruti Suzuki",
+    "model": "Grand Vitara",
+    "variant": "Alpha+ Strong Hybrid CVT",
+    "year": 2023,
+    "price": 1820000,
+    "emi": 27000,
+    "location": "Vapi GIDC",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 13400,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Nexa Blue",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-EH-7317",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Alpha+ Strong Hybrid CVT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Nexa Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-6",
+    "brand": "Kia",
+    "model": "Seltos GTX+",
+    "variant": "1.5 Turbo Petrol DCT",
+    "year": 2023,
+    "price": 1790000,
+    "emi": 26500,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 16200,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Pewter Olive",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-FI-4560",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo Petrol DCT",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Pewter Olive paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-7",
+    "brand": "Honda",
+    "model": "City ZX",
+    "variant": "1.5 i-VTEC CVT Sunroof",
+    "year": 2022,
+    "price": 1280000,
+    "emi": 19000,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 21900,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Radiant Red Metallic",
+    "regCity": "Vapi",
+    "regYear": 2022,
+    "rtoCode": "GJ15-GJ-2950",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 i-VTEC CVT Sunroof",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Radiant Red Metallic paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-8",
+    "brand": "BMW",
+    "model": "3 Series 330i",
+    "variant": "M Sport Line Shadow Edition",
+    "year": 2022,
+    "price": 4850000,
+    "emi": 72000,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 17800,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Portimao Blue",
+    "regCity": "Vapi",
+    "regYear": 2022,
+    "rtoCode": "GJ15-HK-1313",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: M Sport Line Shadow Edition",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.2,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Portimao Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-9",
+    "brand": "Mercedes-Benz",
+    "model": "C-Class C200",
+    "variant": "Avantgarde Mild Hybrid AT",
+    "year": 2023,
+    "price": 5600000,
+    "emi": 83000,
+    "location": "Vapi GIDC",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 12200,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Mojave Silver",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-IL-9856",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Avantgarde Mild Hybrid AT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Mojave Silver paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-10",
+    "brand": "Audi",
+    "model": "Q5 45 TFSI",
+    "variant": "Technology Pack Quattro",
+    "year": 2022,
+    "price": 5800000,
+    "emi": 86000,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 19900,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Navarra Blue Metallic",
+    "regCity": "Vapi",
+    "regYear": 2022,
+    "rtoCode": "GJ15-JM-7235",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Technology Pack Quattro",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Navarra Blue Metallic paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-11",
+    "brand": "Volkswagen",
+    "model": "Virtus GT",
+    "variant": "1.5 TSI DSG Performance",
+    "year": 2023,
+    "price": 1640000,
+    "emi": 24500,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 14900,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Wild Cherry Red",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-KN-6829",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 TSI DSG Performance",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.4,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Wild Cherry Red paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-12",
+    "brand": "Tata",
+    "model": "Safari Accomplished+",
+    "variant": "6-Seater Dark Edition AT",
+    "year": 2023,
+    "price": 2380000,
+    "emi": 35000,
+    "location": "Vapi GIDC",
+    "fuel": "Diesel",
+    "transmission": "Automatic",
+    "mileage": 17400,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Oberon Black",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-LO-7163",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 6-Seater Dark Edition AT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Oberon Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-13",
+    "brand": "Mahindra",
+    "model": "Scorpio-N Z8L",
+    "variant": "2.2 mHawk Diesel 4X4 AT",
+    "year": 2023,
+    "price": 2250000,
+    "emi": 33500,
+    "location": "Vapi GIDC",
+    "fuel": "Diesel",
+    "transmission": "AWD",
+    "mileage": 21300,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Deep Forest Green",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-MP-8802",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.2 mHawk Diesel 4X4 AT",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Deep Forest Green paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-14",
+    "brand": "MG",
+    "model": "Hector Sharp Pro",
+    "variant": "1.5 Turbo CVT Panoramic",
+    "year": 2022,
+    "price": 1720000,
+    "emi": 25500,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 23400,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Havana Grey",
+    "regCity": "Vapi",
+    "regYear": 2022,
+    "rtoCode": "GJ15-NQ-5706",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo CVT Panoramic",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.9,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Havana Grey paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-15",
+    "brand": "Hyundai",
+    "model": "Verna SX (O)",
+    "variant": "1.5 Turbo DCT ADAS",
+    "year": 2023,
+    "price": 1580000,
+    "emi": 23500,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 12800,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Starry Night",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-OR-4027",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo DCT ADAS",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Starry Night paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-16",
+    "brand": "Maruti Suzuki",
+    "model": "Brezza ZXi+",
+    "variant": "1.5 K15C DualJet AT Dual Tone",
+    "year": 2023,
+    "price": 1240000,
+    "emi": 18500,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 16600,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Brave Khakhi",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-PS-8514",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 K15C DualJet AT Dual Tone",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Brave Khakhi paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-17",
+    "brand": "Skoda",
+    "model": "Slavia 1.5 TSI",
+    "variant": "Style DSG Sunroof",
+    "year": 2022,
+    "price": 1520000,
+    "emi": 22500,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 20900,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Crystal Blue",
+    "regCity": "Vapi",
+    "regYear": 2022,
+    "rtoCode": "GJ15-QT-9719",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Style DSG Sunroof",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Crystal Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-18",
+    "brand": "Toyota",
+    "model": "Innova Hycross",
+    "variant": "ZX (O) Hybrid Ottoman Seats",
+    "year": 2023,
+    "price": 2980000,
+    "emi": 44000,
+    "location": "Vapi GIDC",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 19200,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Blackish Ageha Glass Flake",
+    "regCity": "Vapi",
+    "regYear": 2023,
+    "rtoCode": "GJ15-RU-3061",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: ZX (O) Hybrid Ottoman Seats",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Blackish Ageha Glass Flake paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-19",
+    "brand": "Porsche",
+    "model": "Macan GTS",
+    "variant": "2.9L V2 Twin-Turbo PDK AWD",
+    "year": 2022,
+    "price": 9800000,
+    "emi": 145000,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 10800,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Python Green",
+    "regCity": "Vapi",
+    "regYear": 2022,
+    "rtoCode": "GJ15-SV-2252",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.9L V2 Twin-Turbo PDK AWD",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Python Green paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vapi-20",
+    "brand": "Land Rover",
+    "model": "Range Rover Velar",
+    "variant": "2.0 R-Dynamic S Petrol AWD",
+    "year": 2022,
+    "price": 7800000,
+    "emi": 115000,
+    "location": "Vapi GIDC",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 16600,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Santorini Black",
+    "regCity": "Vapi",
+    "regYear": 2022,
+    "rtoCode": "GJ15-TW-5269",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.0 R-Dynamic S Petrol AWD",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.5,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Santorini Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vapi"
+    ]
+  },
+  {
+    "id": "car-vadodara-1",
+    "brand": "Tata",
+    "model": "Nexon EV Max",
+    "variant": "XZ+ Lux Dark Edition 40.5kWh",
+    "year": 2023,
+    "price": 1749000,
+    "emi": 26000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Electric",
+    "transmission": "Automatic",
+    "mileage": 15600,
+    "bodyType": "EV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Midnight Black",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-AD-6984",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "40.5 kWh Pack",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: XZ+ Lux Dark Edition 40.5kWh",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 437 km Range",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Midnight Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-2",
+    "brand": "Mahindra",
+    "model": "Thar Earth Edition",
+    "variant": "4WD LX Hard Top 2.2 Diesel",
+    "year": 2023,
+    "price": 1680000,
+    "emi": 25000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Diesel",
+    "transmission": "Manual",
+    "mileage": 18100,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Desert Fury Satin",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-BE-9816",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 4WD LX Hard Top 2.2 Diesel",
+      "Transmission: Manual Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Desert Fury Satin paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-3",
+    "brand": "Hyundai",
+    "model": "Creta SX (O)",
+    "variant": "1.5 Turbo Petrol DCT Dual Tone",
+    "year": 2023,
+    "price": 1850000,
+    "emi": 27500,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 19800,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Atlas White / Black Roof",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-CF-3756",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo Petrol DCT Dual Tone",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Atlas White / Black Roof paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-4",
+    "brand": "Toyota",
+    "model": "Fortuner Legender",
+    "variant": "2.8 Diesel 4x4 Automatic",
+    "year": 2022,
+    "price": 4450000,
+    "emi": 65000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Diesel",
+    "transmission": "Automatic",
+    "mileage": 25600,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Platinum White Pearl",
+    "regCity": "Vadodara",
+    "regYear": 2022,
+    "rtoCode": "GJ06-DG-5389",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.8 Diesel 4x4 Automatic",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Platinum White Pearl paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-5",
+    "brand": "Maruti Suzuki",
+    "model": "Grand Vitara",
+    "variant": "Alpha+ Strong Hybrid CVT",
+    "year": 2023,
+    "price": 1820000,
+    "emi": 27000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 14600,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": true,
+    "color": "Nexa Blue",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-EH-2279",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Alpha+ Strong Hybrid CVT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Nexa Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-6",
+    "brand": "Kia",
+    "model": "Seltos GTX+",
+    "variant": "1.5 Turbo Petrol DCT",
+    "year": 2023,
+    "price": 1790000,
+    "emi": 26500,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 17400,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Pewter Olive",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-FI-9659",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo Petrol DCT",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.9,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Pewter Olive paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-7",
+    "brand": "Honda",
+    "model": "City ZX",
+    "variant": "1.5 i-VTEC CVT Sunroof",
+    "year": 2022,
+    "price": 1280000,
+    "emi": 19000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 23100,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Radiant Red Metallic",
+    "regCity": "Vadodara",
+    "regYear": 2022,
+    "rtoCode": "GJ06-GJ-8746",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 i-VTEC CVT Sunroof",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Radiant Red Metallic paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-8",
+    "brand": "BMW",
+    "model": "3 Series 330i",
+    "variant": "M Sport Line Shadow Edition",
+    "year": 2022,
+    "price": 4850000,
+    "emi": 72000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 19000,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Portimao Blue",
+    "regCity": "Vadodara",
+    "regYear": 2022,
+    "rtoCode": "GJ06-HK-7623",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: M Sport Line Shadow Edition",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Portimao Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-9",
+    "brand": "Mercedes-Benz",
+    "model": "C-Class C200",
+    "variant": "Avantgarde Mild Hybrid AT",
+    "year": 2023,
+    "price": 5600000,
+    "emi": 83000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 13400,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Mojave Silver",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-IL-4727",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Avantgarde Mild Hybrid AT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.4,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Mojave Silver paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-10",
+    "brand": "Audi",
+    "model": "Q5 45 TFSI",
+    "variant": "Technology Pack Quattro",
+    "year": 2022,
+    "price": 5800000,
+    "emi": 86000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 21100,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Navarra Blue Metallic",
+    "regCity": "Vadodara",
+    "regYear": 2022,
+    "rtoCode": "GJ06-JM-2847",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Technology Pack Quattro",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Navarra Blue Metallic paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-11",
+    "brand": "Volkswagen",
+    "model": "Virtus GT",
+    "variant": "1.5 TSI DSG Performance",
+    "year": 2023,
+    "price": 1640000,
+    "emi": 24500,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 16100,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Wild Cherry Red",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-KN-7372",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 TSI DSG Performance",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.5,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Wild Cherry Red paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-12",
+    "brand": "Tata",
+    "model": "Safari Accomplished+",
+    "variant": "6-Seater Dark Edition AT",
+    "year": 2023,
+    "price": 2380000,
+    "emi": 35000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Diesel",
+    "transmission": "Automatic",
+    "mileage": 18600,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Oberon Black",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-LO-6490",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 6-Seater Dark Edition AT",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Oberon Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-13",
+    "brand": "Mahindra",
+    "model": "Scorpio-N Z8L",
+    "variant": "2.2 mHawk Diesel 4X4 AT",
+    "year": 2023,
+    "price": 2250000,
+    "emi": 33500,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Diesel",
+    "transmission": "AWD",
+    "mileage": 22500,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Deep Forest Green",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-MP-5188",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.2 mHawk Diesel 4X4 AT",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Deep Forest Green paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-14",
+    "brand": "MG",
+    "model": "Hector Sharp Pro",
+    "variant": "1.5 Turbo CVT Panoramic",
+    "year": 2022,
+    "price": 1720000,
+    "emi": 25500,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 24600,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Havana Grey",
+    "regCity": "Vadodara",
+    "regYear": 2022,
+    "rtoCode": "GJ06-NQ-6363",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo CVT Panoramic",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.4,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Havana Grey paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-15",
+    "brand": "Hyundai",
+    "model": "Verna SX (O)",
+    "variant": "1.5 Turbo DCT ADAS",
+    "year": 2023,
+    "price": 1580000,
+    "emi": 23500,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 14000,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Starry Night",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-OR-4605",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 Turbo DCT ADAS",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.7,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Starry Night paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-16",
+    "brand": "Maruti Suzuki",
+    "model": "Brezza ZXi+",
+    "variant": "1.5 K15C DualJet AT Dual Tone",
+    "year": 2023,
+    "price": 1240000,
+    "emi": 18500,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "Automatic",
+    "mileage": 17800,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Brave Khakhi",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-PS-6698",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 1.5 K15C DualJet AT Dual Tone",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.3,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Brave Khakhi paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-17",
+    "brand": "Skoda",
+    "model": "Slavia 1.5 TSI",
+    "variant": "Style DSG Sunroof",
+    "year": 2022,
+    "price": 1520000,
+    "emi": 22500,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "DCT",
+    "mileage": 22100,
+    "bodyType": "Sedan",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Crystal Blue",
+    "regCity": "Vadodara",
+    "regYear": 2022,
+    "rtoCode": "GJ06-QT-2638",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till March 2027)",
+    "groundClearance": "170 mm",
+    "bootCapacity": "521 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: Style DSG Sunroof",
+      "Transmission: DCT Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.6,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Crystal Blue paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-18",
+    "brand": "Toyota",
+    "model": "Innova Hycross",
+    "variant": "ZX (O) Hybrid Ottoman Seats",
+    "year": 2023,
+    "price": 2980000,
+    "emi": 44000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Hybrid",
+    "transmission": "Automatic",
+    "mileage": 20400,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Blackish Ageha Glass Flake",
+    "regCity": "Vadodara",
+    "regYear": 2023,
+    "rtoCode": "GJ06-RU-7721",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till June 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: ZX (O) Hybrid Ottoman Seats",
+      "Transmission: Automatic Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.8,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Blackish Ageha Glass Flake paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-19",
+    "brand": "Porsche",
+    "model": "Macan GTS",
+    "variant": "2.9L V2 Twin-Turbo PDK AWD",
+    "year": 2022,
+    "price": 9800000,
+    "emi": 145000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 12000,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Python Green",
+    "regCity": "Vadodara",
+    "regYear": 2022,
+    "rtoCode": "GJ06-SV-4964",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till September 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.9L V2 Twin-Turbo PDK AWD",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.9,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Python Green paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
+  },
+  {
+    "id": "car-vadodara-20",
+    "brand": "Land Rover",
+    "model": "Range Rover Velar",
+    "variant": "2.0 R-Dynamic S Petrol AWD",
+    "year": 2022,
+    "price": 7800000,
+    "emi": 115000,
+    "location": "Vadodara Alkapuri",
+    "fuel": "Petrol",
+    "transmission": "AWD",
+    "mileage": 17800,
+    "bodyType": "SUV",
+    "certified": true,
+    "imageBg": "bg-emerald-950/10",
+    "imageUrl": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "image_url": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1563720223523-491ff04651de?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "featured": false,
+    "color": "Santorini Black",
+    "regCity": "Vadodara",
+    "regYear": 2022,
+    "rtoCode": "GJ06-TW-2184",
+    "insuranceValidity": "Zero-Dep Comprehensive (Valid till December 2027)",
+    "groundClearance": "205 mm",
+    "bootCapacity": "435 Litres",
+    "fuelTank": "50 Litres",
+    "keyCount": 2,
+    "owners": 1,
+    "specifications": [
+      "Engine & Powertrain: 2.0 R-Dynamic S Petrol AWD",
+      "Transmission: AWD Precision Gearbox",
+      "Fuel Efficiency / Range: 18.5 km/l Certified",
+      "Safety Suite: 6 Airbags, ABS with EBD, ESP, Hill Hold Assist",
+      "Infotainment: 10.25-inch Touchscreen with Wireless Apple CarPlay & Android Auto",
+      "Comfort: Automatic Climate Control, Rear AC Vents, Leatherette Upholstery"
+    ],
+    "features": [
+      "120-Point Certified 1stMark Shield Inspection Guarantee",
+      "360-Degree Surround View HD Parking Camera",
+      "Electric Sunroof with One-Touch Operation",
+      "Front Ventilated Seats for Maximum Comfort",
+      "Wireless Mobile Smartphone Charging Pad",
+      "Ambient Cabin Lighting with 64 Color Presets",
+      "Electronic Stability Program & Traction Control"
+    ],
+    "inspectionSummary": {
+      "overallScore": 9.5,
+      "engine": "Powertrain & gearbox diagnostics 100% error-free. Compression test verified.",
+      "brakes": "88% to 95% brake pad life remaining. Fluid flushed and calibrated.",
+      "electronics": "Complete ECU sensor sweep clean. All electronics operating at peak spec.",
+      "exterior": "Factory Santorini Black paintwork depth tested. Zero structural or alignment defects.",
+      "interior": "Cabin sanitized, non-smoker history, upholstery in showroom condition."
+    },
+    "warrantyInfo": {
+      "months": 24,
+      "miles": 50000,
+      "coverage": "1stMark Certified Platinum Warranty + Roadside Assistance"
+    },
+    "cities": [
+      "Vadodara"
+    ]
   }
 ];
 
 export const FAMOUS_BRANDS = [
   "Tata",
   "Mahindra",
+  "Hyundai",
   "Maruti Suzuki",
-  "Porsche",
+  "Toyota",
+  "Honda",
+  "Kia",
   "BMW",
+  "Mercedes-Benz",
+  "Audi",
+  "Volkswagen",
+  "Skoda",
+  "MG",
+  "Volvo",
+  "Porsche",
   "Land Rover"
 ];
 
@@ -485,7 +5472,7 @@ export const BUDGET_RANGES = [
 export const CITIES_DATA = [
   "All Cities",
   "Surat",
-  "Vadodara",
   "Bharuch",
-  "Vapi"
+  "Vapi",
+  "Vadodara"
 ];
