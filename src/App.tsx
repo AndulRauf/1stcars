@@ -681,7 +681,7 @@ export default function App() {
       ) : (
         <>
           {/* 2. HERO SECTION */}
-      <Section bg="cream" className="relative pt-20 sm:pt-24 md:pt-28 pb-8 md:pb-12 lg:pb-16 overflow-hidden">
+      <Section bg="cream" className="relative pt-6 sm:pt-10 md:pt-12 pb-8 md:pb-12 lg:pb-16 overflow-hidden">
         {/* Background elegance accents */}
         <div className="absolute top-1/4 left-10 w-96 h-96 bg-[#2E7D32]/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#2E7D32]/5 rounded-full blur-3xl pointer-events-none" />
@@ -689,13 +689,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           
           {/* Hero Content */}
-          <div className="flex flex-col items-center justify-center space-y-6 max-w-4xl mx-auto">
-            <div className="inline-flex justify-center">
-              <Badge variant="premium" className="px-3.5 py-1 text-[11px] font-extrabold tracking-widest text-[#2E7D32] bg-[#2E7D32]/5 border border-[#2E7D32]/10 uppercase rounded-full">
-                ★ {websiteSettings.brandSlogan || "1stMark Certified Luxury Marketplace"}
-              </Badge>
-            </div>
-            
+          <div className="flex flex-col items-center justify-center space-y-5 max-w-4xl mx-auto">
             <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-[0.95] text-center">
               {websiteSettings.heroTitle && websiteSettings.heroTitle !== "Certified Cars" ? (
                 websiteSettings.heroTitle
