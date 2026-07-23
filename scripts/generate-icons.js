@@ -1,4 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+import sharp from 'sharp';
+import fs from 'fs';
+import path from 'path';
+
+// Construct high quality SVG matching the 1stCars tire emblem logo
+const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <clipPath id="wheelClip">
       <circle cx="200" cy="256" r="165" />
@@ -73,4 +78,49 @@
              L 214 190 
              Z" />
   </g>
-</svg>
+</svg>`;
+
+async function generateIcons() {
+  const publicDir = path.join(process.cwd(), 'public');
+
+  // Save SVG
+  fs.writeFileSync(path.join(publicDir, 'favicon.svg'), svgContent);
+  console.log('Saved favicon.svg');
+
+  // Generate PNG files
+  const svgBuffer = Buffer.from(svgContent);
+
+  // 192x192 PWA Icon
+  await sharp(svgBuffer)
+    .resize(192, 192)
+    .png()
+    .toFile(path.join(publicDir, 'pwa-192.png'));
+
+  // 512x512 PWA Icon
+  await sharp(svgBuffer)
+    .resize(512, 512)
+    .png()
+    .toFile(path.join(publicDir, 'pwa-512.png'));
+
+  // Apple Touch Icon
+  await sharp(svgBuffer)
+    .resize(180, 180)
+    .png()
+    .toFile(path.join(publicDir, 'apple-touch-icon.png'));
+
+  // Standard Favicon 32x32 PNG
+  await sharp(svgBuffer)
+    .resize(32, 32)
+    .png()
+    .toFile(path.join(publicDir, 'favicon-32x32.png'));
+
+  // Standard Favicon 16x16 PNG
+  await sharp(svgBuffer)
+    .resize(16, 16)
+    .png()
+    .toFile(path.join(publicDir, 'favicon-16x16.png'));
+
+  console.log('Successfully generated all icon PNGs!');
+}
+
+generateIcons().catch(console.error);
