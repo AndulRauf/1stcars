@@ -9,7 +9,7 @@ interface ErrorPageProps {
 
 export function Error404Page({ onGoHome }: ErrorPageProps) {
   return (
-    <div className="bg-[#FAF9F6] min-h-screen pt-32 pb-20 flex items-center justify-center">
+    <div className="bg-[#FAF9F6] min-h-screen pt-20 sm:pt-24 md:pt-28 pb-20 flex items-center justify-center">
       <div className="max-w-xl mx-auto px-6 text-center">
         <div className="w-20 h-20 bg-rose-50 border border-rose-100 rounded-3xl flex items-center justify-center text-rose-500 mx-auto mb-8 shadow-xs animate-bounce">
           <ShieldAlert className="h-10 w-10" />
@@ -46,7 +46,7 @@ export function Error404Page({ onGoHome }: ErrorPageProps) {
 
 export function Error500Page({ onGoHome, onRetry }: ErrorPageProps) {
   return (
-    <div className="bg-[#FAF9F6] min-h-screen pt-32 pb-20 flex items-center justify-center">
+    <div className="bg-[#FAF9F6] min-h-screen pt-20 sm:pt-24 md:pt-28 pb-20 flex items-center justify-center">
       <div className="max-w-xl mx-auto px-6 text-center">
         <div className="w-20 h-20 bg-amber-50 border border-amber-100 rounded-3xl flex items-center justify-center text-amber-500 mx-auto mb-8 shadow-xs animate-pulse">
           <HelpCircle className="h-10 w-10" />

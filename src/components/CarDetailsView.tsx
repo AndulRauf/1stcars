@@ -237,7 +237,7 @@ export function CarDetailsView({
   };
 
   return (
-    <div className="bg-[#FAF9F6] min-h-screen pt-32 pb-24">
+    <div className="bg-[#FAF9F6] min-h-screen pt-20 sm:pt-24 md:pt-28 pb-24">
       {schemaData && (
         <script
           type="application/ld+json"
@@ -247,30 +247,31 @@ export function CarDetailsView({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top navigation & Action bar */}
-        <div className="flex items-center justify-between gap-4 mb-8">
+        <div className="flex items-center justify-between gap-2 sm:gap-4 mb-6 sm:mb-8 bg-white/80 backdrop-blur-md p-2.5 sm:p-3.5 rounded-2xl border border-slate-200/70 shadow-xs">
           <button
             onClick={onBack}
-            className="inline-flex items-center space-x-2 text-xs font-bold text-[#2E7D32] hover:text-[#25632a] uppercase tracking-widest cursor-pointer group"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 rounded-xl text-xs font-extrabold text-[#2E7D32] hover:bg-[#2E7D32]/10 transition-all uppercase tracking-wider cursor-pointer group shrink-0"
           >
-            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to Browse Collection</span>
+            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform shrink-0" />
+            <span className="hidden sm:inline whitespace-nowrap">Back to Collection</span>
+            <span className="sm:hidden whitespace-nowrap">Back</span>
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             <button
               onClick={() => {
-                const isSaved = savedCars.includes(car.id);
                 onSaveToggle(car.id, `${car.brand} ${car.model}`);
               }}
               className={cn(
-                "inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all border cursor-pointer",
+                "inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all border cursor-pointer shrink-0 whitespace-nowrap",
                 savedCars.includes(car.id)
                   ? "bg-rose-50 text-rose-600 border-rose-200"
                   : "bg-white hover:bg-slate-50 text-slate-700 border-slate-200"
               )}
             >
-              <Heart className={cn("h-3.5 w-3.5", savedCars.includes(car.id) && "fill-current text-rose-500")} />
-              <span>{savedCars.includes(car.id) ? "Saved in Shortlist" : "Save Car"}</span>
+              <Heart className={cn("h-3.5 w-3.5 shrink-0", savedCars.includes(car.id) && "fill-current text-rose-500")} />
+              <span className="hidden sm:inline">{savedCars.includes(car.id) ? "Saved in Shortlist" : "Save Car"}</span>
+              <span className="sm:hidden">{savedCars.includes(car.id) ? "Saved" : "Save"}</span>
             </button>
 
             <button
@@ -293,10 +294,11 @@ export function CarDetailsView({
                   toast.info(`Direct link: ${shareUrl}`);
                 }
               }}
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2E7D32] hover:bg-[#25632a] text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-[#2E7D32]/20 cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#2E7D32] hover:bg-[#25632a] text-white rounded-xl text-xs font-bold transition-all shadow-sm shadow-[#2E7D32]/20 cursor-pointer shrink-0 whitespace-nowrap"
             >
-              <Share2 className="h-3.5 w-3.5" />
-              <span>Share Particular Car Page</span>
+              <Share2 className="h-3.5 w-3.5 shrink-0" />
+              <span className="hidden sm:inline">Share Car Page</span>
+              <span className="sm:hidden">Share</span>
             </button>
           </div>
         </div>

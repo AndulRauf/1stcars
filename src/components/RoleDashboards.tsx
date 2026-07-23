@@ -286,7 +286,7 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory, o
   }, [profiles, inspections, offers, auctions, leads]);
 
   return (
-    <div className="bg-[#FAF9F6] min-h-screen pt-32 pb-24 text-left">
+    <div className="bg-[#FAF9F6] min-h-screen pt-20 sm:pt-24 md:pt-28 pb-24 text-left">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Dashboard Heading & Meta Info */}
