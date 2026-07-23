@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Search, SlidersHorizontal, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Fuel, ShieldAlert, Check, Share2 } from "lucide-react";
+import { Search, SlidersHorizontal, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Fuel, ShieldAlert, Check, Share2, X } from "lucide-react";
 import { Car, FilterState } from "@/src/types";
 import { CARS_DATA, FAMOUS_BRANDS, BUDGET_RANGES, CITIES_DATA } from "@/src/data/cars";
 import { CarCard } from "./CarCard";
@@ -181,7 +181,12 @@ export function BuyCarsView({
 
     // Fuel filter
     if (filters.fuel !== "All") {
-      result = result.filter((car) => car.fuel === filters.fuel);
+      result = result.filter((car) => {
+        if (filters.fuel === "EV") {
+          return car.fuel === "EV" || car.fuel === "Electric";
+        }
+        return car.fuel === filters.fuel;
+      });
     }
 
     // Transmission filter
@@ -253,8 +258,8 @@ export function BuyCarsView({
     return filteredAndSortedCars.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   }, [filteredAndSortedCars, currentPage]);
 
-  // Fuel options
-  const fuels = ["All", "Petrol", "Electric", "AWD", "Hybrid"];
+  // Fuel options (Petrol, Diesel, CNG, EV)
+  const fuels = ["All", "Petrol", "Diesel", "CNG", "EV"];
   // Transmissions
   const transmissions = ["All", "Automatic", "Manual", "AWD"];
 
@@ -352,22 +357,178 @@ export function BuyCarsView({
           </div>
         </div>
 
-        {/* Mobile Filter Backdrop Overlay */}
+        {/* Mobile Filter Sheet Drawer */}
         {showFiltersMobile && (
-          <div 
-            className="fixed inset-0 z-30 bg-black/50 backdrop-blur-xs lg:hidden"
-            onClick={() => setShowFiltersMobile(false)}
-          />
+          <>
+            <div 
+              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs lg:hidden"
+              onClick={() => setShowFiltersMobile(false)}
+            />
+
+            <div className="fixed inset-x-0 bottom-0 z-50 bg-white rounded-t-3xl max-h-[70vh] flex flex-col shadow-2xl border-t border-slate-200 lg:hidden overflow-hidden">
+              {/* Top Drag Handle */}
+              <div className="w-10 h-1 bg-slate-300 rounded-full mx-auto my-2 shrink-0" />
+
+              {/* Sheet Header */}
+              <div className="flex items-center justify-between px-5 pb-2.5 border-b border-slate-100 shrink-0">
+                <h3 className="font-black text-base text-slate-900 flex items-center gap-2">
+                  <SlidersHorizontal className="h-4 w-4 text-[#2E7D32]" /> Advanced Filters
+                </h3>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handleResetFilters}
+                    className="text-xs font-bold text-[#2E7D32] hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <RotateCcw className="h-3 w-3" /> Reset
+                  </button>
+                  <button
+                    onClick={() => setShowFiltersMobile(false)}
+                    className="p-1.5 rounded-full bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
+                    aria-label="Close filters"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Scrollable Body - Compact Dropdowns */}
+              <div className="flex-1 overflow-y-auto px-5 py-3.5 space-y-3.5">
+                {/* Brand Filter */}
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-black text-slate-500 uppercase tracking-wider">
+                    Brand Partner
+                  </label>
+                  <select
+                    value={filters.brand}
+                    onChange={(e) => handleFilterChange("brand", e.target.value)}
+                    className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32] cursor-pointer"
+                  >
+                    <option value="All">All Brands</option>
+                    {FAMOUS_BRANDS.map((brand) => (
+                      <option key={brand} value={brand}>{brand}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* City Filter */}
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-black text-slate-500 uppercase tracking-wider">
+                    City Hub / Location
+                  </label>
+                  <select
+                    value={filters.city}
+                    onChange={(e) => handleFilterChange("city", e.target.value)}
+                    className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32] cursor-pointer"
+                  >
+                    {CITIES_DATA.map((city) => (
+                      <option key={city} value={city}>
+                        {city === "All Cities" ? "📍 All Gujarat" : city}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Budget Ranges */}
+                <div className="space-y-1">
+                  <label className="block text-[11px] font-black text-slate-500 uppercase tracking-wider">
+                    Budget Tier
+                  </label>
+                  <select
+                    value={activeBudgetLabel}
+                    onChange={(e) => handleBudgetRangeChange(e.target.value)}
+                    className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32] cursor-pointer"
+                  >
+                    {BUDGET_RANGES.map((range) => (
+                      <option key={range.label} value={range.label}>{range.label}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Fuel & Transmission (2 Cols) */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-black text-slate-500 uppercase tracking-wider">
+                      Fuel Tech
+                    </label>
+                    <select
+                      value={filters.fuel}
+                      onChange={(e) => handleFilterChange("fuel", e.target.value)}
+                      className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32] cursor-pointer"
+                    >
+                      {fuels.map((f) => (
+                        <option key={f} value={f}>{f === "All" ? "All Fuels" : f}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-black text-slate-500 uppercase tracking-wider">
+                      Transmission
+                    </label>
+                    <select
+                      value={filters.transmission}
+                      onChange={(e) => handleFilterChange("transmission", e.target.value)}
+                      className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32] cursor-pointer"
+                    >
+                      {transmissions.map((t) => (
+                        <option key={t} value={t}>{t === "All" ? "All Transmissions" : t}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Year Range (2 Cols) */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-black text-slate-500 uppercase tracking-wider">
+                      Min Model Year
+                    </label>
+                    <select
+                      value={filters.yearMin}
+                      onChange={(e) => handleFilterChange("yearMin", parseInt(e.target.value))}
+                      className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32] cursor-pointer"
+                    >
+                      {[2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026].map((year) => (
+                        <option key={year} value={year}>{year}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-[11px] font-black text-slate-500 uppercase tracking-wider">
+                      Max Model Year
+                    </label>
+                    <select
+                      value={filters.yearMax}
+                      onChange={(e) => handleFilterChange("yearMax", parseInt(e.target.value))}
+                      className="w-full bg-[#FAF9F6] border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32] cursor-pointer"
+                    >
+                      {[2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026].map((year) => (
+                        <option key={year} value={year}>{year}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sticky Footer Button */}
+              <div className="p-3.5 bg-white border-t border-slate-100 shrink-0">
+                <Button
+                  onClick={() => setShowFiltersMobile(false)}
+                  className="w-full bg-[#2E7D32] hover:bg-[#236327] text-white h-11 rounded-xl text-xs font-black uppercase tracking-wider shadow-md shadow-[#2E7D32]/20"
+                >
+                  Apply Filters ({filteredAndSortedCars.length} Cars)
+                </Button>
+              </div>
+            </div>
+          </>
         )}
 
         {/* Content Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           
           {/* Filters Sidebar (Desktop) */}
-          <div className={cn(
-            "lg:col-span-1 bg-white border border-[#2E7D32]/10 rounded-3xl p-6 shadow-sm h-fit space-y-6 transition-all duration-300",
-            showFiltersMobile ? "block fixed inset-x-4 top-24 bottom-6 z-40 overflow-y-auto" : "hidden lg:block"
-          )}>
+          <div className="hidden lg:block lg:col-span-1 bg-white border border-[#2E7D32]/10 rounded-3xl p-6 shadow-sm h-fit space-y-6">
             <div className="flex items-center justify-between">
               <h3 className="font-black text-lg text-slate-900 tracking-tight flex items-center gap-2">
                 <SlidersHorizontal className="h-4.5 w-4.5 text-[#2E7D32]" /> Advanced Filters
@@ -523,8 +684,8 @@ export function BuyCarsView({
               <div className="flex items-center space-x-3 pt-1">
                 <input
                   type="range"
-                  min="2020"
-                  max="2024"
+                  min="2015"
+                  max="2026"
                   step="1"
                   value={filters.yearMin}
                   onChange={(e) => handleFilterChange("yearMin", parseInt(e.target.value))}
@@ -532,8 +693,8 @@ export function BuyCarsView({
                 />
                 <input
                   type="range"
-                  min="2020"
-                  max="2024"
+                  min="2015"
+                  max="2026"
                   step="1"
                   value={filters.yearMax}
                   onChange={(e) => handleFilterChange("yearMax", parseInt(e.target.value))}
@@ -541,16 +702,6 @@ export function BuyCarsView({
                 />
               </div>
             </div>
-
-            {/* Mobile close actions overlay */}
-            {showFiltersMobile && (
-              <Button
-                onClick={() => setShowFiltersMobile(false)}
-                className="w-full bg-[#2E7D32] text-white h-11 rounded-xl text-xs font-bold uppercase tracking-wider"
-              >
-                Apply Filters ({filteredAndSortedCars.length} Cars)
-              </Button>
-            )}
           </div>
 
           {/* Listings Pane */}

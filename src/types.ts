@@ -6,7 +6,7 @@ export interface Car {
   price: number;
   emi: number;
   location: string;
-  fuel: "Petrol" | "Diesel" | "Electric" | "Hybrid";
+  fuel: "Petrol" | "Diesel" | "CNG" | "EV" | "Electric" | "Hybrid" | string;
   transmission: "Automatic" | "Manual" | "AWD" | "DCT";
   mileage: number; // in miles/km
   bodyType: "SUV" | "Sedan" | "Coupe" | "Convertible" | "Hatchback" | "EV";

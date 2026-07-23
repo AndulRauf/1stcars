@@ -1041,7 +1041,7 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
 
                     {/* Grid of Fuel Types */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {["Petrol", "Diesel", "CNG", "Electric", "Hybrid"].map((f) => {
+                      {["Petrol", "Diesel", "CNG", "EV"].map((f) => {
                         const isSelected = selectedFuel === f;
                         return (
                           <button
