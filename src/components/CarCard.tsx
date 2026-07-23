@@ -118,19 +118,19 @@ export function CarCard({
     <div
       id={`car-card-${car.id}`}
       className={cn(
-        "group relative bg-white border border-[#2E7D32]/10 rounded-3xl overflow-hidden shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-[#2E7D32]/5 hover:-translate-y-1 flex flex-col",
-        isListView ? "md:flex-row md:min-h-[290px]" : "w-full"
+        "group relative bg-white border border-[#2E7D32]/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs transition-all duration-300 hover:shadow-xl hover:shadow-[#2E7D32]/5 hover:-translate-y-0.5 flex flex-col",
+        isListView ? "md:flex-row md:min-h-[250px]" : "w-full"
       )}
     >
       {/* Premium Image Gallery Panel */}
       <div className={cn(
         "relative overflow-hidden flex-shrink-0 select-none",
-        isListView ? "w-full md:w-2/5 min-h-[220px]" : "w-full h-60"
+        isListView ? "w-full md:w-2/5 min-h-[160px]" : "w-full h-36 sm:h-48 md:h-52"
       )}>
         {/* Dynamic Angle Gradient Background */}
         <div 
           className={cn(
-            "w-full h-full flex flex-col justify-between p-5 text-white transition-all duration-500",
+            "w-full h-full flex flex-col justify-between p-2.5 sm:p-5 text-white transition-all duration-500",
             !angles[activeImageIndex].url && angles[activeImageIndex].bgClass
           )}
           style={angles[activeImageIndex].url ? {
@@ -142,11 +142,11 @@ export function CarCard({
           {/* Top Bar inside Gallery */}
           <div className="flex items-center justify-between z-10 w-full">
             {car.certified ? (
-              <Badge className="bg-[#2E7D32] hover:bg-[#2E7D32] text-white border-none px-3 py-1 text-[10px] font-bold tracking-widest uppercase shadow-md shadow-[#2E7D32]/30 flex items-center gap-1.5 animate-pulse">
-                <ShieldCheck className="h-3.5 w-3.5 fill-white/10" /> 1stMark Certified
+              <Badge className="bg-[#2E7D32] hover:bg-[#2E7D32] text-white border-none px-2 py-0.5 sm:px-3 sm:py-1 text-[9px] sm:text-[10px] font-bold tracking-widest uppercase shadow-md shadow-[#2E7D32]/30 flex items-center gap-1 animate-pulse">
+                <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5 fill-white/10" /> 1stMark Certified
               </Badge>
             ) : <div />}
-            <div className="flex items-center gap-1.5 ml-auto">
+            <div className="flex items-center gap-1 ml-auto">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -163,11 +163,11 @@ export function CarCard({
                     }).catch(() => {});
                   }
                 }}
-                className="w-9 h-9 rounded-full flex items-center justify-center bg-black/30 hover:bg-[#2E7D32] border border-white/20 text-white backdrop-blur-md transition-all duration-300 cursor-pointer shadow-md"
+                className="w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center bg-black/30 hover:bg-[#2E7D32] border border-white/20 text-white backdrop-blur-md transition-all duration-300 cursor-pointer shadow-md"
                 title="Share Car Page"
                 aria-label="Share Car"
               >
-                <Share2 className="h-4 w-4" />
+                <Share2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </button>
               <button
                 onClick={(e) => {
@@ -175,14 +175,14 @@ export function CarCard({
                   onSaveToggle?.(car.id, `${car.brand} ${car.model}`);
                 }}
                 className={cn(
-                  "w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 border cursor-pointer shadow-md",
+                  "w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 border cursor-pointer shadow-md",
                   isSaved 
                     ? "bg-rose-500 border-rose-400 text-white" 
                     : "bg-black/30 hover:bg-black/50 border-white/20 text-white"
                 )}
                 aria-label="Add to wishlist"
               >
-                <Heart className={cn("h-4.5 w-4.5", isSaved && "fill-current")} />
+                <Heart className={cn("h-3.5 w-3.5 sm:h-4.5 sm:w-4.5", isSaved && "fill-current")} />
               </button>
             </div>
           </div>
@@ -199,11 +199,11 @@ export function CarCard({
           )}
 
           {/* Label indicating Angle */}
-          <div className="z-10 mt-auto text-left bg-black/20 p-2 rounded-xl backdrop-blur-xs border border-white/5">
-            <p className="text-[10px] font-black uppercase tracking-widest text-[#2E7D32]/40 text-emerald-400">
+          <div className="z-10 mt-auto text-left bg-black/30 px-2 py-1 rounded-lg backdrop-blur-xs border border-white/10 hidden sm:block">
+            <p className="text-[9px] font-black uppercase tracking-widest text-emerald-400">
               {angles[activeImageIndex].title}
             </p>
-            <p className="text-[11px] font-medium text-slate-200 line-clamp-1">
+            <p className="text-[10px] font-medium text-slate-200 line-clamp-1">
               {angles[activeImageIndex].text}
             </p>
           </div>
@@ -212,21 +212,21 @@ export function CarCard({
         {/* Gallery Navigation Controls */}
         <button
           onClick={handlePrevImage}
-          className="absolute left-3.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 border border-white/10 flex items-center justify-center text-white transition-colors cursor-pointer"
+          className="absolute left-2 sm:left-3.5 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-black/40 hover:bg-black/60 border border-white/10 flex items-center justify-center text-white transition-colors cursor-pointer"
           aria-label="Previous angle"
         >
-          <ChevronLeft className="h-4.5 w-4.5" />
+          <ChevronLeft className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5" />
         </button>
         <button
           onClick={handleNextImage}
-          className="absolute right-3.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 border border-white/10 flex items-center justify-center text-white transition-colors cursor-pointer"
+          className="absolute right-2 sm:right-3.5 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-black/40 hover:bg-black/60 border border-white/10 flex items-center justify-center text-white transition-colors cursor-pointer"
           aria-label="Next angle"
         >
-          <ChevronRight className="h-4.5 w-4.5" />
+          <ChevronRight className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5" />
         </button>
 
         {/* Slide Indicator Dots */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-1.5 z-10">
+        <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex space-x-1 z-10">
           {angles.map((_, idx) => (
             <button
               key={idx}
@@ -235,8 +235,8 @@ export function CarCard({
                 setActiveImageIndex(idx);
               }}
               className={cn(
-                "w-2 h-2 rounded-full transition-all duration-300",
-                activeImageIndex === idx ? "bg-[#2E7D32] w-4" : "bg-white/45 hover:bg-white/70"
+                "w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300",
+                activeImageIndex === idx ? "bg-[#2E7D32] w-3 sm:w-4" : "bg-white/45 hover:bg-white/70"
               )}
               aria-label={`Go to angle ${idx + 1}`}
             />
@@ -245,44 +245,44 @@ export function CarCard({
       </div>
 
       {/* Content Panel */}
-      <div className="flex-1 p-6 flex flex-col justify-between">
+      <div className="flex-1 p-3.5 sm:p-5 flex flex-col justify-between">
         <div>
           {/* Header & Title */}
-          <div className="flex items-start justify-between mb-2">
+          <div className="flex items-start justify-between mb-1.5">
             <div>
-              <p className="text-xs font-bold text-slate-400 tracking-widest uppercase">
+              <p className="text-[10px] sm:text-xs font-bold text-slate-400 tracking-widest uppercase">
                 {car.brand}
               </p>
-              <h3 className="text-xl font-black text-slate-900 tracking-tight leading-snug group-hover:text-[#2E7D32] transition-colors">
+              <h3 className="text-sm sm:text-lg font-black text-slate-900 tracking-tight leading-snug group-hover:text-[#2E7D32] transition-colors line-clamp-1">
                 {car.model}
               </h3>
             </div>
-            <div className="text-right">
-              <span className="block text-2xl font-black text-[#2E7D32] tracking-tight">
+            <div className="text-right shrink-0 ml-2">
+              <span className="block text-base sm:text-xl font-black text-[#2E7D32] tracking-tight">
                 {formattedPrice}
               </span>
-              <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest -mt-1">
-                EMI from {formattedEmi}/mo
+              <span className="block text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-widest -mt-0.5">
+                EMI {formattedEmi}/mo
               </span>
             </div>
           </div>
 
-          <div className="h-px bg-slate-100 my-4" />
+          <div className="h-px bg-slate-100 my-2 sm:my-3" />
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-3 gap-y-3.5 gap-x-2 text-left my-4">
+          <div className="grid grid-cols-3 gap-y-2 gap-x-1 text-left my-2 sm:my-3">
             {stats.map((stat) => {
               const Icon = stat.icon;
               return (
-                <div key={stat.label} className="flex items-center space-x-2">
-                  <div className="p-1.5 rounded-lg bg-[#2E7D32]/5 text-[#2E7D32]">
-                    <Icon className="h-3.5 w-3.5" />
+                <div key={stat.label} className="flex items-center space-x-1.5 overflow-hidden">
+                  <div className="p-1 rounded-md bg-[#2E7D32]/5 text-[#2E7D32] shrink-0">
+                    <Icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                   </div>
                   <div className="overflow-hidden">
-                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">
+                    <span className="block text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">
                       {stat.label}
                     </span>
-                    <span className="block text-xs font-extrabold text-slate-800 tracking-tight truncate">
+                    <span className="block text-[11px] sm:text-xs font-extrabold text-slate-800 tracking-tight truncate">
                       {stat.value}
                     </span>
                   </div>
@@ -293,19 +293,19 @@ export function CarCard({
         </div>
 
         {/* Action Panel */}
-        <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3 mt-auto">
+        <div className="pt-2.5 sm:pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2 mt-auto">
           <Button
             variant="outline"
             size="sm"
             onClick={() => onViewDetails?.(car.id)}
-            className="flex-1 hover:bg-[#2E7D32]/5 hover:text-primary text-[#2E7D32] border-[#2E7D32]/20 font-bold uppercase tracking-wider text-[11px] h-10 rounded-xl"
+            className="flex-1 hover:bg-[#2E7D32]/5 hover:text-primary text-[#2E7D32] border-[#2E7D32]/20 font-bold uppercase tracking-wider text-[10px] sm:text-[11px] h-8 sm:h-9 rounded-lg sm:rounded-xl px-2"
           >
-            <Eye className="h-3.5 w-3.5 mr-1.5" /> Quick View
+            <Eye className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1" /> Quick View
           </Button>
           <Button
             size="sm"
             onClick={() => onViewDetails?.(car.id)}
-            className="flex-1 bg-[#2E7D32] text-white hover:bg-[#25632a] font-bold uppercase tracking-wider text-[11px] h-10 rounded-xl shadow-md shadow-[#2E7D32]/10"
+            className="flex-1 bg-[#2E7D32] text-white hover:bg-[#25632a] font-bold uppercase tracking-wider text-[10px] sm:text-[11px] h-8 sm:h-9 rounded-lg sm:rounded-xl px-2 shadow-md shadow-[#2E7D32]/10"
           >
             Details & Book
           </Button>

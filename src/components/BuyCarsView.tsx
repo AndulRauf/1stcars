@@ -708,51 +708,51 @@ export function BuyCarsView({
           <div className="lg:col-span-3 flex flex-col justify-between" aria-live="polite">
             {isLoading ? (
               <div className={cn(
-                "grid gap-6",
-                isListView ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"
+                "grid gap-3 sm:gap-4 md:gap-6",
+                isListView ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
               )}>
                 {Array.from({ length: ITEMS_PER_PAGE }).map((_, idx) => (
                   <div
                     key={`skeleton-${idx}`}
                     className={cn(
-                      "bg-white border border-[#2E7D32]/10 rounded-3xl overflow-hidden shadow-xs flex flex-col animate-pulse",
-                      isListView ? "md:flex-row md:min-h-[290px]" : "w-full"
+                      "bg-white border border-[#2E7D32]/10 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs flex flex-col animate-pulse",
+                      isListView ? "md:flex-row md:min-h-[250px]" : "w-full"
                     )}
                   >
                     {/* Skeleton Image Gallery */}
                     <div className={cn(
                       "bg-slate-200/60 relative",
-                      isListView ? "w-full md:w-2/5 min-h-[220px]" : "w-full h-60"
+                      isListView ? "w-full md:w-2/5 min-h-[160px]" : "w-full h-36 sm:h-48 md:h-52"
                     )}>
-                      <div className="absolute top-5 left-5 w-24 h-6 bg-slate-300 rounded-full" />
-                      <div className="absolute top-5 right-5 w-9 h-9 bg-slate-300 rounded-full" />
+                      <div className="absolute top-3 left-3 w-20 h-5 bg-slate-300 rounded-full" />
+                      <div className="absolute top-3 right-3 w-7 h-7 bg-slate-300 rounded-full" />
                     </div>
                     {/* Skeleton Content Pane */}
-                    <div className="flex-1 p-6 flex flex-col justify-between">
+                    <div className="flex-1 p-3.5 sm:p-5 flex flex-col justify-between">
                       <div>
-                        <div className="flex justify-between items-start mb-4">
-                          <div className="space-y-2">
-                            <div className="w-16 h-3 bg-slate-200 rounded" />
-                            <div className="w-40 h-6 bg-slate-200 rounded" />
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="space-y-1.5">
+                            <div className="w-12 h-2.5 bg-slate-200 rounded" />
+                            <div className="w-32 h-4 bg-slate-200 rounded" />
                           </div>
-                          <div className="space-y-1.5 text-right">
-                            <div className="w-24 h-6 bg-slate-200 rounded ml-auto" />
-                            <div className="w-20 h-3 bg-slate-200 rounded ml-auto" />
+                          <div className="space-y-1 text-right">
+                            <div className="w-20 h-4 bg-slate-200 rounded ml-auto" />
+                            <div className="w-16 h-2.5 bg-slate-200 rounded ml-auto" />
                           </div>
                         </div>
-                        <div className="h-px bg-slate-100 my-4" />
-                        <div className="grid grid-cols-3 gap-4 my-4">
+                        <div className="h-px bg-slate-100 my-2 sm:my-3" />
+                        <div className="grid grid-cols-3 gap-2 my-2 sm:my-3">
                           {Array.from({ length: 6 }).map((_, sIdx) => (
-                            <div key={sIdx} className="space-y-1.5">
-                              <div className="w-8 h-2.5 bg-slate-200 rounded" />
-                              <div className="w-16 h-3.5 bg-slate-200 rounded" />
+                            <div key={sIdx} className="space-y-1">
+                              <div className="w-6 h-2 bg-slate-200 rounded" />
+                              <div className="w-12 h-3 bg-slate-200 rounded" />
                             </div>
                           ))}
                         </div>
                       </div>
-                      <div className="pt-4 border-t border-slate-100 flex gap-3">
-                        <div className="flex-1 h-10 bg-slate-200 rounded-xl" />
-                        <div className="flex-1 h-10 bg-slate-200 rounded-xl" />
+                      <div className="pt-2.5 sm:pt-3.5 border-t border-slate-100 flex gap-2">
+                        <div className="flex-1 h-8 sm:h-9 bg-slate-200 rounded-lg sm:rounded-xl" />
+                        <div className="flex-1 h-8 sm:h-9 bg-slate-200 rounded-lg sm:rounded-xl" />
                       </div>
                     </div>
                   </div>
@@ -760,8 +760,8 @@ export function BuyCarsView({
               </div>
             ) : paginatedCars.length > 0 ? (
               <div className={cn(
-                "grid gap-6",
-                isListView ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"
+                "grid gap-3 sm:gap-4 md:gap-6",
+                isListView ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
               )}>
                 {paginatedCars.map((car) => (
                   <CarCard
