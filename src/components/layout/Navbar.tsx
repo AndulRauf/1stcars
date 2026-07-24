@@ -240,14 +240,6 @@ export function Navbar({
             {/* Quick Actions (Desktop) */}
             <div className="hidden lg:flex items-center space-x-4">
               <button
-                aria-label="Search Catalog"
-                onClick={onSearchClick}
-                className="p-2.5 rounded-full text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-colors duration-200 cursor-pointer"
-              >
-                <Search className="h-4.5 w-4.5" />
-              </button>
-
-              <button
                 aria-label="Saved Cars"
                 onClick={onSavedClick}
                 className="p-2.5 rounded-full text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-colors duration-200 relative cursor-pointer"
@@ -266,11 +258,11 @@ export function Navbar({
               <button
                 type="button"
                 onClick={() => setIsCityModalOpen(true)}
-                className="bg-[#2E7D32]/5 hover:bg-[#2E7D32]/10 border border-[#2E7D32]/15 text-[#2E7D32] rounded-xl text-xs font-black uppercase tracking-wider px-3.5 py-2 flex items-center gap-2 cursor-pointer transition-all shadow-2xs group"
-                title="Select Gujarat City Hub"
+                className="bg-[#2E7D32]/10 hover:bg-[#2E7D32]/20 border border-[#2E7D32]/25 text-[#2E7D32] rounded-xl text-xs font-black uppercase tracking-wider px-3.5 py-2 flex items-center gap-2 cursor-pointer transition-all shadow-2xs group"
+                title="Select City Hub"
               >
                 <MapPin className="h-4 w-4 text-[#2E7D32] shrink-0" />
-                <span>{selectedCity === "All Cities" || !selectedCity ? "📍 All Gujarat" : selectedCity}</span>
+                <span>{selectedCity === "All Cities" ? "📍 All Gujarat" : (selectedCity || "Surat")}</span>
                 <ChevronRight className="h-3.5 w-3.5 text-[#2E7D32]/70 rotate-90 ml-0.5 group-hover:translate-y-0.5 transition-transform" />
               </button>
 
@@ -298,13 +290,16 @@ export function Navbar({
             </div>
 
             {/* Mobile Actions Header */}
-            <div className="flex items-center space-x-3 lg:hidden">
+            <div className="flex items-center space-x-2 lg:hidden">
               <button
-                aria-label="Search"
-                onClick={onSearchClick}
-                className="p-2 rounded-full hover:bg-muted text-foreground cursor-pointer"
+                type="button"
+                onClick={() => setIsCityModalOpen(true)}
+                className="bg-[#2E7D32]/10 border border-[#2E7D32]/20 text-[#2E7D32] rounded-xl text-xs font-black uppercase tracking-wider px-2.5 py-1.5 flex items-center gap-1.5 cursor-pointer transition-all shrink-0"
+                title="Select City Hub"
               >
-                <Search className="h-4.5 w-4.5" />
+                <MapPin className="h-3.5 w-3.5 text-[#2E7D32] shrink-0" />
+                <span className="text-[11px] font-extrabold">{selectedCity === "All Cities" ? "All Gujarat" : (selectedCity || "Surat")}</span>
+                <ChevronRight className="h-3 w-3 text-[#2E7D32]/70 rotate-90" />
               </button>
 
               <button
@@ -344,6 +339,12 @@ export function Navbar({
                     alt={settings.brandSlogan || "Logo"} 
                     className="object-contain h-8 w-8 rounded-lg select-none pointer-events-none border border-slate-100 bg-white shadow-xs"
                     referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      if (!img.src.endsWith("/logo.svg")) {
+                        img.src = "/logo.svg";
+                      }
+                    }}
                   />
                   <div className="flex flex-col">
                     <span className="text-lg font-black tracking-tighter text-[#2E7D32] leading-none">
@@ -506,13 +507,13 @@ export function Navbar({
 
             <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-1">
               {[
-                { id: "All Cities", label: "📍 All Gujarat", desc: "View certified fleet across all hubs in Gujarat" },
-                { id: "Surat", label: "Surat", desc: "Main Flagship Experience Center & Hub" },
+                { id: "Surat", label: "Surat", desc: "Main Flagship Experience Center & Hub (Default)" },
                 { id: "Bharuch", label: "Bharuch", desc: "Highway Express Depot & Inspection Center" },
                 { id: "Vadodara", label: "Vadodara", desc: "Alkapuri Luxury Collection Outlet" },
                 { id: "Vapi", label: "Vapi", desc: "South Gujarat Collection Hub" },
+                { id: "All Cities", label: "📍 All Gujarat", desc: "View certified fleet across all hubs in Gujarat" },
               ].map((city) => {
-                const isSelected = (selectedCity || "All Cities") === city.id;
+                const isSelected = (selectedCity || "Surat") === city.id;
                 return (
                   <button
                     key={city.id}
@@ -520,9 +521,6 @@ export function Navbar({
                     onClick={() => {
                       onCityChange?.(city.id);
                       setIsCityModalOpen(false);
-                      if (onViewChange && currentView !== "buy_cars" && currentView !== "car_details") {
-                        onViewChange("buy_cars");
-                      }
                     }}
                     className={cn(
                       "w-full text-left p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between group",

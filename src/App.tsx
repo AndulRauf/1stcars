@@ -1,6 +1,8 @@
 import * as React from "react";
 import { toast } from "@/src/lib/toast";
 import { Navbar } from "@/src/components/layout/Navbar";
+import { CarCard } from "@/src/components/CarCard";
+import { WhatsAppFloatingButton } from "@/src/components/WhatsAppFloatingButton";
 import { cn } from "@/src/lib/utils";
 import { Footer } from "@/src/components/layout/Footer";
 import { Button } from "@/src/components/ui/Button";
@@ -68,7 +70,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = React.useState<string | undefined>(undefined);
   const [savedCars, setSavedCars] = React.useState<string[]>(["car-1", "car-3"]); // pre-saved for delightful onboarding
   const [currentUser, setCurrentUser] = React.useState<Profile | null>(null);
-  const [selectedCity, setSelectedCity] = React.useState<string>("All Cities");
+  const [selectedCity, setSelectedCity] = React.useState<string>("Surat");
 
   // Central Navigation handler that keeps URL in sync
   const handleNavigate = React.useCallback((
@@ -788,114 +790,25 @@ export default function App() {
               {filteredCars.map((car) => {
                 const isSaved = savedCars.includes(car.id);
                 return (
-                  <Card 
-                    key={car.id} 
-                    hoverEffect 
-                    className="bg-white border border-white/80 rounded-3xl overflow-hidden shadow-lg shadow-slate-200/50 flex flex-col justify-between"
-                  >
-                    {/* Upper Graphic Placeholder */}
-                    <div className="relative aspect-video w-full bg-slate-100/80 flex items-center justify-center overflow-hidden group">
-                      <div className="absolute inset-0 bg-linear-to-t from-black/75 via-transparent to-transparent z-10" />
-                      
-                      {/* Certified Badge top left */}
-                      <div className="absolute top-4 left-4 z-20">
-                        <Badge variant="primary" className="bg-[#2E7D32] text-white font-extrabold text-[9px] uppercase shadow-md shadow-[#2E7D32]/20">
-                          ✓ 1stMark Certified
-                        </Badge>
-                      </div>
-
-                      {/* Heart Wishlist Trigger top right */}
-                      <button
-                        onClick={() => toggleSaveCar(car.id, `${car.brand} ${car.model}`)}
-                        className="absolute top-4 right-4 z-20 p-2 rounded-full bg-white/95 text-slate-800 hover:text-red-500 hover:scale-110 shadow-md transition-all cursor-pointer"
-                        aria-label="Save this Car"
-                      >
-                        <Heart className={`h-4.5 w-4.5 transition-colors ${isSaved ? "fill-red-500 text-red-500" : "text-slate-500"}`} />
-                      </button>
-
-                      {/* Custom styled mock-up background and outline rendering */}
-                      <div className="w-full max-w-[180px] mx-auto z-10 group-hover:scale-105 transition-transform duration-500">
-                        <svg viewBox="0 0 100 40" fill="none" className="w-full h-auto drop-shadow-md">
-                          <path d="M5 28C5 28 8 26 14 26C20 26 23 20 28 17C33 14 42 12 55 12C68 12 76 15 82 19C88 23 92 25 94 28C96 31 95 32 93 32H7" stroke="#2E7D32" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                          <circle cx="24" cy="30" r="6.5" fill="#FFFFFF" stroke="#2E7D32" strokeWidth="1.5" />
-                          <circle cx="74" cy="30" r="6.5" fill="#FFFFFF" stroke="#2E7D32" strokeWidth="1.5" />
-                        </svg>
-                      </div>
-
-                      {/* Base Specifications label overlay */}
-                      <div className="absolute bottom-4 left-4 right-4 z-20 flex justify-between items-end">
-                        <div className="text-white">
-                          <span className="text-[10px] font-extrabold tracking-[0.2em] text-white/80 uppercase">{car.brand}</span>
-                          <h3 className="text-xl font-black tracking-tight">{car.model}</h3>
-                        </div>
-                        <span className="text-xs font-extrabold text-white/95 bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
-                          {car.year}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Content Section */}
-                    <CardHeader className="p-6 pb-0 space-y-3">
-                      {/* Technical specifications blocks */}
-                      <div className="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-xl text-[11px] font-bold text-slate-600 border border-slate-100">
-                        <div className="flex flex-col items-center">
-                          <Gauge className="h-3.5 w-3.5 mb-1 text-[#2E7D32]/80" />
-                          <span>{car.mileage.toLocaleString()} mi</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <Fuel className="h-3.5 w-3.5 mb-1 text-[#2E7D32]/80" />
-                          <span>{car.fuel}</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <Wrench className="h-3.5 w-3.5 mb-1 text-[#2E7D32]/80" />
-                          <span className="truncate max-w-[65px]">{car.transmission}</span>
-                        </div>
-                      </div>
-
-                      {/* Display pricing tags */}
-                      <div className="flex justify-between items-end pt-2">
-                        <div className="flex flex-col">
-                          <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">EMI Starts From</span>
-                          <span className="text-base font-black text-[#2E7D32] tracking-tight">₹{car.emi.toLocaleString("en-IN")}/mo</span>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Fixed Price</span>
-                          <h4 className="text-2xl font-black text-slate-900 tracking-tight">₹{car.price.toLocaleString("en-IN")}</h4>
-                        </div>
-                      </div>
-                    </CardHeader>
-
-                    {/* Location indicator */}
-                    <CardContent className="p-6 pt-2 flex-grow">
-                      <div className="flex items-center text-xs text-slate-500 font-bold">
-                        <MapPin className="h-3.5 w-3.5 mr-2 text-slate-400 shrink-0" />
-                        <span>{car.location}</span>
-                      </div>
-                    </CardContent>
-
-                    <CardFooter className="p-6 pt-0">
-                      <Button 
-                        onClick={() => {
-                          handleNavigate("car_details", { carId: car.id });
-                        }}
-                        className="w-full bg-[#2E7D32] text-white hover:bg-[#25632a] font-extrabold text-xs tracking-wider uppercase py-3 rounded-xl flex items-center justify-center shadow-lg shadow-[#2E7D32]/10"
-                      >
-                        {websiteSettings.detailsButtonText || "Details & Booking"}
-                      </Button>
-                    </CardFooter>
-                  </Card>
+                  <CarCard
+                    key={car.id}
+                    car={car}
+                    isSaved={isSaved}
+                    onSaveToggle={toggleSaveCar}
+                    onViewDetails={(id) => handleNavigate("car_details", { carId: id })}
+                  />
                 );
               })}
             </div>
           ) : (
             <div className="bg-slate-50 rounded-3xl p-12 text-center max-w-xl mx-auto border border-slate-200">
-              <HelpCircle className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-slate-900">No Vehicles Match Your Search</h3>
+              <CarIcon className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-slate-900">No Vehicles Found in {selectedCity}</h3>
               <p className="text-sm text-slate-500 mt-2">
-                We have new collector arrivals daily. Try clearing your search parameters, selecting "All body types," or resetting filters.
+                We have new arrivals in Surat daily. Try clearing your search parameters, selecting "All body types," or resetting filters.
               </p>
               <Button onClick={clearFilters} className="mt-6 bg-[#2E7D32] text-white font-extrabold text-xs tracking-wider uppercase rounded-full">
-                Show All Listings
+                Show Surat Inventory
               </Button>
             </div>
           )}
@@ -918,7 +831,7 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 max-w-5xl mx-auto gap-8 text-left">
             
             {/* Benefit 1 */}
             <Card hoverEffect className="bg-white border border-slate-100 rounded-3xl p-8 relative overflow-hidden flex flex-col justify-between shadow-lg shadow-slate-200/40">
@@ -998,42 +911,6 @@ export default function App() {
                   <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Certified Clean Titles Only</div>
                   <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> No Accidental History</div>
                   <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Transparent Log Reports</div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Benefit 5 */}
-            <Card hoverEffect className="bg-white border border-slate-100 rounded-3xl p-8 relative overflow-hidden flex flex-col justify-between shadow-lg shadow-slate-200/40">
-              <div className="space-y-4">
-                <div className="h-12 w-12 bg-[#2E7D32]/10 text-primary rounded-2xl flex items-center justify-center shadow-sm">
-                  <DollarSign className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-black text-slate-900 tracking-tight">Elite Finance & Low EMI</h3>
-                <p className="text-xs text-slate-500 font-semibold leading-relaxed">
-                  Pre-approved corporate loans, flexible high-tenure repayment structures, and quick 30-minute approval with tier-1 partner banks.
-                </p>
-                <div className="pt-2 space-y-1.5 text-[11px] font-extrabold text-slate-600">
-                  <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Low 4.2% Interest Rates</div>
-                  <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Instant Online Approvals</div>
-                  <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Flexible Zero Downpayment options</div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Benefit 6 (Sourcing Concept to complete the layout grid beautifully) */}
-            <Card hoverEffect className="bg-white border border-slate-100 rounded-3xl p-8 relative overflow-hidden flex flex-col justify-between shadow-lg shadow-slate-200/40">
-              <div className="space-y-4">
-                <div className="h-12 w-12 bg-[#2E7D32]/10 text-primary rounded-2xl flex items-center justify-center shadow-sm">
-                  <Sparkles className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-black text-slate-900 tracking-tight">Exclusive Concierge Hub</h3>
-                <p className="text-xs text-slate-500 font-semibold leading-relaxed">
-                  Can't find a vehicle in our current live fleet? Our private sourcing brokers scour dealer networks nationwide to locate your exact requested specification.
-                </p>
-                <div className="pt-2 space-y-1.5 text-[11px] font-extrabold text-slate-600">
-                  <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Global Luxury Sourcing</div>
-                  <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Private Dealer Network</div>
-                  <div className="flex items-center"><Check className="h-3.5 w-3.5 text-[#2E7D32] mr-2" /> Custom Interior & Color Match</div>
                 </div>
               </div>
             </Card>
@@ -1214,6 +1091,9 @@ export default function App() {
           setAuthModal({ isOpen: true, mode });
         }}
       />
+
+      {/* FLOATING WHATSAPP BUTTON */}
+      <WhatsAppFloatingButton />
 
     </div>
   );

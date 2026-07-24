@@ -5472,9 +5472,9 @@ export const BUDGET_RANGES = [
 ];
 
 export const CITIES_DATA = [
-  "All Cities",
   "Surat",
   "Bharuch",
+  "Vadodara",
   "Vapi",
-  "Vadodara"
+  "All Cities"
 ];

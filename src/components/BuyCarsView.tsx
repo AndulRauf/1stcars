@@ -75,7 +75,7 @@ export function BuyCarsView({
     budgetMax: 50000000,
     yearMin: 2015,
     yearMax: 2026,
-    city: selectedCity || "All Cities",
+    city: selectedCity || "Surat",
   });
 
   // Sync initial parameters when route changes
