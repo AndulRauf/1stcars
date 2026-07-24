@@ -622,13 +622,30 @@ export const Inspection120FormModal: React.FC<Inspection120FormModalProps> = ({
                   </div>
                 </div>
               )}
+
+              {/* Dealer Inspection Verification Header */}
+              {userRole === "Dealer" && (
+                <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-black text-emerald-950 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                      <ShieldCheck className="h-4 w-4 text-emerald-600" /> B2B Verified Dealer Inspection Certificate
+                    </h4>
+                    <span className="text-[10px] font-black uppercase text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-300">
+                      100% Verified Vehicle
+                    </span>
+                  </div>
+                  <p className="text-xs text-emerald-800 font-medium">
+                    This vehicle has been certified under 1stCars 120-Point Quality Standard with verified chassis frame, non-accident status, and genuine odometer reading.
+                  </p>
+                </div>
+              )}
             </div>
           )}
 
           {/* Bottom Action Footer */}
           <div className="border-t border-slate-100 pt-4 flex flex-col md:flex-row items-center justify-between gap-3 shrink-0">
             <p className="text-[11px] text-slate-400 font-bold">
-              1stCars 120-Point Certified Technical Standard • Inspector: {userRole}
+              1stCars 120-Point Certified Technical Standard • Role: {userRole}
             </p>
 
             <div className="flex items-center gap-3 w-full md:w-auto">
@@ -638,14 +655,24 @@ export const Inspection120FormModal: React.FC<Inspection120FormModalProps> = ({
                 onClick={onClose}
                 className="w-full md:w-auto h-11 px-5 rounded-xl font-bold text-xs"
               >
-                Cancel
+                Close Report
               </Button>
-              <Button
-                type="submit"
-                className="w-full md:w-auto h-11 px-6 bg-[#2E7D32] hover:bg-[#25632a] text-white rounded-xl font-black text-xs uppercase tracking-wider shadow-md"
-              >
-                <Check className="h-4 w-4 mr-1.5" /> Save 120-Point Report
-              </Button>
+              {userRole !== "Dealer" ? (
+                <Button
+                  type="submit"
+                  className="w-full md:w-auto h-11 px-6 bg-[#2E7D32] hover:bg-[#25632a] text-white rounded-xl font-black text-xs uppercase tracking-wider shadow-md"
+                >
+                  <Check className="h-4 w-4 mr-1.5" /> Save 120-Point Report
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  onClick={onClose}
+                  className="w-full md:w-auto h-11 px-6 bg-indigo-900 hover:bg-indigo-800 text-white rounded-xl font-black text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5"
+                >
+                  <Gavel className="h-4 w-4 text-indigo-300" /> Verified — Return to Bidding
+                </Button>
+              )}
             </div>
           </div>
 

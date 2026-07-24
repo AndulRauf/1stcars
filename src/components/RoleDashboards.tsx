@@ -3,7 +3,7 @@ import {
   Heart, Calendar, CreditCard, Clock, ShieldCheck, 
   Trash2, ArrowRight, DollarSign, Hammer, BarChart3, 
   Users, Settings, Upload, Check, X, AlertCircle, 
-  UserCheck, RefreshCw, Star, ClipboardList, Car, Gauge, Bell
+  UserCheck, RefreshCw, Star, ClipboardList, Car, Gauge, Bell, Sparkles
 } from "lucide-react";
 import { Button } from "@/src/components/ui/Button";
 import { Input } from "@/src/components/ui/Input";
@@ -48,6 +48,7 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory, o
 
   // Selected sub-views / modal triggers
   const [selectedInspection, setSelectedInspection] = React.useState<Inspection | null>(null);
+  const [selectedDealerReport, setSelectedDealerReport] = React.useState<any | null>(null);
   const [reportForm, setReportForm] = React.useState({
     overallScore: 8.5,
     engine: "Excellent condition, silent compression",
@@ -306,19 +307,43 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory, o
             </p>
           </div>
 
-          <div className="flex gap-3 w-full md:w-auto">
+          <div className="flex flex-wrap gap-2.5 w-full md:w-auto">
+            {currentUser.role !== "Admin" && (
+              <Button
+                type="button"
+                onClick={() => {
+                  const adminUser = {
+                    id: "demo-admin",
+                    name: "Super Admin",
+                    email: "admin@1stcars.com",
+                    role: "Admin",
+                    city: "Mumbai"
+                  };
+                  toast.success("Switched to Super Admin CMS mode!");
+                  if (typeof window !== "undefined") {
+                    localStorage.setItem("1stcars_current_user", JSON.stringify(adminUser));
+                  }
+                  window.location.reload();
+                }}
+                className="bg-amber-400 hover:bg-amber-500 text-amber-950 font-black uppercase tracking-wider text-xs h-11 px-4 rounded-xl flex items-center gap-1.5 shadow-xs cursor-pointer border border-amber-500"
+                title="Switch to Admin CMS Mode"
+              >
+                <Sparkles className="h-4 w-4 text-amber-900" />
+                <span>👑 Switch to Admin CMS</span>
+              </Button>
+            )}
             <Button
               variant="outline"
               onClick={reloadAllData}
               className="border-slate-200 text-slate-700 hover:bg-slate-50 font-bold uppercase tracking-wider text-xs h-11 px-4 rounded-xl bg-white flex items-center gap-2 flex-1 md:flex-initial"
             >
-              <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} /> Refresh Data
+              <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} /> Refresh
             </Button>
             <Button
               onClick={onLogout}
               className="bg-rose-600 hover:bg-rose-700 text-white font-black uppercase tracking-wider text-xs h-11 px-5 rounded-xl flex-1 md:flex-initial"
             >
-              Secure Logout
+              Logout
             </Button>
           </div>
         </div>
@@ -903,6 +928,31 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory, o
                             🏆 High Bidder: <strong className="text-[#2E7D32]">{auc.highest_bidder_name || "Starting Bid"}</strong>
                           </p>
 
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => {
+                              const matchingInsp = inspections.find(i => i.id === (auc as any).inspection_id || (i.brand + " " + i.model === auc.car_title));
+                              const inspObj = matchingInsp || {
+                                id: auc.id || `auc-${Date.now()}`,
+                                brand: (auc as any).brand || auc.car_title?.split(" ")[0] || "Luxury",
+                                model: (auc as any).model || auc.car_title?.split(" ").slice(1).join(" ") || "Vehicle",
+                                year: auc.year || 2022,
+                                km_driven: auc.km_driven || 25000,
+                                fuel: auc.fuel || "Petrol",
+                                transmission: auc.transmission || "Automatic",
+                                city: auc.city || "Gujarat",
+                                report_120_json: (auc as any).report_120_json,
+                                seller_name: (auc as any).seller_name || "1stCars Certified B2B Stock"
+                              };
+                              setSelectedDealerReport(inspObj);
+                            }}
+                            className="w-full bg-indigo-50/80 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 font-black text-[10px] uppercase tracking-wider h-9 rounded-xl flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+                          >
+                            <ClipboardList className="h-3.5 w-3.5 text-indigo-600" />
+                            <span>View 120-Point Inspection Report</span>
+                          </Button>
+
                           <div className="flex gap-2">
                             <Input
                               placeholder="₹ Enter higher bid"
@@ -1019,6 +1069,18 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory, o
                     onClose={() => setSelectedInspection(null)}
                     onSubmitReport={handleUploadReport}
                     userRole="Inspector"
+                  />
+
+                  {/* 120-POINT REPORT DEALER VIEW MODAL */}
+                  <Inspection120FormModal
+                    inspection={selectedDealerReport}
+                    isOpen={!!selectedDealerReport}
+                    onClose={() => setSelectedDealerReport(null)}
+                    onSubmitReport={() => {
+                      toast.success("Inspection report verified by Dealer.");
+                      setSelectedDealerReport(null);
+                    }}
+                    userRole="Dealer"
                   />
 
                 </div>

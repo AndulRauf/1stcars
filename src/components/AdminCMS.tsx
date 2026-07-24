@@ -1944,6 +1944,41 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                             )}
                           </>
                         )}
+                        {activeModule === "auctions" && (
+                          <button
+                            onClick={() => {
+                              const matchingInsp = inspections.find(i => i.id === item.inspection_id || (i.brand + " " + i.model === item.car_title));
+                              const inspObj = matchingInsp || {
+                                id: item.inspection_id || item.id,
+                                brand: item.brand || item.car_title?.split(" ")[0] || "Luxury",
+                                model: item.model || item.car_title?.split(" ").slice(1).join(" ") || "Vehicle",
+                                year: item.year || 2022,
+                                km_driven: item.km_driven || 25000,
+                                fuel: item.fuel || "Petrol",
+                                transmission: item.transmission || "Automatic",
+                                city: item.city || "Gujarat",
+                                report_120_json: item.report_120_json,
+                                seller_name: item.seller_name || "B2B Dealer Auction Stock"
+                              };
+                              setSelected120Inspection(inspObj);
+                            }}
+                            className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded-lg border border-indigo-300 text-indigo-700 bg-indigo-50 hover:bg-indigo-600 hover:text-white transition-all cursor-pointer flex items-center gap-1"
+                            title="View / Edit 120-Point Vehicle Inspection Report"
+                          >
+                            <ClipboardList className="h-3 w-3" />
+                            120-Pt Report
+                          </button>
+                        )}
+                        {activeModule === "seller_enquiries" && (
+                          <button
+                            onClick={() => setSelected120Inspection(item)}
+                            className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider rounded-lg border border-[#2E7D32]/30 text-[#2E7D32] bg-[#2E7D32]/5 hover:bg-[#2E7D32] hover:text-white transition-all cursor-pointer flex items-center gap-1"
+                            title="Open / Edit 120-Point Inspection Report"
+                          >
+                            <ClipboardList className="h-3 w-3" />
+                            120-Pt Report
+                          </button>
+                        )}
                         {activeModule === "inspections" && (
                           <>
                             <button

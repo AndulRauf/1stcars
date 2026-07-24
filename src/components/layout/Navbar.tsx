@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Menu, X, Car, Heart, Search, ChevronRight, User, MapPin, Check, LocateFixed } from "lucide-react";
+import { Menu, X, Car, Heart, Search, ChevronRight, User, MapPin, Check, LocateFixed, Sparkles } from "lucide-react";
 import { Button } from "@/src/components/ui/Button";
 import { cn } from "@/src/lib/utils";
 import { supabase } from "@/src/lib/supabaseClient";
@@ -12,6 +12,7 @@ interface NavbarProps {
   currentView?: "home" | "buy_cars" | "car_details" | "sales_dashboard" | "sell_car" | "role_dashboards" | "firstmark_certification" | "custom_page" | "error_404" | "error_500";
   onViewChange?: (view: any, carId?: string) => void;
   currentUser?: any;
+  onLoginSuccess?: (user: any) => void;
   onLogout?: () => void;
   selectedCity?: string;
   onCityChange?: (city: string) => void;
@@ -25,6 +26,7 @@ export function Navbar({
   currentView = "home",
   onViewChange,
   currentUser,
+  onLoginSuccess,
   onLogout,
   selectedCity,
   onCityChange,
@@ -317,24 +319,71 @@ export function Navbar({
               <div className="h-6 w-px bg-slate-200 mx-1" />
 
               {currentUser ? (
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
                   <button
                     onClick={() => onViewChange?.("role_dashboards")}
-                    className="text-xs font-black uppercase tracking-widest text-[#2E7D32] bg-[#2E7D32]/10 hover:bg-[#2E7D32]/25 px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="text-xs font-black uppercase tracking-widest text-[#2E7D32] bg-[#2E7D32]/10 hover:bg-[#2E7D32]/25 px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <User className="h-4 w-4" />
                     <span>{currentUser.name.split(" ")[0]} ({currentUser.role})</span>
                   </button>
+                  {currentUser.role !== "Admin" ? (
+                    <button
+                      onClick={() => {
+                        const adminUser = {
+                          id: "demo-admin",
+                          name: "Super Admin",
+                          email: "admin@1stcars.com",
+                          role: "Admin",
+                          city: "Mumbai"
+                        };
+                        onLoginSuccess?.(adminUser);
+                        onViewChange?.("role_dashboards");
+                      }}
+                      className="text-[10px] font-black uppercase tracking-wider text-amber-900 bg-amber-200 hover:bg-amber-300 border border-amber-300 px-3 py-2 rounded-xl transition-all flex items-center gap-1 cursor-pointer shadow-xs"
+                      title="Switch to Admin CMS Panel"
+                    >
+                      <Sparkles className="h-3.5 w-3.5 text-amber-700" />
+                      <span>Admin CMS</span>
+                    </button>
+                  ) : null}
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={onLogout}
-                    className="text-rose-600 hover:bg-rose-50 font-bold uppercase tracking-wider text-xs"
+                    className="text-rose-600 hover:bg-rose-50 font-bold uppercase tracking-wider text-xs px-2"
                   >
                     Logout
                   </Button>
                 </div>
-              ) : null}
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => onAuthClick?.("login")}
+                    className="text-xs font-black uppercase tracking-widest text-[#2E7D32] border border-[#2E7D32]/30 hover:border-[#2E7D32] bg-white px-3.5 py-2 rounded-xl transition-all cursor-pointer"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => {
+                      const adminUser = {
+                        id: "demo-admin",
+                        name: "Super Admin",
+                        email: "admin@1stcars.com",
+                        role: "Admin",
+                        city: "Mumbai"
+                      };
+                      onLoginSuccess?.(adminUser);
+                      onViewChange?.("role_dashboards");
+                    }}
+                    className="text-[10px] font-black uppercase tracking-wider text-amber-950 bg-amber-300 hover:bg-amber-400 border border-amber-400 px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    title="Open Admin CMS Panel"
+                  >
+                    <Sparkles className="h-3.5 w-3.5 text-amber-800" />
+                    <span>Admin CMS</span>
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Mobile Actions Header */}
@@ -502,6 +551,27 @@ export function Navbar({
                 {savedCount} {savedCount === 1 ? 'Car' : 'Cars'}
               </span>
             )}
+          </div>
+
+          <div className="px-4 pt-2">
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                const adminUser = {
+                  id: "demo-admin",
+                  name: "Super Admin",
+                  email: "admin@1stcars.com",
+                  role: "Admin",
+                  city: "Mumbai"
+                };
+                onLoginSuccess?.(adminUser);
+                onViewChange?.("role_dashboards");
+              }}
+              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs uppercase tracking-wider h-11 rounded-xl flex items-center justify-center gap-2 shadow-md cursor-pointer"
+            >
+              <Sparkles className="h-4 w-4 text-amber-400" />
+              <span>👑 Open Admin CMS Panel</span>
+            </button>
           </div>
 
           {currentUser && (

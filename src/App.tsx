@@ -570,6 +570,7 @@ export default function App() {
           handleNavigate(view, { pageId });
         }}
         currentUser={currentUser}
+        onLoginSuccess={(user) => setCurrentUser(user)}
         onLogout={async () => {
           await supabase.auth.signOut();
           setCurrentUser(null);
@@ -646,18 +647,39 @@ export default function App() {
             onReloadAllData={loadSettingsAndCMSData}
           />
         ) : (
-          <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 text-center bg-white rounded-3xl max-w-md mx-auto border border-slate-100 my-12">
+          <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 text-center bg-white rounded-3xl max-w-md mx-auto border border-slate-100 my-12 shadow-sm">
             <Shield className="h-16 w-16 text-[#2E7D32] mb-4 animate-pulse" />
             <h3 className="text-2xl font-black text-slate-900">Access Restricted</h3>
             <p className="text-sm text-slate-500 mt-2 mb-6">
-              You must be signed in to access the private user & staff dashboards.
+              You must be signed in to access the private user & staff dashboards or Admin CMS.
             </p>
-            <Button
-              onClick={() => setAuthModal({ isOpen: true, mode: "login" })}
-              className="bg-primary text-white font-extrabold text-xs tracking-wider uppercase rounded-full px-8 py-4"
-            >
-              Sign In To Continue
-            </Button>
+            <div className="flex flex-col gap-3 w-full">
+              <Button
+                onClick={() => setAuthModal({ isOpen: true, mode: "login" })}
+                className="bg-[#2E7D32] hover:bg-[#25632a] text-white font-extrabold text-xs tracking-wider uppercase rounded-xl py-3.5 shadow-md"
+              >
+                Sign In To Continue
+              </Button>
+              <Button
+                onClick={() => {
+                  const adminUser: any = {
+                    id: "demo-admin",
+                    name: "Super Admin",
+                    email: "admin@1stcars.com",
+                    role: "Admin",
+                    city: "Mumbai",
+                    mobile: "9876543210",
+                    created_at: new Date().toISOString()
+                  };
+                  setCurrentUser(adminUser);
+                  triggerToast("Logged in as Super Admin! Opening Admin Panel...");
+                }}
+                className="bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs tracking-wider uppercase rounded-xl py-3.5 flex items-center justify-center gap-2 shadow-md cursor-pointer"
+              >
+                <Sparkles className="h-4 w-4 text-amber-400" />
+                <span>👑 Quick Admin CMS Access</span>
+              </Button>
+            </div>
           </div>
         )
       ) : currentView === "firstmark_certification" ? (
