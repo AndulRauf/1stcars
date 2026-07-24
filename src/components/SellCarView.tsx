@@ -662,7 +662,7 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Banner Section */}
-        <div className="bg-gradient-to-br from-[#1C3E24] to-[#2E7D32] text-white rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden mb-12">
+        <div className="bg-gradient-to-br from-[#1C3E24] to-[#2E7D32] text-white rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden mb-10">
           <div className="absolute right-0 bottom-0 top-0 w-1/3 bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-[#ffffff10] via-transparent to-transparent pointer-events-none hidden md:block" />
           
           <div className="max-w-2xl space-y-4">
@@ -672,6 +672,82 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
             <p className="text-sm md:text-base text-emerald-100 max-w-xl font-medium leading-relaxed">
               {settings.sellCarBannerDesc}
             </p>
+          </div>
+        </div>
+
+        {/* Sell or Trade-In In 3 Simple Steps section - MOVED TO TOP */}
+        <div className="mb-12 bg-white p-6 sm:p-8 md:p-10 rounded-3xl border border-slate-200/80 shadow-xs" id="sell-steps">
+          <div className="text-center space-y-3 max-w-2xl mx-auto mb-8">
+            <span className="inline-block bg-[#2E7D32]/10 text-[#2E7D32] px-3.5 py-1 text-[11px] font-black tracking-widest uppercase rounded-full">
+              SELL YOUR VEHICLE
+            </span>
+            <h2 className="font-sans text-2xl md:text-3xl lg:text-4xl font-black tracking-tighter text-slate-900 leading-none">
+              Sell or Trade-In In 3 Simple Steps
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 font-medium">
+              We leverage professional evaluators and an elite 1000+ dealer network. No listing hassle, no shady strangers, complete transparency.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-5 text-left">
+            {/* Step 1 Item */}
+            <div className="flex items-start space-x-4 sm:space-x-5 bg-[#FAF9F6] p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-xs relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-[#2E7D32]/5 rounded-bl-full" />
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center font-black text-base sm:text-lg shrink-0">
+                01
+              </div>
+              <div className="space-y-2 flex-grow">
+                <h3 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">Book Free Online or Doorstep Inspection</h3>
+                <p className="text-xs text-slate-500 font-semibold leading-relaxed">
+                  Fill out our micro evaluation form below. Select your preferred date, time slot, and location (home, office, or our luxury inspection center).
+                </p>
+              </div>
+            </div>
+
+            {/* Step 2 Item */}
+            <div className="flex items-start space-x-4 sm:space-x-5 bg-[#FAF9F6] p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-xs relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-[#2E7D32]/5 rounded-bl-full" />
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center font-black text-base sm:text-lg shrink-0">
+                02
+              </div>
+              <div className="space-y-1 flex-grow">
+                <h3 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">Choose Your Sale Program</h3>
+                <p className="text-xs text-slate-500 font-semibold leading-relaxed">
+                  Select your preferred way to sell:
+                </p>
+                <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 text-xs font-bold">
+                  <li className="bg-white border border-slate-200/70 p-3 rounded-xl flex flex-col justify-between">
+                    <span className="text-[#2E7D32] uppercase text-[10px] tracking-widest block mb-1 font-black">OPTION 1</span>
+                    <span className="text-slate-800 block font-black">Instant Offer</span>
+                    <span className="text-[10px] font-semibold text-slate-500 mt-0.5">Direct cash purchase by 1stCars.</span>
+                  </li>
+                  <li className="bg-white border border-slate-200/70 p-3 rounded-xl flex flex-col justify-between">
+                    <span className="text-[#2E7D32] uppercase text-[10px] tracking-widest block mb-1 font-black">OPTION 2</span>
+                    <span className="text-slate-800 block font-black">Dealer Auction</span>
+                    <span className="text-[10px] font-semibold text-slate-500 mt-0.5">1,000+ premium dealers bid live.</span>
+                  </li>
+                  <li className="bg-white border border-slate-200/70 p-3 rounded-xl flex flex-col justify-between">
+                    <span className="text-[#2E7D32] uppercase text-[10px] tracking-widest block mb-1 font-black">OPTION 3</span>
+                    <span className="text-slate-800 block font-black">Park & Sell</span>
+                    <span className="text-[10px] font-semibold text-slate-500 mt-0.5">Consign securely in showroom.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Step 3 Item */}
+            <div className="flex items-start space-x-4 sm:space-x-5 bg-[#FAF9F6] p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-xs relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-[#2E7D32]/5 rounded-bl-full" />
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center font-black text-base sm:text-lg shrink-0">
+                03
+              </div>
+              <div className="space-y-1 flex-grow">
+                <h3 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">Get Paid Instantly & Same-Day</h3>
+                <p className="text-xs text-slate-500 font-semibold leading-relaxed">
+                  Once evaluation checks complete, you receive instant bank transfer, full loan settlement service, and zero liability transfer. We handle all complex DMV transfer paperwork free of charge!
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1518,82 +1594,6 @@ export function SellCarView({ onNavigateToDashboard, onBackToHome }: SellCarView
 
           </div>
 
-        </div>
-
-        {/* Sell or Trade-In In 3 Simple Steps section */}
-        <div className="mt-16 pt-16 border-t border-slate-200/60" id="sell-steps">
-          <div className="text-center space-y-4 max-w-2xl mx-auto mb-12">
-            <span className="inline-block bg-[#2E7D32]/10 text-[#2E7D32] px-3.5 py-1 text-[11px] font-black tracking-widest uppercase rounded-full">
-              SELL YOUR VEHICLE
-            </span>
-            <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-slate-900 leading-none">
-              Sell or Trade-In In 3 Simple Steps
-            </h2>
-            <p className="text-sm sm:text-base text-slate-500 font-medium">
-              We leverage professional evaluators and an elite 1000+ dealer network. No listing hassle, no shady strangers, complete transparency.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto space-y-6 text-left">
-            {/* Step 1 Item */}
-            <div className="flex items-start space-x-5 bg-white p-6 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 bg-[#2E7D32]/5 rounded-bl-full" />
-              <div className="h-12 w-12 rounded-2xl bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center font-black text-lg shrink-0">
-                01
-              </div>
-              <div className="space-y-3 flex-grow">
-                <h3 className="text-lg font-extrabold text-slate-900 tracking-tight">Book Free Online or Doorstep Inspection</h3>
-                <p className="text-xs text-slate-500 font-semibold leading-relaxed">
-                  Fill out our micro evaluation form. Select your preferred date, time slot, and location (home, office, or our luxury inspection center).
-                </p>
-              </div>
-            </div>
-
-            {/* Step 2 Item */}
-            <div className="flex items-start space-x-5 bg-white p-6 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 bg-[#2E7D32]/5 rounded-bl-full" />
-              <div className="h-12 w-12 rounded-2xl bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center font-black text-lg shrink-0">
-                02
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-lg font-extrabold text-slate-900 tracking-tight">Choose Your Sale Program</h3>
-                <p className="text-xs text-slate-500 font-semibold leading-relaxed">
-                  Select your preferred way to sell:
-                </p>
-                <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs font-bold">
-                  <li className="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col justify-between">
-                    <span className="text-[#2E7D32] uppercase text-[10px] tracking-widest block mb-1 font-black">OPTION 1</span>
-                    <span className="text-slate-800 block">Instant Offer</span>
-                    <span className="text-[10px] font-semibold text-slate-500 mt-1">Direct cash purchase by 1stCars.</span>
-                  </li>
-                  <li className="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col justify-between">
-                    <span className="text-[#2E7D32] uppercase text-[10px] tracking-widest block mb-1 font-black">OPTION 2</span>
-                    <span className="text-slate-800 block">Dealer Auction</span>
-                    <span className="text-[10px] font-semibold text-slate-500 mt-1">1,000+ premium dealers bid live.</span>
-                  </li>
-                  <li className="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col justify-between">
-                    <span className="text-[#2E7D32] uppercase text-[10px] tracking-widest block mb-1 font-black">OPTION 3</span>
-                    <span className="text-slate-800 block">Park & Sell</span>
-                    <span className="text-[10px] font-semibold text-slate-500 mt-1">Consign securely in showroom.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Step 3 Item */}
-            <div className="flex items-start space-x-5 bg-white p-6 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 bg-[#2E7D32]/5 rounded-bl-full" />
-              <div className="h-12 w-12 rounded-2xl bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center font-black text-lg shrink-0">
-                03
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-lg font-extrabold text-slate-900 tracking-tight">Get Paid Instantly & Same-Day</h3>
-                <p className="text-xs text-slate-500 font-semibold leading-relaxed">
-                  Once evaluation checks complete, you receive instant bank transfer, full loan settlement service, and zero liability transfer. We handle all complex DMV transfer paperwork free of charge!
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
       </div>
