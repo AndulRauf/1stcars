@@ -55,8 +55,8 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
   const [success, setSuccess] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
-  // Mobile OTP vs Email/Password login mode
-  const [loginMethod, setLoginMethod] = React.useState<"otp" | "email">("otp");
+  // Email/Password login mode
+  const [loginMethod, setLoginMethod] = React.useState<"otp" | "email">("email");
 
   // Simulated SMS Notification banner state
   const [simulatedSms, setSimulatedSms] = React.useState<{ mobile: string; body: string; code: string } | null>(null);
@@ -140,7 +140,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
     setGeneratedOtp("");
     setEnteredOtp("");
     setCountdown(0);
-    setLoginMethod("otp");
+    setLoginMethod("email");
   }, [initialMode, isOpen]);
 
   React.useEffect(() => {
@@ -826,7 +826,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
             </h2>
             <p className="text-xs text-slate-400 font-medium leading-relaxed">
               {mode === "login" 
-                ? "Enter your mobile number to receive a secure OTP code." 
+                ? "Enter your email address and password to sign in to your account." 
                 : mode === "register" 
                 ? "Join as an Elite customer, dealer, or system representative." 
                 : "Provide your email to receive standard reset parameters."}
@@ -1078,127 +1078,38 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
             </>
           )}
 
-          {mode === "login" && (
-            <div className="flex border-b border-slate-100 pb-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setLoginMethod("otp")}
-                className={`flex-1 py-2 px-3 rounded-xl text-xs font-black transition-all cursor-pointer ${
-                  loginMethod === "otp"
-                    ? "bg-[#2E7D32] text-white shadow-md shadow-[#2E7D32]/20"
-                    : "bg-slate-50 text-slate-500 hover:bg-slate-100"
-                }`}
-              >
-                📱 Mobile OTP
-              </button>
-              <button
-                type="button"
-                onClick={() => setLoginMethod("email")}
-                className={`flex-1 py-2 px-3 rounded-xl text-xs font-black transition-all cursor-pointer ${
-                  loginMethod === "email"
-                    ? "bg-[#2E7D32] text-white shadow-md shadow-[#2E7D32]/20"
-                    : "bg-slate-50 text-slate-500 hover:bg-slate-100"
-                }`}
-              >
-                ✉️ Email & Password
-              </button>
-            </div>
-          )}
-
           {mode === "login" ? (
-            loginMethod === "email" ? (
-              <div className="space-y-3">
-                <div className="space-y-1">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email Address *</label>
-                  <div className="relative">
-                    <Mail className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
-                    <Input
-                      placeholder="e.g. admin@1stcars.com"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="h-11 pl-10 rounded-xl"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Password *</label>
-                  <div className="relative">
-                    <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
-                    <Input
-                      placeholder="••••••••"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      className="h-11 pl-10 rounded-xl"
-                    />
-                  </div>
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email Address *</label>
+                <div className="relative">
+                  <Mail className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
+                  <Input
+                    placeholder="e.g. admin@1stcars.com"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="h-11 pl-10 rounded-xl"
+                  />
                 </div>
               </div>
-            ) : (
-              <>
-                {!otpSent ? (
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Mobile Number *</label>
-                    <div className="relative">
-                      <Phone className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
-                      <Input
-                        placeholder="Enter 10-digit mobile number"
-                        type="tel"
-                        value={loginMobile}
-                        onChange={(e) => setLoginMobile(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                        required
-                        className="h-11 pl-10 rounded-xl font-medium tracking-wide"
-                      />
-                    </div>
-                    <p className="text-[9px] text-slate-400 font-semibold leading-relaxed mt-1">
-                      Provide your mobile number. We'll send an OTP code via our secure gateway.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Enter 6-Digit OTP *</label>
-                      <div className="relative">
-                        <ShieldCheck className="absolute left-3.5 top-3.5 h-4 w-4 text-[#2E7D32]" />
-                        <Input
-                          placeholder="•••••"
-                          type="text"
-                          value={enteredOtp}
-                          onChange={(e) => setEnteredOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                          required
-                          className="h-11 pl-10 rounded-xl font-bold tracking-widest text-center text-sm"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center text-[11px] font-bold">
-                      <span className="text-slate-400">Didn't receive the OTP?</span>
-                      {countdown > 0 ? (
-                        <span className="text-slate-400">Resend in {countdown}s</span>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={handleResendOtp}
-                          className="text-[#2E7D32] hover:underline cursor-pointer"
-                        >
-                          Resend OTP
-                        </button>
-                      )}
-                    </div>
-                    <div className="p-3 bg-amber-50/70 border border-amber-100 rounded-xl text-[10px] leading-relaxed text-amber-800 font-semibold flex items-start gap-1.5 w-full">
-                      <span>🔑</span>
-                      <div>
-                        <span>SMS simulated security key: </span>
-                        <strong className="font-black text-slate-900 bg-amber-100/80 px-1 py-0.5 rounded border border-amber-200">{generatedOtp || "123456"}</strong>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </>
-            )
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Password *</label>
+                <div className="relative">
+                  <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
+                  <Input
+                    placeholder="••••••••"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="h-11 pl-10 rounded-xl"
+                  />
+                </div>
+              </div>
+            </div>
           ) : mode === "forgot" ? (
             <div className="space-y-1">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email Address *</label>
@@ -1241,7 +1152,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, initialMode = "logi
               {loading 
                 ? "Processing Application..." 
                 : mode === "login" 
-                  ? (loginMethod === "email" ? "Sign In" : (!otpSent ? "Send OTP" : "Verify OTP & Sign In"))
+                  ? "Sign In"
                   : mode === "register" 
                     ? "Submit Dealer Application for Admin Review" 
                     : "Send Reset Instructions"}
