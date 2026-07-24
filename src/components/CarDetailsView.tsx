@@ -9,6 +9,7 @@ import { Button } from "@/src/components/ui/Button";
 import { Badge } from "@/src/components/ui/Badge";
 import { cn } from "@/src/lib/utils";
 import { toast } from "@/src/lib/toast";
+import { BookingModal } from "@/src/components/BookingModal";
 
 interface CarDetailsViewProps {
   carId: string;
@@ -17,6 +18,7 @@ interface CarDetailsViewProps {
   savedCars: string[];
   onSaveToggle: (id: string, model: string) => void;
   onNavigateToSalesPortal: () => void;
+  onNavigateToDashboard?: () => void;
 }
 
 export function CarDetailsView({
@@ -26,6 +28,7 @@ export function CarDetailsView({
   savedCars,
   onSaveToggle,
   onNavigateToSalesPortal,
+  onNavigateToDashboard,
 }: CarDetailsViewProps) {
   // Locate selected car
   const car = React.useMemo(() => {
@@ -100,6 +103,10 @@ export function CarDetailsView({
   // Active Tab State
   const [activeTab, setActiveTab] = React.useState<"specs" | "features" | "inspection" | "warranty" | "finance">("specs");
 
+  // Booking Modal states
+  const [isBookingModalOpen, setIsBookingModalOpen] = React.useState(false);
+  const [bookingModalType, setBookingModalType] = React.useState<"test_drive" | "buy_now">("test_drive");
+
   // Booking form states
   const [bookingForm, setBookingForm] = React.useState({
     name: "",
@@ -116,14 +123,12 @@ export function CarDetailsView({
   const [downPayment, setDownPayment] = React.useState(20000);
   const [loanTerm, setLoanTerm] = React.useState(60); // months
 
-  // Scroll to booking form
+  // Scroll or Open booking modal
   const bookingFormRef = React.useRef<HTMLDivElement>(null);
 
   const handleScrollToBooking = (type: "test_drive" | "buy_now") => {
-    setBookingForm((prev) => ({ ...prev, type }));
-    if (bookingFormRef.current) {
-      bookingFormRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+    setBookingModalType(type);
+    setIsBookingModalOpen(true);
   };
 
   // WhatsApp / Call Request Handler
@@ -896,6 +901,18 @@ export function CarDetailsView({
         </div>
 
       </div>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        car={car}
+        initialType={bookingModalType}
+        selectedCity={car.cities?.[0] || car.location || "Surat"}
+        savedCars={savedCars}
+        onSaveToggle={onSaveToggle}
+        onNavigateToDashboard={onNavigateToDashboard}
+      />
     </div>
   );
 }

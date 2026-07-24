@@ -607,6 +607,9 @@ export default function App() {
           onNavigateToSalesPortal={() => {
             handleNavigate("sales_dashboard");
           }}
+          onNavigateToDashboard={() => {
+            handleNavigate("role_dashboards");
+          }}
         />
       ) : currentView === "sales_dashboard" ? (
         <SalesDashboardView

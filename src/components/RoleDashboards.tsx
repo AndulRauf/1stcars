@@ -626,8 +626,8 @@ export function RoleDashboards({ currentUser, onLogout, onNavigateToInventory, o
                             <span className="bg-emerald-50 text-[#2E7D32] border border-emerald-200 px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-black inline-block">
                               Status: {td.status || "Approved"}
                             </span>
-                            <h4 className="font-black text-slate-900 text-sm">{td.car_title}</h4>
-                            <p className="text-[10px] text-slate-400 font-semibold">Appointment: {td.date} @ {td.time}</p>
+                            <h4 className="font-black text-slate-900 text-sm">{td.car_title || td.vehicle || `${td.car_brand || ''} ${td.car_model || 'Car'}`}</h4>
+                            <p className="text-[10px] text-slate-400 font-semibold">Appointment: {td.date || td.preferred_date} @ {td.time || td.preferred_time}</p>
                           </div>
                           <Button
                             variant="outline"

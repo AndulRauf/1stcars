@@ -918,7 +918,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
     toast.success(`Spreadsheet downloaded successfully: ${filename}`);
   };
 
-  const handleImportXLS = (type: "cars" | "brands", event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImportXLS = (type: "cars" | "brands" | "buyer_enquiries", event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -987,6 +987,22 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
               images: rowData.image_url ? [rowData.image_url] : []
             };
             importedRecords.push(finalRecord);
+          } else if (type === "buyer_enquiries") {
+            const finalRecord = {
+              id: rowData.id || `lead-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+              created_at: rowData.created_at || new Date().toISOString(),
+              name: rowData.name || rowData.buyer_name || "Buyer Inquiry",
+              mobile: rowData.mobile || rowData.phone || rowData.contact || "",
+              email: rowData.email || rowData.gmail || "",
+              city: rowData.city || "Surat",
+              vehicle: rowData.vehicle || rowData.car_title || rowData.model || "General Vehicle Inquiry",
+              type: rowData.type || "Test Drive Request",
+              preferred_date: rowData.preferred_date || new Date().toISOString().split("T")[0],
+              preferred_time: rowData.preferred_time || "11:00 AM - 01:00 PM",
+              status: rowData.status || "Pending",
+              notes: rowData.notes || "Imported via spreadsheet"
+            };
+            importedRecords.push(finalRecord);
           } else {
             const finalRecord = {
               brand_name: rowData.brand_name || rowData.brand || rowData.name || "BMW",
@@ -1014,6 +1030,28 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
         if (type === "cars") {
           const { error } = await supabase.from("cars").insert(importedRecords);
           if (error) throw error;
+        } else if (type === "buyer_enquiries") {
+          const currentLeads = JSON.parse(localStorage.getItem("1stcars_sales_leads") || "[]");
+          const mergedLeads = [...importedRecords, ...currentLeads];
+          localStorage.setItem("1stcars_sales_leads", JSON.stringify(mergedLeads));
+          for (const rec of importedRecords) {
+            try {
+              await supabase.from("sales_notifications").insert([{
+                name: rec.name,
+                mobile: rec.mobile,
+                city: rec.city,
+                preferred_date: rec.preferred_date,
+                preferred_time: rec.preferred_time,
+                car_brand: rec.vehicle?.split(" ")[0] || "1stCars",
+                car_model: rec.vehicle || "Inquiry",
+                type: rec.type?.toLowerCase().includes("buy") ? "buy_now" : "test_drive",
+                status: rec.status?.toLowerCase() || "pending",
+                notes: `Gmail: ${rec.email} | ${rec.notes}`
+              }]);
+            } catch (e) {
+              // ignore
+            }
+          }
         } else {
           // Combined import for Brands and Models!
           for (const rec of importedRecords) {
@@ -1568,20 +1606,20 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
                 >
                   <ArrowDownToLine className="h-3.5 w-3.5" /> Download {activeModule === "buyer_enquiries" ? "Buyer Sheet (.XLS)" : activeModule === "seller_enquiries" ? "Seller Sheet (.XLS)" : activeModule === "dealers" ? "Dealer Applications (.XLS)" : "Catalog XLS"}
                 </Button>
-                {(activeModule === "cars" || activeModule === "brands") && (
+                {(activeModule === "cars" || activeModule === "brands" || activeModule === "buyer_enquiries") && (
                   <div className="relative">
                     <input
                       type="file"
                       id="bulk-xls-uploader"
                       accept=".xls,.xlsx,.csv"
-                      onChange={(e) => handleImportXLS(activeModule, e)}
+                      onChange={(e) => handleImportXLS(activeModule as any, e)}
                       className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
                     />
                     <Button
                       variant="secondary"
                       className="bg-white border border-emerald-200 text-emerald-900 text-[10px] font-black uppercase tracking-wider h-9 px-3.5 rounded-xl flex items-center gap-1.5 shadow-xs"
                     >
-                      <ArrowUpFromLine className="h-3.5 w-3.5" /> Upload Bulk XLS
+                      <ArrowUpFromLine className="h-3.5 w-3.5" /> Upload {activeModule === "buyer_enquiries" ? "Buyer XLS" : "Bulk XLS"}
                     </Button>
                   </div>
                 )}
