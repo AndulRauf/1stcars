@@ -398,7 +398,7 @@ export function BookingModal({
                   <div className="overflow-hidden">
                     <p className="text-[10px] font-black uppercase text-amber-800 tracking-wider">{car.brand}</p>
                     <p className="font-extrabold text-xs text-slate-900 truncate">{car.model} ({car.year})</p>
-                    <p className="text-[10px] text-slate-500 font-bold">{car.fuel} • {car.km_driven?.toLocaleString()} km</p>
+                    <p className="text-[10px] text-slate-500 font-bold">{car.fuel} • {((car as any).km_driven || car.mileage)?.toLocaleString()} km</p>
                   </div>
                 </div>
                 <div className="text-right shrink-0">

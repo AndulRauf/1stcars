@@ -8,7 +8,7 @@ import {
   Activity, Shield, Hammer, MapPin, Calendar, Heart, 
   MessageSquare, ClipboardList, BookOpen, UserCheck, Eye, 
   Upload, ArrowUpDown, ChevronLeft, ChevronRight, CheckCircle2, ArrowDownToLine, ArrowUpFromLine,
-  Car, Link
+  Car, Link, Menu
 } from "lucide-react";
 import { supabase } from "@/src/lib/supabaseClient";
 import { notificationService } from "@/src/lib/notifications";
@@ -19,21 +19,37 @@ import { toast } from "@/src/lib/toast";
 import { Inspection120FormModal } from "./Inspection120FormModal";
 import { Full120PointReport } from "@/src/data/inspection120Data";
 import { Gavel, Globe } from "lucide-react";
+import { Sidebar } from "./admin/Sidebar";
+import { Breadcrumb } from "./admin/Breadcrumb";
+import { CMSModule } from "./admin/adminNavData";
 
 interface AdminCMSProps {
   onReloadAllData?: () => void;
   onNavigateToInventory?: () => void;
 }
 
-type CMSModule = 
-  | "dashboard" | "cars" | "users" | "buyer_enquiries" | "seller_enquiries" | "staff" | "dealers" | "inspectors" | "sales"
-  | "inspections" | "auctions" | "park_sell" | "brands" | "cities"
-  | "faqs" | "testimonials" | "finance" | "warranty" | "notifications" | "expenses"
-  | "reports" | "pages" | "footer_links" | "settings" | "text_editor";
-
 export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSProps) {
   // Active sub-module within Admin CMS
   const [activeModule, setActiveModule] = React.useState<CMSModule>("dashboard");
+
+  // Mobile drawer state
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = React.useState(false);
+
+  // Desktop sidebar collapsed state
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("1stcars_admin_sidebar_collapsed") === "true";
+    }
+    return false;
+  });
+
+  const handleToggleSidebarCollapse = () => {
+    setIsSidebarCollapsed(prev => {
+      const next = !prev;
+      localStorage.setItem("1stcars_admin_sidebar_collapsed", String(next));
+      return next;
+    });
+  };
 
   // Photo preview modal state for Visiting Card / Aadhar Card documents
   const [previewPhotoModal, setPreviewPhotoModal] = React.useState<{ title: string; url: string } | null>(null);
@@ -397,6 +413,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
       inspectors: { name: "", email: "", certified_level: "Senior", region: "Mumbai", total_inspections: 0 },
       sales: { name: "", email: "", active_leads: 0, closed_deals: 0, performance_score: 10.0 },
       inspections: { seller_name: "", seller_mobile: "", reg_number: "", brand: "", model: "", variant: "", fuel: "Petrol", transmission: "Automatic", year: 2021, km_driven: 20000, city: "Mumbai", address: "", preferred_date: "2026-07-25", preferred_time: "10:00 AM - 12:00 PM", status: "pending", notes: "" },
+      certifications: {},
       auctions: { car_title: "", base_price: 1500000, current_bid: 1500000, time_remaining: "24 Hours", total_bids: 0, status: "active" },
       park_sell: { slot: "Slot D-01", vehicle: "", price_per_day: 3500, status: "available", seller_name: "", duration_days: 0 },
       brands: { brand_name: "Porsche", model_name: "911 GT3 RS", category: "Coupe", engine: "4.0L Flat-6", power: "518 HP", logo_url: "⭐", is_popular: true, audience: "Buyer & Seller", status: "Active" },
@@ -1351,80 +1368,68 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
   const totalExpensesLogged = expenses.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
 
   return (
-    <div className="space-y-6 pt-4 text-left">
-      
-      {/* 21 MODULE DENSE QUICK BAR */}
-      <div className="bg-slate-900 text-white rounded-3xl p-5 md:p-6 shadow-2xl">
-        <div className="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
-          <div>
-            <h2 className="font-sans text-lg font-black tracking-widest text-[#2E7D32] flex items-center gap-2">
-              <ShieldCheck className="h-5 w-5 text-[#2E7D32]" /> 1STCARS MASTER ADMIN CMS
-            </h2>
-            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Control center for 21 modules, styling theme & SEO values dynamically</p>
-          </div>
-          <Button 
-            onClick={loadCMSData} 
-            size="sm"
-            className="h-8 text-[10px] font-black uppercase tracking-wider bg-slate-800 hover:bg-slate-700 text-white rounded-lg px-3"
-          >
-            <RefreshCw className={`h-3 w-3 ${isLoading ? "animate-spin" : ""}`} /> Reload Engine
-          </Button>
-        </div>
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col lg:flex-row text-left font-sans">
+      {/* Collapsible Left Sidebar */}
+      <Sidebar
+        activeModule={activeModule}
+        onSelectModule={(mod) => {
+          setActiveModule(mod);
+          setCurrentPage(1);
+          setSearchQuery("");
+          setStatusFilter("all");
+        }}
+        isMobileOpen={isMobileSidebarOpen}
+        onCloseMobile={() => setIsMobileSidebarOpen(false)}
+        onReloadData={loadCMSData}
+        isLoadingData={isLoading}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={handleToggleSidebarCollapse}
+      />
 
-        {/* 23 Tab Grid Selector */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-1.5 max-h-48 overflow-y-auto pr-1">
-          {[
-            { id: "dashboard", label: "Dashboard", icon: BarChart3 },
-            { id: "cars", label: "Cars Catalog", icon: Car },
-            { id: "buyer_enquiries", label: "Buyer Enquiries", icon: ClipboardList },
-            { id: "seller_enquiries", label: "Seller Enquiries", icon: FileText },
-            { id: "dealers", label: "Dealers & Approvals", icon: Award },
-            { id: "users", label: "Users", icon: Users },
-            { id: "staff", label: "Staff", icon: UserCheck },
-            { id: "inspectors", label: "Inspectors", icon: Award },
-            { id: "sales", label: "Sales Assc", icon: ClipboardList },
-            { id: "inspections", label: "120-Pt Inspections", icon: ClipboardList },
-            { id: "auctions", label: "Live Auctions", icon: Hammer },
-            { id: "park_sell", label: "Park & Sell", icon: Layers },
-            { id: "brands", label: "Brands & Models", icon: Play },
-            { id: "cities", label: "Cities", icon: MapPin },
-            { id: "faqs", label: "FAQs", icon: HelpCircle },
-            { id: "testimonials", label: "Reviews", icon: Star },
-            { id: "finance", label: "Finance", icon: DollarSign },
-            { id: "warranty", label: "Warranty", icon: Shield },
-            { id: "notifications", label: "Alerts Core", icon: Bell },
-            { id: "expenses", label: "Ledger", icon: FileText },
-            { id: "reports", label: "Reports", icon: TrendingUp },
-            { id: "pages", label: "Custom Pages", icon: BookOpen },
-            { id: "footer_links", label: "Footer Links", icon: Link },
-            { id: "settings", label: "Theme Design", icon: Palette },
-            { id: "text_editor", label: "Text Editor", icon: Edit3 }
-          ].map((item) => (
+      {/* Main Right Content Panel */}
+      <div className={`flex-1 min-w-0 transition-all duration-300 ${isSidebarCollapsed ? "lg:pl-20" : "lg:pl-72"} p-4 sm:p-6 lg:p-8 space-y-6`}>
+        
+        {/* Top Sticky Header */}
+        <div className="bg-slate-900 border border-slate-800/90 rounded-2xl p-4 shadow-xl flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
             <button
-              key={item.id}
-              onClick={() => {
-                setActiveModule(item.id as CMSModule);
-                setCurrentPage(1);
-                setSearchQuery("");
-                setStatusFilter("all");
-              }}
-              className={`p-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider flex flex-col items-center justify-center text-center gap-1.5 transition-all border cursor-pointer ${
-                activeModule === item.id 
-                  ? "bg-[#2E7D32] border-[#2E7D32] text-white shadow-lg" 
-                  : "bg-slate-800/50 border-slate-700/50 text-slate-300 hover:bg-slate-800 hover:text-white"
-              }`}
+              onClick={() => setIsMobileSidebarOpen(true)}
+              className="lg:hidden p-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl transition-colors cursor-pointer"
             >
-              <item.icon className="h-4 w-4 shrink-0" />
-              <span className="truncate max-w-full">{item.label}</span>
+              <Menu className="h-5 w-5 text-[#ff5a07]" />
             </button>
-          ))}
+
+            <div>
+              <h2 className="font-sans text-base sm:text-lg font-black tracking-widest text-[#ff5a07] flex items-center gap-2 leading-none">
+                <ShieldCheck className="h-5 w-5 text-[#ff5a07]" /> 1STCARS MASTER ADMIN CMS
+              </h2>
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">
+                Control center for 25 modules, styling theme & SEO values dynamically
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline-flex items-center gap-1.5 bg-[#ffb81e]/10 text-[#ffb81e] border border-[#ffb81e]/30 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+              <Sparkles className="h-3 w-3" /> Super Admin Active
+            </span>
+            <Button 
+              onClick={loadCMSData} 
+              size="sm"
+              className="h-8 text-[10px] font-black uppercase tracking-wider bg-slate-800 hover:bg-slate-700 text-white rounded-xl px-3 border border-slate-700/80 flex items-center gap-1.5 cursor-pointer"
+            >
+              <RefreshCw className={`h-3 w-3 text-[#ffb81e] ${isLoading ? "animate-spin" : ""}`} /> Reload Engine
+            </Button>
+          </div>
         </div>
-      </div>
 
-      {/* RENDER ACTIVE MODULE AREA */}
+        {/* Breadcrumb Path Header */}
+        <Breadcrumb activeModule={activeModule} />
 
-      {/* 1. DASHBOARD OVERVIEW */}
-      {activeModule === "dashboard" && (
+        {/* RENDER ACTIVE MODULE AREA */}
+
+        {/* 1. DASHBOARD OVERVIEW */}
+        {activeModule === "dashboard" && (
         <div className="space-y-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
@@ -1519,8 +1524,78 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
         </div>
       )}
 
-      {/* 2. REUSABLE CRUD FOR LIST MODULES (excluding Settings, Dashboard, Reports, Text Editor) */}
-      {activeModule !== "dashboard" && activeModule !== "reports" && activeModule !== "settings" && activeModule !== "text_editor" && (
+      {/* 1stMark Certifications Panel */}
+      {activeModule === "certifications" && (
+        <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-6 text-slate-800">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+            <div>
+              <h3 className="font-black text-lg text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-[#ff5a07]" /> 1st Mark Certification Engine
+              </h3>
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">
+                Verify chassis frame integrity, OBD genuine KM logs, and issue 120-point certificate badges
+              </p>
+            </div>
+            <Button
+              onClick={() => setActiveModule("inspections")}
+              className="bg-[#ff5a07] hover:bg-[#e04e00] text-white font-black uppercase tracking-wider text-[10px] h-9 px-4 rounded-xl flex items-center gap-2"
+            >
+              <ClipboardList className="h-4 w-4" /> Issue 120-Pt Inspection
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl">
+              <h4 className="text-xs font-black uppercase text-emerald-950 tracking-wider flex items-center gap-1.5">
+                <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Single Owned Verified
+              </h4>
+              <p className="text-[11px] text-emerald-800 font-medium mt-1">100% background record audit confirming single previous ownership.</p>
+            </div>
+            <div className="p-4 bg-amber-50 border border-amber-200 rounded-2xl">
+              <h4 className="text-xs font-black uppercase text-amber-950 tracking-wider flex items-center gap-1.5">
+                <ShieldCheck className="h-4 w-4 text-amber-600" /> Non-Accident Trusted Frame
+              </h4>
+              <p className="text-[11px] text-amber-800 font-medium mt-1">Chassis, pillar alignments, paint mil depth & structural integrity check.</p>
+            </div>
+            <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-2xl">
+              <h4 className="text-xs font-black uppercase text-indigo-950 tracking-wider flex items-center gap-1.5">
+                <Sparkles className="h-4 w-4 text-indigo-600" /> Genuine KM Verification
+              </h4>
+              <p className="text-[11px] text-indigo-800 font-medium mt-1">OBD diagnostic sweep and full authorized service record cross-check.</p>
+            </div>
+          </div>
+
+          {/* Certified Vehicles Summary */}
+          <div className="space-y-4 pt-2">
+            <h4 className="text-xs font-black uppercase text-slate-800 tracking-wider border-b border-slate-100 pb-2">
+              Active 120-Point Certificates & 1stMark Approved Listings ({inspections.length})
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {inspections.slice(0, 6).map((insp) => (
+                <div key={insp.id} className="p-4 border border-slate-200 rounded-2xl bg-slate-50/80 flex items-center justify-between gap-4">
+                  <div>
+                    <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#ff5a07]/10 text-[#ff5a07] border border-[#ff5a07]/20">
+                      1stMark Certified
+                    </span>
+                    <h5 className="font-extrabold text-sm text-slate-900 mt-1">{insp.car_title || "Verified Luxury Vehicle"}</h5>
+                    <p className="text-[11px] text-slate-500 font-medium mt-0.5">Seller: {insp.seller_name} • City: {insp.city}</p>
+                  </div>
+                  <Button
+                    size="sm"
+                    onClick={() => setSelected120Inspection(insp)}
+                    className="bg-slate-900 hover:bg-slate-800 text-white font-black text-[10px] uppercase tracking-wider h-8 px-3 rounded-xl shrink-0"
+                  >
+                    View Certificate
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 2. REUSABLE CRUD FOR LIST MODULES (excluding Settings, Dashboard, Reports, Text Editor, Certifications) */}
+      {activeModule !== "dashboard" && activeModule !== "reports" && activeModule !== "settings" && activeModule !== "text_editor" && activeModule !== "certifications" && (
         <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
             <div>
@@ -3492,6 +3567,7 @@ export function AdminCMS({ onReloadAllData, onNavigateToInventory }: AdminCMSPro
         userRole="Admin"
       />
 
+      </div>
     </div>
   );
 }
