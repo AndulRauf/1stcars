@@ -853,40 +853,28 @@ export function CarDetailsView({
           {/* RIGHT PANEL: Sticky Booking Widget & Instant CTAs (4 columns) */}
           <div className="lg:col-span-4 lg:sticky lg:top-28 space-y-6">
             
-            {/* Instant Concierge CTA panel (Buttons: Book Test Drive, Buy Now, WhatsApp, Call) */}
+            {/* Instant Concierge CTA panel (Merged Button: Book Test Drive / Buy Now, Call Request) */}
             <div className="bg-white border border-[#2E7D32]/10 rounded-3xl p-6 shadow-sm space-y-4">
               <h3 className="font-black text-lg text-slate-900 tracking-tight text-left">Instant Client Actions</h3>
               
               <div className="space-y-2.5">
                 <Button
                   onClick={() => handleScrollToBooking("test_drive")}
-                  className="w-full bg-[#2E7D32] hover:bg-[#25632a] text-white py-3 rounded-xl font-bold uppercase tracking-widest text-xs h-12 shadow-md shadow-[#2E7D32]/10"
+                  className="w-full bg-[#2E7D32] hover:bg-[#25632a] text-white py-3.5 rounded-xl font-black uppercase tracking-wider text-xs h-13 shadow-md shadow-[#2E7D32]/20 cursor-pointer flex items-center justify-center gap-2"
                 >
-                  Book Priority Test Drive
-                </Button>
-                <Button
-                  onClick={() => handleScrollToBooking("buy_now")}
-                  variant="outline"
-                  className="w-full border-[#2E7D32] text-[#2E7D32] hover:bg-[#2E7D32]/5 py-3 rounded-xl font-bold uppercase tracking-widest text-xs h-12"
-                >
-                  Acquire Vehicle (Buy Now)
+                  <Sparkles className="h-4 w-4" />
+                  Book Test Drive / Buy Now
                 </Button>
               </div>
 
               <div className="h-px bg-slate-100 my-4" />
 
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  onClick={() => handleInstantContact("whatsapp")}
-                  className="bg-[#25D366] hover:bg-[#20ba5a] text-white text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 h-11 border-none shadow-sm cursor-pointer"
-                >
-                  <MessageSquare className="h-4 w-4" /> WhatsApp
-                </Button>
+              <div>
                 <Button
                   onClick={() => handleInstantContact("call")}
-                  className="bg-sky-600 hover:bg-sky-700 text-white text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 h-11 border-none shadow-sm cursor-pointer"
+                  className="w-full bg-sky-600 hover:bg-sky-700 text-white text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 h-11 border-none shadow-sm cursor-pointer"
                 >
-                  <Phone className="h-4 w-4" /> Request Call
+                  <Phone className="h-4 w-4" /> Request Direct Callback
                 </Button>
               </div>
 

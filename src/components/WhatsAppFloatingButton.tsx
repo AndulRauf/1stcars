@@ -13,7 +13,7 @@ export function WhatsAppFloatingButton() {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex items-center group select-none">
+    <div className="fixed bottom-5 right-5 z-50 flex items-center group select-none origin-bottom-right scale-80">
       {/* Tooltip / Label on Hover on Desktop */}
       <div className="hidden sm:flex items-center mr-2 px-3 py-1.5 bg-slate-900/90 text-white text-xs font-bold rounded-xl backdrop-blur-md shadow-xl border border-white/10 opacity-90 group-hover:opacity-100 transition-all duration-300 transform group-hover:-translate-x-1">
         <span className="flex items-center gap-1.5">

@@ -232,9 +232,6 @@ export function Navbar({
                     <span className="text-xl sm:text-2xl font-black tracking-tighter text-[#2E7D32] flex items-center leading-none">
                       1stCars
                     </span>
-                    <span className="text-[8px] sm:text-[9px] font-bold tracking-widest text-[#2E7D32]/60 uppercase -mt-0.5 sm:-mt-1">
-                      {settings.brandSlogan || "Premium Selection"}
-                    </span>
                   </div>
                 </div>
               ) : (
@@ -245,9 +242,6 @@ export function Navbar({
                   <div className="flex flex-col">
                     <span className="text-xl sm:text-2xl font-black tracking-tighter text-[#2E7D32] flex items-center leading-none">
                       {settings.logoUrl || "1stCars"}
-                    </span>
-                    <span className="text-[8px] sm:text-[9px] font-bold tracking-widest text-[#2E7D32]/60 uppercase -mt-0.5 sm:-mt-1">
-                      {settings.brandSlogan || "Premium Selection"}
                     </span>
                   </div>
                 </>

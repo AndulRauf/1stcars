@@ -758,7 +758,6 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           
           <div className="space-y-4 max-w-2xl mx-auto">
-            <Badge variant="premium">PREMIUM LIVE INVENTORY</Badge>
             <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-slate-900 leading-none">
               {websiteSettings.buyCarsHeadingText || "Explore Our Handpicked Certified Fleet"}
             </h2>
