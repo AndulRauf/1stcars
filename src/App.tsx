@@ -789,19 +789,33 @@ export default function App() {
 
           {/* Grid of Listings */}
           {filteredCars.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-              {filteredCars.map((car) => {
-                const isSaved = savedCars.includes(car.id);
-                return (
-                  <CarCard
-                    key={car.id}
-                    car={car}
-                    isSaved={isSaved}
-                    onSaveToggle={toggleSaveCar}
-                    onViewDetails={(id) => handleNavigate("car_details", { carId: id })}
-                  />
-                );
-              })}
+            <div className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                {filteredCars.slice(0, 8).map((car) => {
+                  const isSaved = savedCars.includes(car.id);
+                  return (
+                    <CarCard
+                      key={car.id}
+                      car={car}
+                      isSaved={isSaved}
+                      onSaveToggle={toggleSaveCar}
+                      onViewDetails={(id) => handleNavigate("car_details", { carId: id })}
+                    />
+                  );
+                })}
+              </div>
+
+              {filteredCars.length > 8 && (
+                <div className="text-center pt-4">
+                  <Button
+                    onClick={() => handleNavigate("buy_cars")}
+                    className="bg-[#2E7D32] hover:bg-[#25632a] text-white font-black text-xs uppercase tracking-wider px-8 py-3.5 rounded-2xl shadow-lg shadow-[#2E7D32]/20 cursor-pointer inline-flex items-center gap-2"
+                  >
+                    <span>View All {filteredCars.length} Cars in Inventory</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
             </div>
           ) : (
             <div className="bg-slate-50 rounded-3xl p-12 text-center max-w-xl mx-auto border border-slate-200">
